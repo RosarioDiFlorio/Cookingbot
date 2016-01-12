@@ -29,4 +29,8 @@ catch(Exception $e) {
 $_POST['Commento'] = stripslashes(addslashes($_POST['Commento']));
 //TODO : check email
 print_r(curlRequest("voteOffer",array("nomeIstanza" => $_POST['nomeIstanza'],"voto" => $_POST['Voto'],"commento" => $_POST['Commento'],"idUser" => $_SESSION['email'],"emailUser" => $_SESSION['email'])));
+
+
+//commento spam
+
 ?>

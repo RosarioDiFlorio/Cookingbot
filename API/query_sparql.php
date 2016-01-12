@@ -104,6 +104,7 @@ function existsFoodLabel($label,$lang)
 
 //TEST
 /*
+In the ontology we have the food "apples" with label "apples"@en
 echo existsFoodLabel("apples","en");
 */
 

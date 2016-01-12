@@ -11,13 +11,23 @@ function scelte(scelta) {
         console.log(scelta);
         $('#info').hide();
         $('#ingredients').show();
-        name = $('#name').val(); 
-        nopeople = $('#nopeople').val()
-        cusin = $('#cusin').val()
-        diet = $('#diet').val()
-        occasion = $('#occasion').val()    
-        dati_info = "Name: "+name+ " Number People: "+nopeople+" Cusin: "+cusin+" Diet: "+diet+" occasion: "+occasion;
-        console.log(dati_info)
+        name = $('#name').val().trim(); 
+        numberp = $('#nopeople').val().trim();
+        cousin = $('#cusin').val().trim();
+        diet = $('#diet').val().trim();
+        occasion = $('#occasion').val().trim();  
+        course = $('#course').val().trim();
+        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
+        console.log(dati)
+
+        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
+            .done(function( data ) {
+                console.log("Data Loaded: " + data );
+                if (data == "") console.log("Ok");
+                else console.log("Error"); 
+        });
+
+
         return;
     }
      

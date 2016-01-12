@@ -209,6 +209,31 @@ function insertFood($food,$from)
 	
 }
 
+function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
+{	
+	
+	$name = str_ireplace(" ","_",$name);
+	$numberp = str_ireplace(" ","_",$numberp);
+	$cousin = str_ireplace(" ","_",$cousin);
+	$diet = str_ireplace(" ","_",$diet);
+	$occasion = str_ireplace(" ","_",$occasion);
+	$course = str_ireplace(" ","_",$course);
+	
+	$base = getPrefix();
+	
+	$query = $base . "	INSERT DATA { comp:Recipe_".$name." a fo:recipe ;
+    fo:produces comp:".$name." ;
+	fo:serves \"".$numberp."\";
+	fo:cousine comp:".$cousin." ;
+	fo:diet comp:".$diet." ;
+	fo:occasion comp:".$occasion." ;
+					}";
+	
+	sparqlUpdate($query);
+	
+	
+	
+}
 
 
 

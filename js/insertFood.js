@@ -28,7 +28,7 @@ $("#btn-insert").click(function()
 	}
 	else
 	{
-		$.post( "API/insert_food_API.php", { nameFood: food })
+		$.post( "API/insert_recipe_API.php", { nameFood: food })
 			.done(function( data ) {
 				console.log("Data Loaded: " + data );
 		});

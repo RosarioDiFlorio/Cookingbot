@@ -84,11 +84,12 @@
            <div class="form-group box">
             <i class="fa fa-shopping-basket fa-3x"></i>
             <div class="col-lg-12">
-               <input type="checkbox" value="dish" onclick="visibile('dish');"> 
+               <input type="checkbox" value="course" onclick="visibile('course');"> 
                <h4>What king of dish is it?</h4>
-               <input type="text" id="dish" class="form-control"  disabled />
+               <input type="text" id="course" class="form-control"  disabled />
             </div>
           </div>
+        
           <button type="button" class="btn btn-primary " onclick="scelte('info');"><span>Continue to add Steps</span></button>
         </div>
       </div>

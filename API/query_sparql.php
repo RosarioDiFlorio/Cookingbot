@@ -55,7 +55,7 @@ echo $res;
 */
 
 
-//DA TESTARE
+
 
 function insertLabel($foodTranslate,$food,$lang)
 {
@@ -189,6 +189,8 @@ function insertFood($food,$lang)
 	
 	
 }
+
+
 
 
  

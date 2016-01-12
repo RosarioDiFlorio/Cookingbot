@@ -235,6 +235,41 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 	
 }
 
+function insertIngredient($ingredient,$quantity,$unit,$mis,$name)
+{	
+	echo "2 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
+
+	$name = str_ireplace(" ","_",$name);
+	$ingredient = str_ireplace(" ","_",$ingredient);
+	$quantity = str_ireplace(" ","_",$quantity);
+	$unit = str_ireplace(" ","_",$unit);
+	$mis = str_ireplace(" ","_",$mis);
+	
+	echo "3 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
+	$base = getPrefix();
+	
+	$query = $base . "	INSERT DATA { comp:Ing_".$name."_".$ingredient." a fo:Ingredient ;
+    fo:food comp:Food_".$ingredient.";";
+    if($mis == 'unit') {
+    	$query = $query."fo:quantity \"".$quantity." ".$unit."\"";
+    }
+
+    if($mis == 'metric') {
+    	$query = $query."fo:metric_quantity \"".$quantity." ".$unit."\"";
+    }
+
+    if($mis == 'imperial') {
+    	$query = $query."fo:imperial_quantity \"".$quantity." ".$unit."\"";
+    }
+	
+				
+	$query = $query.". }";
+	
+	sparqlUpdate($query);
+	
+	echo $query."\n";
+	
+}
 
 
  

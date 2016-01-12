@@ -135,9 +135,9 @@
               <input type="text" id="ingredient1" class="" />
               Quantity
               <input type="number" id="quantity1" class="" />
-               <input type="radio" name="mis" value="unit" onclick="show('unit','1');"> Unit
-               <input type="radio" name="mis" value="metric" onclick="show('metric','1');"> Metric
-               <input type="radio" name="mis" value="imperial" onclick="show('imperial','1');"> Imperial
+               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
+               <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
+               <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
                <select id="misurazione1" class="" disabled>
                </select>
             </div>

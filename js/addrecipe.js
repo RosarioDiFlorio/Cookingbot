@@ -56,7 +56,27 @@ function scelte(scelta) {
         dati_ingredient ="";
         for (i=1;i<n;i++)
         {   
-            console.log("Ingredient "+i+" "+$('#ingredient'+i).val()+ " Quantity: "+$('#quantity'+i).val()+ " Unit: "+$('#misurazione'+i).val());
+            ingredient = $('#ingredient'+i).val().trim();
+            quantity = $('#quantity'+i).val().trim();
+            unit = $('#misurazione'+i).val().trim();
+            mis = $('input[name=mis'+i+']:checked').val().trim();
+            name = $('#name').val().trim();
+            console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
+
+            // vado a inserire il food nel caso non esiste
+            $.post( "API/insert_food_API.php", { nameFood: ingredient })
+            .done(function( data ) {
+                console.log("Data Loaded: " + data );
+            });
+
+            //inserisci ingrediente con quantità
+            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name })
+            .done(function( data ) {
+                console.log("Data Loaded 2: " + data );
+            });
+
+
+
         }
         return;
     }
@@ -75,7 +95,7 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+"> Unit <input type='radio' name='mis' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled></select></div></div>";
+    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+"> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled></select></div></div>";
     $('#ingredients1').append(stringa);
     }
 }

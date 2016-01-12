@@ -104,7 +104,7 @@ function existsFoodLabel($label,$lang)
 
 //TEST
 /*
-In the ontology we have the food "apples" with label "apples"@en
+//In the ontology we have the food "apples" with label "apples"@en
 echo existsFoodLabel("apples","en");
 */
 
@@ -124,37 +124,16 @@ function insertFoodCtrlLang($food)
 			$from = "it";
 		}
 	}
-	$base = getPrefix();
 	
 	
 	if(! existsFoodLabel($food,$from))
 	{
-		//check in other language
-		if($from == "en")
-			$to = "it";
-		else 
-			$to = "en";
-		
-		$foodTranslate = translate($food,$from,$to);
-		$foodTranslate = strtolower($foodTranslate);
-		if(!existsFoodLabel($foodTranslate,$to))
-		{
-			//i'm sure, the food don't exists!
-			//then i enter the food in the ontology
+		//i'm sure, the food don't exists!
+		//then i enter the food in the ontology
 			
-			insertFood($food,$from);
-			return true;
+		insertFood($food,$from);
+		return true;
 			
-			
-		}else
-		{	
-			$foodTranslate = str_ireplace(" ","_",$foodTranslate);
-			insertLabel($foodTranslate,$food,$from);
-			return true;
-		}
-		
-	
-		
 	}
 	else
 	{
@@ -173,15 +152,54 @@ function insertFoodCtrlLang($food)
 * the function insertFood return true if the operation has been succes,
 * otherwise, if the Food are alredy in the ontology, the function return false
 */
-function insertFood($food,$lang)
-{
-	$label = $food;
+function insertFood($food,$from)
+{	
+	$food;
+	$labelIT;
+	$label;
+	$lang = "en";
+	$langIT = "it";
+	$to;
+	
+	if($from == "en")
+	{
+		$to = "it";
+		
+	}else
+	{
+		$to = "en";
+	}
+
+	
+	$foodTranslate = translate($food,$from,$to);
+	$foodTranslate = strtolower($foodTranslate);
+	
+	
+	if($from != "en")
+	{
+		//the food is not in english
+			
+		$labelIT = $food; // <--- italian translation of food 
+		$food = $foodTranslate; // <--- take the food in english
+		$label = $foodTranslate;
+		
+		
+		
+	}else
+	{
+		$labelIT = $foodTranslate;
+		$label = $food;
+	}
+
+	
 	$food = str_ireplace(" ","_",$food);
 	
 	$base = getPrefix();
 	
 	$query = $base . "	INSERT DATA { comp:".$food." rdf:type comp:Food ;
-    rdfs:label \"".$label."\"@".$lang."
+    rdfs:label \"". $label ."\"@".$lang." ;
+	 rdfs:label \"".$labelIT."\"@".$langIT." 
+	
 					}";
 	
 	sparqlUpdate($query);

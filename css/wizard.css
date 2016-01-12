@@ -1,0 +1,8 @@
+.hiddendiv {
+	display: none;
+	padding: 10px;
+}
+/* Wrapper di pagina */
+.container.well {
+	margin-top: 10px;
+}

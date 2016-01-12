@@ -1,0 +1,12 @@
+
+.glyphicon, .fa {
+	font-size: 45px !important;
+    color:#ce3e3e;
+
+}
+
+.bs-component {
+float: none !important;
+	display: inline-block;
+}
+

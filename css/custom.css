@@ -1,0 +1,78 @@
+/** CSS COMUNE A TUTTE LE VIEW */
+body {
+    padding-top: 60px;
+}
+/* Immaginetta gri in alto */
+.navbar-brand img {
+    display: inline;
+    height: 33px;
+    margin-left: 10px;
+}
+/* Spaziatura a destra */
+.navbar-nav.navbar-right {
+    margin-right: 10px;
+}
+/* Icone del box offerta */
+.boxofferta i {
+    font-size: 45px !important;
+    color: #ffa726;
+}
+/* Rimozione elementi delle stelle */
+.boxofferta .caption,.boxofferta .clear-rating, #corpocommenti .caption, #corpocommenti .clear-rating, #modalevoto .clear-rating{
+    display: none !important;
+}
+.boxofferta {
+    text-align: center;
+    height: 595px;
+}
+/* Blocchi d'intestazione sezioni */
+.heading {
+    text-align: center;
+}
+/* --- SCHEDE OFFERTE --- */
+.dedicatedpoint {
+   cursor: pointer;
+}
+/* Testo commento */
+.commenttext,.commenttitle {
+    clear: both;
+    display: block;
+}
+.commenttitle {
+    text-align: right;
+    float: right;
+}
+.glyphicon-remove   {
+    cursor: pointer;
+}
+/* Box risultati wrapper*/
+#risultati {
+    margin-right: 20px;
+    margin-left: 20px;
+}
+/* Dettagli della scheda */
+.dettagli span {
+    display: block;
+}
+/* Graph container */
+#graphcontainer, #graphcontainer div {
+    max-width: 520px !important;
+}
+/* ---------- CODICE RESPONSIVE ---------- */
+/* Cellulari(risoluzione max 480px) */
+@media(max-width:480px) {
+    /* Riduzione grandezza nome topbar */
+    .navbar-brand {
+        font-size: 13px;
+    }
+}
+@media(max-width:1200px) {
+    .boxofferta {
+        height: 610px;
+    }
+}
+@media(max-width:991px) {
+    .boxofferta {
+        height: auto !important;
+    }
+}

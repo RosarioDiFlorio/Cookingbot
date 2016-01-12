@@ -1,0 +1,21 @@
+/* CSS DELLA HOME */
+/* Immagini dello slider */
+#homeslider img {
+	width: 100%;
+    max-height: 500px;
+}
+/* Padding del contenitore di pagina */
+.container-fluid {
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+}
+/* Sfondo testo slide */
+.carousel-caption {
+	background: rgba(0, 0, 0, 0.65);
+}
+/* Responsive slider fix */
+@media(max-width:600px) {
+	.carousel-caption h1 {
+		font-size: 15px !important
+	}
+}

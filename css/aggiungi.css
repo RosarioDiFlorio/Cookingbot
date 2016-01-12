@@ -1,0 +1,11 @@
+.bs-component li {
+	float: none !important;
+	display: inline-block;
+}
+.bs-component .nav {
+	margin-top: 20px;
+}
+.bs-component {
+	display: inline-block;
+}
+

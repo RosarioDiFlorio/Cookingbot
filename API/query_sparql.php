@@ -267,7 +267,13 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name)
 	
 	sparqlUpdate($query);
 	
-	echo $query."\n";
+	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
+	rdf:_".$ingredient." comp:".$ingredient.";
+	comp:Recipe_".$name." fo:ingredients comp:IngList_".$name.". }";
+
+	sparqlUpdate($query);
+
+	echo $query;
 	
 }
 

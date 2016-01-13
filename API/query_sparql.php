@@ -224,18 +224,27 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 	$query = $base . "	INSERT DATA { comp:Recipe_".$name." a fo:recipe ;
     fo:produces comp:".$name." ;
 	fo:serves \"".$numberp."\";
-	fo:cousine comp:".$cousin." ;
-	fo:diet comp:".$diet." ;
-	fo:occasion comp:".$occasion." ;
-					}";
-	
+	fo:cousine comp:".$cousin;
+	echo 'diet:'.$diet.":";
+	if($diet != ""){
+	$query = $query."; fo:diet comp:".$diet;
+					}
+	if($occasion != ""){
+	$query = $query."; fo:occasion comp:".$occasion;
+						}
+	if($course != ""){
+	$query = $query."; fo:course comp:".$course;
+						}
+
+	$query = $query.".}";
+				
 	sparqlUpdate($query);
 	
 	
 	
 }
 
-function insertIngredient($ingredient,$quantity,$unit,$mis,$name)
+function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 {	
 	echo "2 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
 
@@ -244,7 +253,7 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name)
 	$quantity = str_ireplace(" ","_",$quantity);
 	$unit = str_ireplace(" ","_",$unit);
 	$mis = str_ireplace(" ","_",$mis);
-	
+	$i = str_ireplace(" ","_",$i);
 	echo "3 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
 	$base = getPrefix();
 	
@@ -268,12 +277,42 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name)
 	sparqlUpdate($query);
 	
 	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
-	rdf:_".$ingredient." comp:".$ingredient.";
+	rdf:_".$i." comp:".$ingredient.".
 	comp:Recipe_".$name." fo:ingredients comp:IngList_".$name.". }";
 
 	sparqlUpdate($query);
 
 	echo $query;
+	
+}
+
+function insertStep($i,$step,$name)
+{	
+	
+	$i = str_ireplace(" ","_",$i);
+	$step = str_ireplace(" ","_",$step);
+	$name = str_ireplace(" ","_",$name);
+	$base = getPrefix();
+	
+	//inserisco step
+	$query = $base . "	INSERT DATA { comp:Step_".$i." a fo:Step ;
+	
+					}";
+	
+	sparqlUpdate($query);
+
+	//inserisco lo step nel method
+	$query = $base . "	INSERT DATA { comp:Method_".$name." a fo:Method ;
+	rdf:_".$i." comp:Step_".$step.".
+					}";
+
+	sparqlUpdate($query);
+
+	// inserisco il metod nella ricetta
+
+	$query = $base . "	INSERT DATA { comp:Recipe_".$name." fo:method comp:Method_".$name.".
+					}";
+	sparqlUpdate($query);
 	
 }
 

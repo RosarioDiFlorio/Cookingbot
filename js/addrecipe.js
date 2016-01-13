@@ -23,8 +23,6 @@ function scelte(scelta) {
         $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
-                if (data == "") console.log("Ok");
-                else console.log("Error"); 
         });
 
 
@@ -38,9 +36,17 @@ function scelte(scelta) {
         n = +$('#nstep').val() +1;
         console.log(n);
         dati_step ="";
+        name = $('#name').val().trim(); 
         for (i=1;i<n;i++)
         {   
-            console.log("Step "+i+" "+$('#step'+i).val());
+            step = $('#step'+i).val();
+            console.log("Step "+i+" "+step);
+             // vado a inserire il food nel caso non esiste
+            $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
+            .done(function( data ) {
+                console.log("Data Loaded: " + data );
+            });
+
         }
 
         console.log(dati_step);
@@ -70,7 +76,7 @@ function scelte(scelta) {
             });
 
             //inserisci ingrediente con quantità
-            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name })
+            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name, i: i })
             .done(function( data ) {
                 console.log("Data Loaded 2: " + data );
             });

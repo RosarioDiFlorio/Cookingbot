@@ -131,6 +131,8 @@ Class HTTPTranslator
 
 function translate($word, $from, $to)
 {
+	
+
 	try{
 		//Client ID of the application.
 		$clientID       = "id_cookingbot_30";
@@ -191,6 +193,8 @@ function translate($word, $from, $to)
 	 catch (Exception $e) {
 		return "Exception: " . $e->getMessage() . PHP_EOL;
 	}
+	
+
 }
 
 /*

@@ -12,7 +12,8 @@ sendError("Utente non collegato");
 $food = $_POST['nameFood'];
 $food = trim($food);
 $food = strtolower($food);
-insertFoodCtrlLang($food);
+
+insertFoodCtrlLang($food,"","","");
 
 
 ?>

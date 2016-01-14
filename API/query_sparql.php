@@ -14,7 +14,7 @@ function getPrefix(){
 	PREFIX fo: <http://purl.org/ontology/fo/>
 	PREFIX co: <http://rhizomik.net/ontologies/copyrightonto.owl#>
 	PREFIX com: <http://purl.org/commerce#>
-	prefix food: <http://data.lirmm.fr/ontologies/food#>
+	PREFIX food: <http://data.lirmm.fr/ontologies/food#>
 	 ";
 	
 }
@@ -89,6 +89,8 @@ function existsFoodLabel($label,$lang)
 	$dom = new DOMDocument;
 	$dom->loadXML($res);
 	$tr = $dom->getElementsByTagName('results');
+	if($tr->length == 0) return false;
+	
 	$str = $tr->item(0)->nodeValue;
 	
 	if(trim($str) == "")
@@ -114,8 +116,29 @@ echo existsFoodLabel("apples","en");
 *this function return true if the function insert the food in the ontology with success using label or comp:Food 
 * otherwise, if the food exists like comp:Food or like label in another languages the function return false
 */
-function insertFoodCtrlLang($food)
-{	
+function insertFoodCtrlLang($food,$kilocal,$kilojaul,$shopping)
+{	$food = trim($food);
+	$food = strtolower($food);
+	
+	
+	$kilocal = trim($kilocal);
+	if($kilocal != "")
+		$kilocal = strtolower($kilocal);
+	
+	
+	$kilojaul = trim($kilojaul);
+	if($kilojaul != "")
+		$kilojaul = strtolower($kilojaul);
+	
+	
+	
+	$shopping = trim($shopping);
+	if($shopping != "")
+		$shopping = strtolower($shopping);
+	$shopping = str_ireplace(" ","_",$shopping);
+	
+	
+	
 	$from = detectLang($food);
 	if($from != "en")
 	{
@@ -131,7 +154,7 @@ function insertFoodCtrlLang($food)
 		//i'm sure, the food don't exists!
 		//then i enter the food in the ontology
 			
-		insertFood($food,$from);
+		insertFood($food,$from,$kilocal,$kilojaul,$shopping);
 		return true;
 			
 	}
@@ -152,7 +175,7 @@ function insertFoodCtrlLang($food)
 * the function insertFood return true if the operation has been succes,
 * otherwise, if the Food are alredy in the ontology, the function return false
 */
-function insertFood($food,$from)
+function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 {	
 	$food;
 	$labelIT;
@@ -198,10 +221,30 @@ function insertFood($food,$from)
 	
 	$query = $base . "	INSERT DATA { comp:".$food." rdf:type comp:Food ;
     rdfs:label \"". $label ."\"@".$lang." ;
-	 rdfs:label \"".$labelIT."\"@".$langIT." 
+	 rdfs:label \"".$labelIT."\"@".$langIT ;
+	 
+	if($kilocal != "")
+		 $query .= " ; 
+			food:energyPer100g	\"".$kilocal."\"   	
+
+			";
 	
-					}";
+	if($kilojaul != "")
+		 $query .= " ; 
+			food:energyPer100g	\"".$kilojaul."\"   	
+
+			";
 	
+	
+	if($shopping != "")
+		 $query .= " ; 
+			fo:shopping_category comp:".$shopping." .	
+
+			";
+	
+	
+	$query .=				"}";
+	//echo $query;
 	sparqlUpdate($query);
 	
 	
@@ -243,6 +286,25 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 	
 	
 }
+
+
+
+function insertShoppingCategory($shopping)
+{	
+	$shopping = trim($shopping);
+	$shopping = strtolower($shopping);
+	$shopping = str_ireplace(" ","_",$shopping);
+	$base = getPrefix();
+	
+	//inserisco step
+	$query = $base . "INSERT DATA { comp:".$shopping." rdf:type fo:ShoppingCategory  }";
+	//echo $query;
+	sparqlUpdate($query);
+
+	
+}
+
+
 
 function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 {	

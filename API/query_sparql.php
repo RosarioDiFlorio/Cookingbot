@@ -312,6 +312,7 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 
 	$name = str_ireplace(" ","_",$name);
 	$ingredient = str_ireplace(" ","_",$ingredient);
+	$ingredient = strtolower(translate($ingredient, "it", "en"));
 	$quantity = str_ireplace(" ","_",$quantity);
 	$unit = str_ireplace(" ","_",$unit);
 	$mis = str_ireplace(" ","_",$mis);
@@ -320,7 +321,7 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 	$base = getPrefix();
 	
 	$query = $base . "	INSERT DATA { comp:Ing_".$name."_".$ingredient." a fo:Ingredient ;
-    fo:food comp:Food_".$ingredient.";";
+    fo:food comp:".$ingredient.";";
     if($mis == 'unit') {
     	$query = $query."fo:quantity \"".$quantity." ".$unit."\"";
     }
@@ -339,7 +340,7 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 	sparqlUpdate($query);
 	
 	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
-	rdf:_".$i." comp:".$ingredient.".
+	rdf:_".$i." comp:Ing_".$name."_".$ingredient.".
 	comp:Recipe_".$name." fo:ingredients comp:IngList_".$name.". }";
 
 	sparqlUpdate($query);
@@ -352,20 +353,20 @@ function insertStep($i,$step,$name)
 {	
 	
 	$i = str_ireplace(" ","_",$i);
-	$step = str_ireplace(" ","_",$step);
+	//$step = str_ireplace(" ","_",$step);
 	$name = str_ireplace(" ","_",$name);
 	$base = getPrefix();
 	
 	//inserisco step
-	$query = $base . "	INSERT DATA { comp:Step_".$i." a fo:Step ;
-	
-					}";
+	$query = $base . "	INSERT DATA { comp:Step_".$name."_".$i." a fo:Step ;
+		fo:instruction \"".$step."\"@".detectLang($step).".
+	}";
 	
 	sparqlUpdate($query);
 
 	//inserisco lo step nel method
 	$query = $base . "	INSERT DATA { comp:Method_".$name." a fo:Method ;
-	rdf:_".$i." comp:Step_".$step.".
+	rdf:_".$i." comp:Step_".$name."_".$i.".
 					}";
 
 	sparqlUpdate($query);
@@ -457,9 +458,9 @@ $query = $query."
 $query =$query."} GROUP BY ?recipe
 ORDER BY DESC (?count)";
 
-echo $query;
+//echo $query;
 
-sparqlQuery($query);
+return sparqlQuery($query);
 
 }
 

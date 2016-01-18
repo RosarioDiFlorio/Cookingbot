@@ -135,9 +135,9 @@ function translate($word, $from, $to)
 
 	try{
 		//Client ID of the application.
-		$clientID       = "id_cookingbot_30";
+		$clientID       = "rdifltranslator";
 		//Client Secret key of the application.
-		$clientSecret = "Xb5ewoOqgBhD+CXE6o/IWfR+4oWnu0xcp4RcHhkOl3c=";
+		$clientSecret = "Y73neNKE95gqm8KN14WZs8rUkOPH/QR31GRW6saN+tg=";
 		//OAuth Url.
 		$authUrl      = "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13/";
 		//Application Scope Url
@@ -209,9 +209,9 @@ function detectLang($inputStr)
 {
 	try{
 		//Client ID of the application.
-		$clientID       = "id_cookingbot_30";
+		$clientID       = "rdifltranslator";
 		//Client Secret key of the application.
-		$clientSecret = "Xb5ewoOqgBhD+CXE6o/IWfR+4oWnu0xcp4RcHhkOl3c=";
+		$clientSecret = "Y73neNKE95gqm8KN14WZs8rUkOPH/QR31GRW6saN+tg=";
 		//OAuth Url.
 		$authUrl      = "https://datamarket.accesscontrol.windows.net/v2/OAuth2-13/";
 		//Application Scope Url
@@ -276,7 +276,7 @@ function detectLang($inputStr)
 //TEST
 $input = "Microsoft has saved our ass";
 echo $input . " -> ";
-detectLang($input);
+echo translate($input,"en","it");
 */
 
 

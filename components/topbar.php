@@ -3,6 +3,10 @@
     if (basename(__FILE__) == basename($_SERVER['PHP_SELF']))
         exit();
 ?>
+<html>
+<head>
+<link href="css/topbar.css" rel="stylesheet">
+</head>
 <!-- Topbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -18,11 +22,30 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         <li <?php if(isset($is_index)) echo 'class="active"'; ?>><a href="index.php">Home</a></li>
-            <li <?php if(isset($is_addrecipe)) echo 'class="active"'; ?>><a href="addrecipe.php">Add Recipe</a></li>
-        <li <?php if(isset($is_wizard)) echo 'class="active"'; ?>><a href="wizardbase.php">Wizard Avanzato</a></li>
-        <li <?php if(isset($is_aggiungi)) echo 'class="active"'; ?>><a href="aggiungi.php">Aggiungi offerta</a></li>
-		 <li <?php if(isset($is_tutto)) echo 'class="active"'; ?>><a href="allIstance.php">Mostra Tutto</a></li>
-		  </ul>
+
+
+        <li <?php if(isset($is_add)) echo 'class="active"'; ?> class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="addRecipe.php">Recipe</a></li>
+            <li><a href="addSubstitution.php">Substitution</a></li>
+            <li><a href="insertFood.php">Food</a></li>
+          </ul>
+        </li>
+
+
+
+
+        <li <?php if(isset($is_search)) echo 'class="active"'; ?> class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="getRecipes.php">Recipes</a></li>
+            <li><a href="getSubstitutions.php">Substitutions</a></li>
+          </ul>
+        </li>
+
+
+        </ul>
       <ul class="nav navbar-nav navbar-right">
         <?php if($loggedin) { ?>
           <li class="dropdown">
@@ -40,3 +63,4 @@
   </div>
 </nav>
 <!-- fine topbar -->
+</html>

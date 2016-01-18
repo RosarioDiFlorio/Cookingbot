@@ -1,12 +1,31 @@
+function getRecipesByIngredients(){
+    $("#results").html("");
+    npeople = $('#npeople').val();
+    n = +$('#ningredient').val() +1;
+    input ="";
+    for (i=1;i<n;i++)
+        {   
+            ingredient = $('#ingredient'+i).val().trim();
+            quantity = $('#quantity'+i).val().trim();
+            unit = $('#misurazione'+i).val().trim();
+            mis = $('input[name=mis'+i+']:checked').val().trim();
+            input=ingredient+quantity+unit+mis
+        }
+        console.log(npeople+" "+input);
+
+
+}
+
 
 function getRecipesByWords(){
+    $("#results").html("");
     lang = $("input[name=lang]:checked").val();
     input = $('#words').val().trim();
-    console.log(lang+input);
 
     $.post( "API/get_recipes_API.php", { lang: lang, input: input})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
+                $('#results').append(data);
         });
 }
 

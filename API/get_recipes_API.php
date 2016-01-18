@@ -11,8 +11,20 @@ sendError("Utente non collegato");
 
 $lang = strtolower((trim($_POST['lang'])));
 $input = strtolower((trim($_POST['input'])));
-echo $lang." ".$input;
-echo getRecipesByWords($lang,$input);
 
+$results=  getRecipesByWords($lang,$input);
+$data = json_decode($results);
+	//print_r($data->results->bindings);
+	$toCicle = $data->results->bindings;
+	$recipe = [];
+	$count = [];
+
+
+	for($i = 0 ; $i<sizeof($toCicle); $i++){
+		//print_r($toCicle[$i]->label->value);
+		$recipe[$i] = $toCicle[$i]->recipe->value;
+		$count[$i] = $toCicle[$i]->count->value;
+		echo $recipe[$i]." ".$count[$i]." \n";
+	}
 
 ?>

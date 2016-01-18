@@ -65,14 +65,24 @@
 
   </div>  
 
+  <div class="container text-center">
+        <h3>Results:</h3>
+        <div class="form-group" id="results">
+          Prova
+        </div>
+
+  </div>  
+
+
 
 	
 	<div class="container text-center"  id="ingredients">
         <div class="bs-component well"   >
 		
           <input type="hidden" value="1" id="ningredient">
-          
-          <h3>What are the ingredients of this recipe?</h3>
+          <h3>Insert Number Peoples</h3>
+          <input type="text" id="npeople">
+          <h3>Insert Ingredients</h3>
           <div  id="ingredients1">
           <div class="form-group">
             <i class="fa fa-shopping-cart fa-3x"></i>
@@ -92,7 +102,7 @@
         </div>
             <button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
             <button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-primary " onclick="scelte('ingredients');"><span>Continue To Add Steps</span></button>
+           <button type="button" class="btn btn-primary " onclick="getRecipesByIngredients();"><span>Search</span></button>
 		   
         </div>
 

@@ -10,10 +10,32 @@ sendError("Utente non collegato");
 */
 
 $food = $_POST['nameFood'];
-$food = trim($food);
-$food = strtolower($food);
+$shopping = $_POST['shop'];
+$kilocal = $_POST['kc'];
+$kilojaul = $_POST['kj'];
 
-insertFoodCtrlLang($food,"","","");
+$food = strtolower($food);
+$shopping = strtolower($shopping);
+$kilocal = strtolower($kilocal);
+$kilojaul = strtolower($kilojaul);
+
+if($kilocal == "" || $kilocal == "0")
+$kilocal = "";
+	
+if($kilocal != "")
+$kilocal = $kilocal . " kcal";
+
+
+if($kilojaul == "" || $kilojaul == "0")
+$kilojaul = "";
+
+if($kilojaul != "")
+$kilojaul = $kilojaul . " KJ";
+
+$shopping = substr($shopping, strpos($shopping,"#") + 1,strlen($shopping)-1);
+
+
+insertFoodCtrlLang($food,"","",$shopping);
 
 
 ?>

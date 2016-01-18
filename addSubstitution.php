@@ -1,14 +1,57 @@
 <?php
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
+	include_once dirname(__FILE__).'/API/http_API.php';
+	include_once dirname(__FILE__).'/API/query_sparql.php';
+
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_addrecipe = true;
+	
+	$base = getPrefix();
+	
+	$query = $base . "SELECT ?label WHERE { ?food rdf:type comp:Food; rdfs:label ?label}";
+	
+	$res = sparqlQuery($query,"json");
+	//print_r($res);
+	$data = json_decode($res);
+	//print_r($data->results->bindings);
+	$toCicle = $data->results->bindings;
+	$ar = [];
+	for($i = 0 ; $i<sizeof($toCicle); $i++){
+		//print_r($toCicle[$i]->label->value);
+		$ar[$i] = $toCicle[$i]->label->value;
+	}
+//$ar = array('apple', 'orange', 'banana', 'strawberry');
+$ar = array_unique($ar);
+json_encode($ar);
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="it">
+<script src="jquery.min.js"></script>
+    <link href="typeahead.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+		
+		var locale = <?php echo json_encode($ar) ?>;
+			
+		$(document).ready(function () {
+			
+			$('input.ingredients').typeahead({
+                name: 'ingredients',
+                local: locale
+			})
+				
+		
+			
+			
+		});
+		</script>
   <head>
+   <script src="js/lib/jquery-1.11.3.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,15 +90,9 @@
 					<div class="bs-component well">	
 					<form id="formSubstitute">
 					
-						<div class="form-group ">
-							<label for="sel1">Select list:</label>
-								<select class="form-control" id="sel1">
-								<option value="tomatoes">tomatoes</option>
-								<option value="water">water</option>
-								<option value="tomato_concentrate">tomato concentrate</option>
-							
-							</select>
-						</div>
+						<div><label for="comment">enter the food you want to search</label></div>
+							<input class="form-control ingredients " type="text" placeholder="food"  id="sel1" />
+					
 						<br />
 						
 						<i class="glyphicon glyphicon-transfer "></i>
@@ -63,19 +100,39 @@
 						
 						<div class="input_fields_wrap ">
 							
-							<div >
+							<div class="col-lg-12">
+             <div >
 							<h3 class="heading">food</h3>
-							<input class="form-control " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
+							<input class="form-control ingredients col-sm-2" type="text" name="mytext[]" onfocus="$(this).css('background','');" />
 							<h3 class="heading">quantity</h3>
-							<input type="text"  class="form-control" name="quantity[]" /></div>
+							<input type="text"  class="form-control col-sm-2" name="quantity[]" />
+               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
+               <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
+               <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
+               <select id="misurazione1" class="" disabled>
+               </select></div>
+            </div>
+			
 						</div>
 						<button type="button" class="btn btn-primary add_field_button">Add More Ingredients</button>
 						<button href="#" type="button" class=" btn btn-primary  remove_field" >Remove last</button>
 						<br />
 						<i class="glyphicon glyphicon-scale" ></i>
 						<h3 class="heading">resulting quantity</h3>
-						<input type="text" name="qantityResult" class="form-control"/>
+						
+			 <div class="col-lg-12">
+             <input type="text" name="qantityResult" class="form-control"/>
+               <input type="radio" name="misResult" value="unit" onclick="show('unit','Result');"> Unit
+               <input type="radio" name="misResult" value="metric" onclick="show('metric','Result');"> Metric
+               <input type="radio" name="misResult" value="imperial" onclick="show('imperial','Result');"> Imperial
+               <select id="misurazioneResult" class="" disabled>
+               </select>
+            </div>
 
+			
+			
+			
+			
 						</form>
 						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> One or more ingredient missed</div></div>
 						<button id="btn" type="button" class="btn btn-primary" >enter</button>
@@ -84,12 +141,9 @@
 				
 					</div>		
 	</div><!-- /.container -->
- <?php require_once("components/modalegrafico.php"); //Modale per mostrare il grafico a ragno ?>
-    <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
-    <!-- Script specifici di view -->
+  <!-- Script specifici di view -->
     <script src="js/addSubstitution.js"></script>
-    <script src="js/lib/highcharts.js"></script>
-    <script src="js/lib/highcharts-more.js"></script>
-    <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	  <script src="js/measure.js"></script>
+   <script type="text/javascript" src="jquery.typeahead.js"></script>
 </body>
 </html>

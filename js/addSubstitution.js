@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
@@ -11,10 +12,13 @@ $(document).ready(function() {
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            // $(wrapper).append('<div>food<input type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'white\'); " /><br /> quantity<input type="text"  name="quantity[]" /><a href="#" class="remove_field">Remove</a></div>'); //add input box
-			
-			$(wrapper).append('<div><p class="heading"></p><i class="glyphicon glyphicon-plus-sign minIcon"></i><h3 class="heading">food</h3><input class="form-control" type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /><h3 class="heading">quantity</h3><input type="text"  class="form-control" name="quantity[]" /></div>'); //add input box
-
+          
+			//$(wrapper).append('<div><p class="heading"></p><i class="glyphicon glyphicon-plus-sign minIcon"></i><h3 class="heading">food</h3><input class="form-control ingredients" type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /><h3 class="heading">quantity</h3><input type="text"  class="form-control" name="quantity[]" /></div>'); //add input box
+			$(wrapper).append('<div class="col-lg-12"><div ><h3 class="heading">food</h3> <input class="form-control ingredients col-sm-2" type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /> <h3 class="heading">quantity</h3> <input type="text"  class="form-control col-sm-2" name="quantity[]" /> <input type="radio" name="mis'+x+'" value="unit" onclick="show(\'unit\',' + x + '	);"> Unit <input type="radio" name="mis'+x+'" value="metric" onclick="show(\'metric\',' + x + ');"> Metric <input type="radio" name="mis'+x+'" value="imperial" onclick="show(\'imperial\',' + x + ');"> Imperial<select id="misurazione' + x + '"  disabled> </select></div></div>');
+			$('input.ingredients').typeahead({
+                name: 'ingredients',
+                local: locale
+			})
 		}
     });
     
@@ -60,23 +64,82 @@ $(document).ready(function() {
 		
 		r = getRandomInt(10000,10000000000) * getRandomInt(2,1000);
 		ingredientList = food + "_sub_" + r;
-		console.log(ingredientList);
+		//console.log(ingredientList);
 		fakeIngredient = Array();
 		for(i=0;i<subs.length;i++){
 			fakeIngredient[i] = ingredientList + "_" + subs[i];
-			console.log(subs[i] + "-" + quantity[i]);
-			console.log(fakeIngredient[i]);
+			//console.log(subs[i] + "-" + quantity[i]);
+			//console.log(fakeIngredient[i]);
 		}
 		console.log(qRes);
+		
+		
+		for(i =0 ; i < x;i++)
+		{	
+			val = $("#misurazione" + (i + 1)).val();
+			//console.log("misura: " + val);
+			quantity[i] = quantity[i] + " " + val;
+			//console.log(quantity[i]);
+		}
+		
+		qRes = qRes + " " + $("#misurazioneResult").val();
+		console.log("quantità risultante: " + qRes);
 		if(flag){
 			if(alertHidden){
 				$(".alert").show();
 				alertHidden = false;
 			}
 			
+		}else{
+			//invio i dati
+			
+			ing = "";
+			quan = "";
+			fakeIng = "";
+			
+			for(i = 0; i <fakeIngredient.length;i++)
+			{
+				ing+=  subs[i] + "#";
+				quan += quantity[i] + "#";
+				fakeIng += fakeIngredient[i] + "#";
+				
+				
+			}
+			console.log(ing);
+			
+			console.log(quan);
+			
+			console.log(fakeIng);
+			
+			misType  = Array();
+			for(i = 0 ; i < x;i++)
+			{	
+			val = $("[name='mis" + (i + 1) + "']:checked").val();
+			misType[i] = val;
+			console.log("type: " + misType[i]);
+			
+			}
+		
+			misResult = $("[name='misResult']:checked").val();
+			
+			console.log("res: " + misResult);
+			
+			arrMisType = "";
+			for(i = 0; i < misType.length;i++)
+			{
+				arrMisType +=  misType[i] + "#";
+				
+				
+				
+			}
+			
+			$.post( "API/insert_substitution_API.php", { nameFood: food , quantityResult : qRes , ing : ing , quantity : quan, fakeIng: fakeIng, ingList : ingredientList , misResult : misResult ,typeMis : arrMisType})
+				.done(function( data ) {
+					console.log("Success: " + data);
+				
+				
+			});
 		}
-		
-		
 
 	})
 	
@@ -98,5 +161,8 @@ $(document).ready(function() {
 	function toggleColor(el){
 		$(this).css("background","red");
 	}
+	
+	
+	
 	
 });

@@ -9,12 +9,13 @@
 <!DOCTYPE html>
 <html lang="it">
   <head>
+   <script src="js/lib/jquery-1.11.3.min.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="GRI">
-    <meta name="author" content="GRITeam">
+ <meta name="description" content="CookingBot">
+    <meta name="author" content="CookingTeam">
     <title>CookingBot</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -158,13 +159,9 @@
 			</div>
 				
   </div><!-- /.container -->
-    <?php require_once("components/modalegrafico.php"); //Modale per mostrare il grafico a ragno ?>
-    <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
-    <!-- Script specifici di view -->
+     <!-- Script specifici di view -->
     <script src="js/insertFood.js"></script>
-    <script src="js/lib/highcharts.js"></script>
-    <script src="js/lib/highcharts-more.js"></script>
-    <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+    
 
 </body>
 </html>

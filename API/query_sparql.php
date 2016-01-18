@@ -134,7 +134,7 @@ function insertFoodCtrlLang($food,$kilocal,$kilojaul,$shopping)
 	
 	$shopping = trim($shopping);
 	if($shopping != "")
-		$shopping = strtolower($shopping);
+	$shopping = strtolower(translate($shopping,"it","en"));  //translate shopping category to english
 	$shopping = str_ireplace(" ","_",$shopping);
 	
 	
@@ -177,6 +177,8 @@ function insertFoodCtrlLang($food,$kilocal,$kilojaul,$shopping)
 */
 function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 {	
+
+
 	$food;
 	$labelIT;
 	$label;
@@ -214,6 +216,7 @@ function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 		$label = $food;
 	}
 
+	
 	
 	$food = str_ireplace(" ","_",$food);
 	
@@ -292,14 +295,23 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 function insertShoppingCategory($shopping)
 {	
 	$shopping = trim($shopping);
-	$shopping = strtolower($shopping);
-	$shopping = str_ireplace(" ","_",$shopping);
+	
 	$base = getPrefix();
 	
-	//inserisco step
-	$query = $base . "INSERT DATA { comp:".$shopping." rdf:type fo:ShoppingCategory  }";
+	$italian = strtolower(translate($shopping,"en","it"));
+	
+	$english = strtolower(translate($shopping,"it","en"));
+	
+	$shopping = str_ireplace(" ","_",$english);
+	
+	//inserisco 
+	$query = $base . "INSERT DATA { comp:".$shopping." rdf:type fo:ShoppingCategory ;
+						rdfs:label \"".$english."\"@en ;
+						rdfs:label \"".$italian."\"@it 						
+						}";
 	//echo $query;
 	sparqlUpdate($query);
+	
 
 	
 }
@@ -464,6 +476,131 @@ return sparqlQuery($query);
 
 }
 
+
+function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fakeIngredient,$ingList,$typeResult,$arrTypeResult)
+{	
+	//controllo food
+	insertFoodCtrlLang($food,"","","");
+	for($i=0;$i<count($arrFoodSub)-1;$i++)
+	{
+		insertFoodCtrlLang($arrFoodSub[$i],"","","");
+	}
+	
+	//creazione ingrediente fake
+		$base = getPrefix();
+	
+		$query = $base . "insert data {";
+				
+		for($i=0;$i<count($fakeIngredient) - 1;$i++)
+		{
+			
+			
+			$query .= "comp:".$fakeIngredient[$i]." rdf:type comp:Ingredient_substitute;
+				comp:hasFood comp:".strtolower(translate($arrFoodSub[$i],"it","en"))." ; " ;
+				
+			//aggiungo la quantità	
+			if($arrTypeResult[$i] == 'unit') {
+				$query = $query."fo:quantity \"".$arrQuantity[$i]."\" .";
+			}
+
+			if($arrTypeResult[$i] == 'metric') {
+				$query = $query."fo:metric_quantity \"".$arrQuantity[$i]."\" .";
+			}
+
+			if($arrTypeResult[$i] == 'imperial') {
+				$query = $query."fo:imperial_quantity \"".$arrQuantity[$i]."\" .";
+			}		
+		}			
+			
+		$query .= "}";
+		//echo $query;
+		sparqlUpdate($query);
+		
+	//creazione ingredientList
+			$query = $base . "insert data { comp:".$ingList." rdf:type fo:IngredientList ;";
+			
+			if($typeResult == 'unit') {
+				$query = $query."fo:quantity \"".$quantityResult."\" ";
+			}
+
+			if($typeResult == 'metric') {
+				$query = $query."fo:metric_quantity \"".$quantityResult."\" ";
+			}
+
+			if($typeResult == 'imperial') {
+				$query = $query."fo:imperial_quantity \"".$quantityResult."\" ";
+				
+			}
+		
+		
+		for($i=0;$i<count($fakeIngredient) - 1;$i++)
+		{
+			
+			
+			$query .= "; comp:hasIngredient comp:".$fakeIngredient[$i]." ";
+				
+					
+				
+			
+						
+		}
+		
+		
+		
+		$query .= ". }";
+		//echo "<br/>";
+		//echo $query;
+		sparqlUpdate($query);
+		
+		//collego al food
+		
+		$query = $base . "insert data {comp:".strtolower(translate($food,"it","en"))." comp:hasSubstitution comp:".$ingList." }";
+		sparqlUpdate($query);
+	
+}
+
+
+function getAllSubstitutionsFood($food,$lang)
+{
+	
+	$base = getPrefix();
+	
+	$query = $base . "
+	SELECT ?food ?subs ?quantity ?subs ?quantity WHERE { ?food comp:hasSubstitution ?o.
+      ?o comp:hasIngredient ?i .
+  		?i comp:hasFood ?subs .
+  		?i fo:quantity ?quantity .
+		?food rdf:label \"".$food."\"@".$lang."
+    }
+		";
+	
+	$res = sparqlQuery($query,"json");
+	return $res;
+	
+	
+	
+}
+
+/*
+* get all shopping category with label in english
+*/
+function getAllShoppingCaterogyJson()
+{
+	
+	$base = getPrefix();
+	
+	$query = $base . "
+select ?shopping ?label where { ?shopping rdf:type fo:ShoppingCategory ;
+    				rdfs:label ?label ;
+    filter(lang(?label)='en')
+
+}"	;
+	
+	$res = sparqlQuery($query,"json");
+	return $res;
+	
+	
+}
 
 
  

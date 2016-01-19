@@ -45,7 +45,19 @@ function scelte(scelta) {
             $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
-            });
+            }).success(function(msg) {
+        $.toaster({
+            title: 'Congratulations',
+            priority: 'success',
+            message: 'Registrazione avvenuta con successo!',
+        });
+    }).error(function(jqXHR, textStatus, errorThrown) {
+        $.toaster({
+            title: 'Errore',
+            priority: 'danger',
+            message: "Problema nella registrazione!",
+        });
+    });
 
         }
 

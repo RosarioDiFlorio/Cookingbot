@@ -258,6 +258,7 @@ function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 {	
 	
+	$label = $name;
 	$name = str_ireplace(" ","_",$name);
 	$numberp = str_ireplace(" ","_",$numberp);
 	$cousin = str_ireplace(" ","_",$cousin);
@@ -271,7 +272,6 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
     fo:produces comp:".$name." ;
 	fo:serves \"".$numberp."\";
 	fo:cousine comp:".$cousin;
-	echo 'diet:'.$diet.":";
 	if($diet != ""){
 	$query = $query."; fo:diet comp:".$diet;
 					}
@@ -284,8 +284,8 @@ function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
 
 	$query = $query.".}";
 				
-	sparqlUpdate($query);
-	
+	$risultati = sparqlUpdate($query);
+	echo $risultati;
 	
 	
 }
@@ -349,15 +349,15 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 				
 	$query = $query.". }";
 	
-	sparqlUpdate($query);
+	$risultato = sparqlUpdate($query);
 	
 	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
 	rdf:_".$i." comp:Ing_".$name."_".$ingredient.".
 	comp:Recipe_".$name." fo:ingredients comp:IngList_".$name.". }";
 
-	sparqlUpdate($query);
+	$risultato2 = sparqlUpdate($query);
 
-	echo $query;
+	echo $risultato." ".$risultato2;
 	
 }
 
@@ -387,8 +387,8 @@ function insertStep($i,$step,$name)
 
 	$query = $base . "	INSERT DATA { comp:Recipe_".$name." fo:method comp:Method_".$name.".
 					}";
-	sparqlUpdate($query);
-	
+	$risultato= sparqlUpdate($query);
+	echo $risultato;
 }
 
 

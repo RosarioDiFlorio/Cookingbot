@@ -17,7 +17,8 @@ function scelte(scelta) {
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
         course = $('#course').val().trim();
-        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
+        picture = $('#fileinput').prop('files');
+        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" file: "+picture;
         console.log(dati)
 
         $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
@@ -74,6 +75,9 @@ function scelte(scelta) {
         dati_ingredient ="";
         for (i=1;i<n;i++)
         {   
+            shop = "";
+            kc = "";
+            kj = "";
             ingredient = $('#ingredient'+i).val().trim();
             quantity = $('#quantity'+i).val().trim();
             unit = $('#misurazione'+i).val().trim();
@@ -82,7 +86,7 @@ function scelte(scelta) {
             console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
 
             // vado a inserire il food nel caso non esiste
-            $.post( "API/insert_food_API.php", { nameFood: ingredient })
+            $.post( "API/insert_food_API.php", { nameFood: ingredient, shop: shop, kc: kc, kj: kj  })
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
             });

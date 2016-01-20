@@ -89,6 +89,16 @@
                <input type="text" id="course" class="form-control"  disabled />
             </div>
           </div>
+
+
+            <div class="form-group box">
+            <i class="fa fa-file-image-o fa-3x"></i>
+            <div class="col-lg-12">
+               <h4>Picture</h4>
+               <input type="file" name="fileToUpload" class="" id="picture" />
+            </div>
+          </div>
+
         
           <button type="button" class="btn btn-primary " onclick="scelte('info');"><span>Continue to add Steps</span></button>
         </div>

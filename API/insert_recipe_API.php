@@ -15,7 +15,8 @@ $cousin = strtolower((trim($_POST['cousin'])));
 $diet = strtolower((trim($_POST['diet'])));
 $occasion = strtolower((trim($_POST['occasion'])));
 $course = strtolower((trim($_POST['course'])));
-insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course);
+$lang = strtolower((trim($_POST['lang'])));
+insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course,$lang);
 
 
 ?>

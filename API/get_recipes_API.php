@@ -29,9 +29,11 @@ $data = json_decode($results);
 	}
 		$recipe[$i] = $toCicle[$i]->recipe->value;
 		$recipename = split("#",$recipe[$i]);
+		$name = $recipename[1];
 		$recipename[1] = str_ireplace("Recipe_","",$recipename[1]);
 		$recipename[1] = str_ireplace("_"," ",$recipename[1]);
 		echo '<b>Recipe Name:</b> '.$recipename[1]." <b>- Ingredients matching:</b> ".$count[$i]." <br>";
+		getRecipeInfo($name,$lang);
 	}
 
 ?>

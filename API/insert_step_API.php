@@ -11,8 +11,6 @@ sendError("Utente non collegato");
 $step = strtolower((trim($_POST['step'])));
 $i = strtolower((trim($_POST['i'])));
 $name = strtolower((trim($_POST['name'])));
-
-echo "ho ricevuto".$i." - ".$step." ".$name."\n";
 insertStep($i,$step,$name);
 
 

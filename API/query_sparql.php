@@ -470,10 +470,8 @@ $query = $query."
 $query =$query."} GROUP BY ?recipe
 ORDER BY DESC (?count)";
 
-echo $query;
-
-return sparqlQuery($query);
-
+$results =  sparqlQuery($query,'JSON');
+return $results;
 }
 
 

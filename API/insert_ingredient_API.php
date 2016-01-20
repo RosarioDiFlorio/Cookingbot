@@ -15,7 +15,6 @@ $unit = strtolower((trim($_POST['unit'])));
 $mis = strtolower((trim($_POST['mis'])));
 $name = strtolower((trim($_POST['name'])));
 $i = strtolower((trim($_POST['i'])));
-echo "ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name." - ".$i."\n";
 insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i);
 
 

@@ -22,9 +22,16 @@ $data = json_decode($results);
 
 	for($i = 0 ; $i<sizeof($toCicle); $i++){
 		//print_r($toCicle[$i]->label->value);
-		$recipe[$i] = $toCicle[$i]->recipe->value;
+		
 		$count[$i] = $toCicle[$i]->count->value;
-		echo $recipe[$i]." ".$count[$i]." \n";
+		if($count[$i]== 0) {echo 'Sorry no matching found! :(';
+		return ;
+	}
+		$recipe[$i] = $toCicle[$i]->recipe->value;
+		$recipename = split("#",$recipe[$i]);
+		$recipename[1] = str_ireplace("Recipe_","",$recipename[1]);
+		$recipename[1] = str_ireplace("_"," ",$recipename[1]);
+		echo '<b>Recipe Name:</b> '.$recipename[1]." <b>- Ingredients matching:</b> ".$count[$i]." <br>";
 	}
 
 ?>

@@ -255,37 +255,97 @@ function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 	
 }
 
-function insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course)
+function insertRecipe($name,$numberp,$cuisine,$diet,$occasion,$course,$language)
 {	
+	echo ' la lingua è '.$language;
+
+	if($language == 'en'){
 	
-	$label = $name;
+	$nameEN = $name;
+	$cuisineEN = $cuisine;
+	$dietEN = $diet;
+	$occasionEN = $occasion;
+	$courseEN = $course;
+
+	$nameIT = translate($name,'en','it');
+	$cuisineIT = translate($cuisine,'en','it');
+	if($diet != ""){
+	$dietIT =  translate($diet,'en','it');
+					}
+	if($occasion != ""){
+	$occasionIT = translate($occasion,'en','it');
+						}
+	if($course != ""){				
+	$courseIT = translate($course,'en','it');
+					}
+
 	$name = str_ireplace(" ","_",$name);
-	$numberp = str_ireplace(" ","_",$numberp);
-	$cousin = str_ireplace(" ","_",$cousin);
+	$cuisine = str_ireplace(" ","_",$cuisine);
 	$diet = str_ireplace(" ","_",$diet);
 	$occasion = str_ireplace(" ","_",$occasion);
 	$course = str_ireplace(" ","_",$course);
-	
+
+	}
+	else
+		if($language == 'it'){
+
+	$nameIT = $name;
+	$cuisineIT = $cuisine;
+	$dietIT = $diet;
+	$occasionIT = $occasion;
+	$courseIT = $course;
+
+	$nameEN = translate($name,'it','en');
+	$cuisineEN = translate($cuisine,'it','en');
+	if($diet != ""){
+	$dietEN=  translate($diet,'it','en');
+					}
+	if($occasion != ""){				
+	$occasionEN = translate($occasion,'it','en');
+						}
+	if($course != ""){					
+	$courseEN = translate($course,'it','en');
+				 	}
+
+	$name = str_ireplace(" ","_",$name);
+	$cuisine = str_ireplace(" ","_",$cuisine);
+	$diet = str_ireplace(" ","_",$diet);
+	$occasion = str_ireplace(" ","_",$occasion);
+	$course = str_ireplace(" ","_",$course);
+	}
+
+
+
 	$base = getPrefix();
 	
-	$query = $base . "	INSERT DATA { comp:Recipe_".$name." a fo:Recipe ;
+	$query = $base . "	
+	INSERT DATA { comp:Recipe_".$name." a fo:Recipe ;
     fo:produces comp:".$name." ;
-	fo:serves \"".$numberp."\";
-	fo:cousine comp:".$cousin;
-	if($diet != ""){
-	$query = $query."; fo:diet comp:".$diet;
+	fo:serves \"".$numberp."\".
+	
+	comp:Cuisine_".$cuisine." a fo:Cuisine; rdfs:label\"".$cuisineIT."\"@it , \"".$cuisineEN."\"@en.  
+	
+	comp:Recipe_".$name." fo:cuisine comp:Cuisine_".$cuisine;
+
+if($diet != ""){
+	$query = $query.". comp:Diet_".$diet." a fo:Diet; rdfs:label\"".$dietIT."\"@it , \"".$dietEN."\"@en.  
+	
+	comp:Recipe_".$name." fo:diet comp:Diet_".$diet;
+
 					}
 	if($occasion != ""){
-	$query = $query."; fo:occasion comp:".$occasion;
+	$query = $query.". comp:Occasion_".$occasion." a fo:Occasion; rdfs:label\"".$occasionIT."\"@it , \"".$occasionEN."\"@en.  
+	comp:Recipe_".$name." fo:occasion comp:Occasion_".$occasion;
 						}
 	if($course != ""){
-	$query = $query."; fo:course comp:".$course;
+	$query = $query.". comp:Course_".$course." a fo:Course; rdfs:label\"".$courseIT."\"@it , \"".$courseEN."\"@en.  
+	comp:Recipe_".$name." fo:course comp:Course_".$course;
 						}
 
 	$query = $query.".}";
 				
 	$risultati = sparqlUpdate($query);
-	echo $risultati;
+	echo $query;
 	
 	
 }
@@ -599,6 +659,46 @@ select ?shopping ?label where { ?shopping rdf:type fo:ShoppingCategory ;
 	
 	
 }
+
+function getRecipeInfo($recipe,$lang){
+
+
+$base = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX comp: <http://www.foodontology.it/ontology#>
+PREFIX fo: <http://purl.org/ontology/fo/>
+PREFIX food: <http://data.lirmm.fr/ontologies/food#>";
+
+$query= $base."
+SELECT ?textfood ?serves ?textcuisine ?textdiet ?textoccasion ?textcourse WHERE{
+comp:".$recipe." a fo:Recipe;
+			fo:produces ?food;
+			fo:serves ?serves.
+	OPTIONAL{comp:".$recipe." fo:cuisine ?cuisine;
+			fo:diet ?diet;
+			fo:occasion ?occasion;
+			fo:course ?course.
+			?cuisine rdfs:label ?textcuisine.
+FILTER langmatches(lang(?textcuisine),\"".$lang."\").
+FILTER langmatches(lang(?textdiet),\"".$lang."\").
+?occasion rdfs:label ?textfoccasion.
+FILTER langmatches(lang(?textoccasion),\"".$lang."\").
+?course rdfs:label ?textcourse.
+FILTER langmatches(lang(?textcourse),\"".$lang."\").
+}
+?food rdfs:label ?textfood.
+FILTER langmatches(lang(?textfood),\"".$lang."\").
+}";
+
+echo $query;
+
+
+
+}
+
+
 
 
  

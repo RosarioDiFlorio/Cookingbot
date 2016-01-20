@@ -8,7 +8,8 @@ function scelte(scelta) {
     
 
     if (scelta == 'info') {
-        console.log(scelta);
+        lang = $("input[name=lang]:checked").val();
+        console.log(lang);
         $('#info').hide();
         $('#ingredients').show();
         name = $('#name').val().trim(); 
@@ -21,7 +22,7 @@ function scelte(scelta) {
         dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" file: "+picture;
         console.log(dati)
 
-        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
+        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course, lang: lang})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
         });

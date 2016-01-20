@@ -94,8 +94,8 @@
             <div class="form-group box">
             <i class="fa fa-file-image-o fa-3x"></i>
             <div class="col-lg-12">
-               <h4>Picture</h4>
-               <input type="file" name="fileToUpload" class="" id="picture" />
+               <input type="radio" name="lang" value="en" > En
+               <input type="radio" name="lang" value="it" > It
             </div>
           </div>
 

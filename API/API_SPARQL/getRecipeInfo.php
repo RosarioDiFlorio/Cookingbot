@@ -13,29 +13,33 @@ SELECT ?textfood ?serves ?textcuisine ?textdiet ?textoccasion ?textcourse WHERE{
 comp:".$recipe." a fo:Recipe;
 			fo:produces ?food;
 			fo:serves ?serves.
-	OPTIONAL{comp:".$recipe." fo:cuisine ?cuisine;
-			fo:diet ?diet;
-			fo:occasion ?occasion;
-			fo:course ?course.
+	OPTIONAL{comp:".$recipe." fo:cuisine ?cuisine.
+			FILTER langmatches(lang(?textcuisine),\"".$lang."\").
 			?cuisine rdfs:label ?textcuisine.
-FILTER langmatches(lang(?textcuisine),\"".$lang."\").
-?diet rdfs:label ?textdiet.
-FILTER langmatches(lang(?textdiet),\"".$lang."\").
-?occasion rdfs:label ?textoccasion.
-FILTER langmatches(lang(?textoccasion),\"".$lang."\").
-?course rdfs:label ?textcourse.
+
+}
+OPTIONAL{comp:".$recipe." fo:diet ?diet.
+			?diet rdfs:label ?textdiet.
+			FILTER langmatches(lang(?textdiet),\"".$lang."\"). }
+
+
+OPTIONAL{comp:".$recipe." fo:occasion ?occasion.
+			?occasion rdfs:label ?textoccasion.
+FILTER langmatches(lang(?textoccasion),\"".$lang."\").}
+
+
+
+OPTIONAL{comp:".$recipe." fo:course ?course.
+	?course rdfs:label ?textcourse.
 FILTER langmatches(lang(?textcourse),\"".$lang."\").
 }
-?food rdfs:label ?textfood.
+	?food rdfs:label ?textfood.
 FILTER langmatches(lang(?textfood),\"".$lang."\").
 }";
 
-echo $query;
-
 
 $results = sparqlQuery($query,'JSON');
-echo $results;
-
+return $results;
 }
 
 

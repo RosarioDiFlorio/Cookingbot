@@ -255,7 +255,7 @@ function insertFood($food,$from,$kilocal,$kilojaul,$shopping)
 	
 }
 
-function insertRecipe($name,$numberp,$cuisine,$diet,$occasion,$course,$language)
+function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$language)
 {	
 	echo ' la lingua è '.$language;
 
@@ -268,7 +268,9 @@ function insertRecipe($name,$numberp,$cuisine,$diet,$occasion,$course,$language)
 	$courseEN = $course;
 
 	$nameIT = translate($name,'en','it');
+	if($cuisine != ""){
 	$cuisineIT = translate($cuisine,'en','it');
+						}
 	if($diet != ""){
 	$dietIT =  translate($diet,'en','it');
 					}
@@ -296,7 +298,9 @@ function insertRecipe($name,$numberp,$cuisine,$diet,$occasion,$course,$language)
 	$courseIT = $course;
 
 	$nameEN = translate($name,'it','en');
+	if($cuisine != ""){
 	$cuisineEN = translate($cuisine,'it','en');
+					}
 	if($diet != ""){
 	$dietEN=  translate($diet,'it','en');
 					}
@@ -320,12 +324,14 @@ function insertRecipe($name,$numberp,$cuisine,$diet,$occasion,$course,$language)
 	
 	$query = $base . "	
 	INSERT DATA { comp:Recipe_".$name." a fo:Recipe ;
-    fo:produces comp:".$name." ;
-	fo:serves \"".$numberp."\".
+    fo:produces comp:".$food." ;
+	fo:serves \"".$numberp."\""
 	
-	comp:Cuisine_".$cuisine." a fo:Cuisine; rdfs:label\"".$cuisineIT."\"@it , \"".$cuisineEN."\"@en.  
+	if($cuisine != ""){
+	$query= $query.". comp:Cuisine_".$cuisine." a fo:Cuisine; rdfs:label\"".$cuisineIT."\"@it , \"".$cuisineEN."\"@en.  
 	
 	comp:Recipe_".$name." fo:cuisine comp:Cuisine_".$cuisine;
+					}
 
 if($diet != ""){
 	$query = $query.". comp:Diet_".$diet." a fo:Diet; rdfs:label\"".$dietIT."\"@it , \"".$dietEN."\"@en.  
@@ -380,7 +386,6 @@ function insertShoppingCategory($shopping)
 
 function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
 {	
-	echo "2 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
 
 	$name = str_ireplace(" ","_",$name);
 	$ingredient = str_ireplace(" ","_",$ingredient);

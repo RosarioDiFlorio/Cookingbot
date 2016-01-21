@@ -14,15 +14,15 @@ function scelte(scelta) {
         $('#ingredients').show();
         name = $('#name').val().trim(); 
         numberp = $('#nopeople').val().trim();
-        cousin = $('#cusin').val().trim();
+        cuisin = $('#cusin').val().trim();
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
         course = $('#course').val().trim();
         picture = $('#fileinput').prop('files');
-        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" file: "+picture;
+        dati = "name: "+name+ ", numberp: "+nopeople+", cuisin: "+cuisin+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" file: "+picture;
         console.log(dati)
 
-        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course, lang: lang})
+        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cuisin: cuisin, diet: diet, occasion: occasion, course: course, lang: lang})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
         });

@@ -15,7 +15,8 @@ $unit = strtolower((trim($_POST['unit'])));
 $mis = strtolower((trim($_POST['mis'])));
 $name = strtolower((trim($_POST['name'])));
 $i = strtolower((trim($_POST['i'])));
-insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i);
+$lang = strtolower((trim($_POST['lang'])));
+insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i,$lang);
 
 
 

@@ -73,7 +73,7 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 	$query = $base . "	
 	INSERT DATA { comp:Recipe_".$name." a fo:Recipe ;
     fo:produces comp:".$food." ;
-	fo:serves \"".$numberp."\""
+	fo:serves \"".$numberp."\"";
 	
 	if($cuisine != ""){
 	$query= $query.". comp:Cuisine_".$cuisine." a fo:Cuisine; rdfs:label\"".$cuisineIT."\"@it , \"".$cuisineEN."\"@en.  

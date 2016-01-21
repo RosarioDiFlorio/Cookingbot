@@ -11,12 +11,12 @@ sendError("Utente non collegato");
 
 $name = strtolower((trim($_POST['name'])));
 $numberp = strtolower((trim($_POST['numberp'])));
-$cousin = strtolower((trim($_POST['cousin'])));
+$cuisin = strtolower((trim($_POST['cuisin'])));
 $diet = strtolower((trim($_POST['diet'])));
 $occasion = strtolower((trim($_POST['occasion'])));
 $course = strtolower((trim($_POST['course'])));
 $lang = strtolower((trim($_POST['lang'])));
-insertRecipe($name,$numberp,$cousin,$diet,$occasion,$course,$lang);
+insertRecipe($name,$numberp,$cuisin,$diet,$occasion,$course,$lang);
 
 
 ?>

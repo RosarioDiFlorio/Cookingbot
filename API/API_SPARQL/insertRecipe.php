@@ -72,6 +72,7 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 	}
 
 	$food = str_ireplace(" ","_",$food);
+	$food =strtolower($food);
 
 	if(existsRecipe($name)){
 		echo 'error';

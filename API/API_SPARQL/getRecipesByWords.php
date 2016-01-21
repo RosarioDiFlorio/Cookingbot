@@ -54,7 +54,7 @@ $query = $query."
 				fo:produces ?food.
 				?food rdfs:label ?label.
 				FILTER contains(?label,\"".$ingrediente."\").
-				FILTER langMatches(lang(?text),\"".$language."\").
+				FILTER langMatches(lang(?label),\"".$language."\").
 				}
 			UNION
 			{
@@ -80,7 +80,7 @@ $query = $query."
 
 $query =$query."} GROUP BY ?recipe
 ORDER BY DESC (?count)";
-
+echo $query;
 $results =  sparqlQuery($query,'JSON');
 return $results;
 }

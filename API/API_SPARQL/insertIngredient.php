@@ -4,8 +4,14 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
-function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i)
+function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i,$lang)
 {	
+
+	if($lang == 'it'){
+		$ingredient =	translate($ingredient,"it","en");
+	}
+
+	insertFoodCtrlLang($ingredient,"","","");
 
 	$name = str_ireplace(" ","_",$name);
 	$ingredient = str_ireplace(" ","_",$ingredient);

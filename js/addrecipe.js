@@ -9,21 +9,32 @@ function scelte(scelta) {
 
     if (scelta == 'info') {
         console.log(scelta);
-        $('#info').hide();
-        $('#ingredients').show();
+        
+        lang = $("input[name=lang]:checked").val();
         name = $('#name').val().trim(); 
+        food = $('#food').val().trim(); 
         numberp = $('#nopeople').val().trim();
-        cousin = $('#cusin').val().trim();
+        cuisine = $('#cuisine').val().trim();
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
         course = $('#course').val().trim();
-        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
+        dati = "name: "+name+ ", numberp: "+nopeople+", cuisine: "+cuisine+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
         console.log(dati)
 
-        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
+        $.post( "API/insert_recipe_API.php", { name: name, food: food, numberp: numberp, cuisine: cuisine, diet: diet, occasion: occasion, course: course, lang: lang})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
+                if(data=='error'){
+            alert("Ricetta già esistente");
+            return ;
+        }
+        else
+        {$('#info').hide();
+        $('#ingredients').show();}
         });
+
+
+            
 
 
         return;
@@ -58,6 +69,7 @@ function scelte(scelta) {
         $('#ingredients').hide();
         $('#stages').show();
         // parte finale query 
+        lang = $("input[name=lang]:checked").val();
         n = +$('#ningredient').val() +1;
         dati_ingredient ="";
         for (i=1;i<n;i++)
@@ -69,14 +81,8 @@ function scelte(scelta) {
             name = $('#name').val().trim();
             console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
 
-            // vado a inserire il food nel caso non esiste
-            $.post( "API/insert_food_API.php", { nameFood: ingredient })
-            .done(function( data ) {
-                console.log("Data Loaded: " + data );
-            });
-
             //inserisci ingrediente con quantità
-            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name, i: i })
+            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name, i: i, lang: lang })
             .done(function( data ) {
                 console.log("Data Loaded 2: " + data );
             });

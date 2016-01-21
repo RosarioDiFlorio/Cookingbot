@@ -51,6 +51,15 @@
               <input type="text" id="name" class="form-control" />
             </div>
           </div>
+
+          <div class="form-group simple" >
+            <i class="fa fa-star fa-3x"></i>
+              <h4>Product</h4>
+            <div class="col-lg-12">
+              <input type="text" id="food" class="form-control" />
+            </div>
+          </div>
+
           <div class="form-group simple">
             <i class="fa fa-users fa-3x"></i>
               <h4>How much people will it serves?</h4>
@@ -60,9 +69,11 @@
           
           <div class="form-group simple">
             <i class="fa fa-cutlery fa-3x"></i>
-              <h4>What is the cusin of this recipe?</h4>
             <div class="col-lg-12">
-              <input type="text" id="cusin" class="form-control" />
+            <input type="checkbox" value="occasion" onclick="visibile('cuisine');"> 
+              <h4>What is the cuisine of this recipe?</h4>
+            
+              <input type="text" id="cuisine" class="form-control" disabled />
             </div>  
           </div>
           <div class="form-group box">
@@ -90,6 +101,19 @@
             </div>
           </div>
         
+           <div class="form-group box">
+            <i class="fa fa-shopping-basket fa-3x"></i>
+            <div class="col-lg-12">
+               <input type="checkbox" value="course" onclick="visibile('course');"> 
+               <h4>What language?</h4>
+               <input type="radio" name="lang" value="en" >En
+               <input type="radio" name="lang" value="it" > It
+            </div>
+          </div>
+
+
+
+
           <button type="button" class="btn btn-primary " onclick="scelte('info');"><span>Continue to add Steps</span></button>
         </div>
       </div>

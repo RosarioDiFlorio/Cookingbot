@@ -5,7 +5,11 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$language)
 {	
-	echo ' la lingua è '.$language;
+
+
+
+	insertFoodCtrlLang($food,"","","");
+
 
 	if($language == 'en'){
 	
@@ -39,6 +43,7 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 	else
 		if($language == 'it'){
 
+	$food = translate($food,"it","en");
 	$nameIT = $name;
 	$cuisineIT = $cuisine;
 	$dietIT = $diet;
@@ -66,8 +71,12 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 	$course = str_ireplace(" ","_",$course);
 	}
 
+	$food = str_ireplace(" ","_",$food);
 
-
+	if(existsRecipe($name)){
+		echo 'error';
+		return;
+							}
 	$base = getPrefix();
 	
 	$query = $base . "	

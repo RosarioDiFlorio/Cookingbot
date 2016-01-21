@@ -2,17 +2,6 @@
 body {
     padding-top: 60px;
 }
-/*colore toaster*/
-#toaster
-    {
-        background-color:#ce3e3e;
-    }
-.alert-success
-    {
-        background-color:#ce3e3e;
-    }
-
-
 /* Immaginetta gri in alto */
 .navbar-brand img {
     display: inline;

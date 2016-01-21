@@ -60,13 +60,11 @@
           
           <div class="form-group simple">
             <i class="fa fa-cutlery fa-3x"></i>
+              <h4>What is the cusin of this recipe?</h4>
             <div class="col-lg-12">
-              <input type="checkbox" value="cuisin" onclick="visibile('course');"> 
-              <h4>What is the cuisin of this recipe?</h4>
-              <input type="text" id="cuisin" class="form-control" />
+              <input type="text" id="cusin" class="form-control" />
             </div>  
           </div>
-
           <div class="form-group box">
             <i class="fa fa-balance-scale fa-3x "></i>
             <div class="col-lg-12">
@@ -91,8 +89,6 @@
                <input type="text" id="course" class="form-control"  disabled />
             </div>
           </div>
-
-
         
           <button type="button" class="btn btn-primary " onclick="scelte('info');"><span>Continue to add Steps</span></button>
         </div>

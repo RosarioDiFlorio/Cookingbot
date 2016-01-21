@@ -8,21 +8,19 @@ function scelte(scelta) {
     
 
     if (scelta == 'info') {
-        lang = $("input[name=lang]:checked").val();
-        console.log(lang);
+        console.log(scelta);
         $('#info').hide();
         $('#ingredients').show();
         name = $('#name').val().trim(); 
         numberp = $('#nopeople').val().trim();
-        cuisin = $('#cusin').val().trim();
+        cousin = $('#cusin').val().trim();
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
         course = $('#course').val().trim();
-        picture = $('#fileinput').prop('files');
-        dati = "name: "+name+ ", numberp: "+nopeople+", cuisin: "+cuisin+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" file: "+picture;
+        dati = "name: "+name+ ", numberp: "+nopeople+", cousin: "+cousin+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
         console.log(dati)
 
-        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cuisin: cuisin, diet: diet, occasion: occasion, course: course, lang: lang})
+        $.post( "API/insert_recipe_API.php", { name: name, numberp: numberp, cousin: cousin, diet: diet, occasion: occasion, course: course})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
         });
@@ -47,19 +45,7 @@ function scelte(scelta) {
             $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
-            }).success(function(msg) {
-        $.toaster({
-            title: 'Congratulations',
-            priority: 'success',
-            message: 'Registrazione avvenuta con successo!',
-        });
-    }).error(function(jqXHR, textStatus, errorThrown) {
-        $.toaster({
-            title: 'Errore',
-            priority: 'danger',
-            message: "Problema nella registrazione!",
-        });
-    });
+            });
 
         }
 
@@ -76,9 +62,6 @@ function scelte(scelta) {
         dati_ingredient ="";
         for (i=1;i<n;i++)
         {   
-            shop = "";
-            kc = "";
-            kj = "";
             ingredient = $('#ingredient'+i).val().trim();
             quantity = $('#quantity'+i).val().trim();
             unit = $('#misurazione'+i).val().trim();
@@ -87,7 +70,7 @@ function scelte(scelta) {
             console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
 
             // vado a inserire il food nel caso non esiste
-            $.post( "API/insert_food_API.php", { nameFood: ingredient, shop: shop, kc: kc, kj: kj  })
+            $.post( "API/insert_food_API.php", { nameFood: ingredient })
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
             });

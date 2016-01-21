@@ -161,7 +161,10 @@
   </div><!-- /.container -->
      <!-- Script specifici di view -->
     <script src="js/insertFood.js"></script>
-    
+    <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
+	 <script src="js/lib/highcharts.js"></script>
+    <script src="js/lib/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
 
 </body>
 </html>

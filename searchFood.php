@@ -33,22 +33,23 @@ json_encode($ar);
     <link href="typeahead.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 		
-		
-			
+		var locale = <?php echo json_encode($ar) ?>;
+			//console.log(locale);
 		$(document).ready(function () {
+			
 			$('input.ingredients').typeahead({
-                name: 'ingredients',
-                local: <?php echo json_encode($ar) ?>
-					
-
-				})
+               // name: 'ingredients',
+                local: locale
+				
+				
+				
+			})
 				
 		
 			
 			
 		});
-		
-    </script>
+	</script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,8 +69,7 @@ json_encode($ar);
     <link href="css/roboto.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
-    <!-- CSS Specifico della view-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     <link href="css/getSubstitutions.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -90,15 +90,22 @@ json_encode($ar);
 
     <div class="bs-component  well ">
 						<div><label for="comment">enter the food you want to search</label></div>
-							<input class="form-control ingredients " type="text" placeholder="food"  id="food"><button id="btn-insert" type="button" class="btn btn-primary"  >enter</button>
-					
+							<input class="form-control ingredients " type="text" placeholder="food"  id="food" ><button id="btn-insert" type="button" class="btn btn-primary"  >enter</button>
+					<div id="toAppend"></div>
     </div>
 		
   </div><!-- /.container -->
    
     <!-- Script specifici di view -->
    
-    <script type="text/javascript" src="jquery.typeahead.js"></script>
+
  <script src="js/searchFood.js"></script>
+<?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
+	 <script src="js/lib/highcharts.js"></script>
+    <script src="js/lib/highcharts-more.js"></script>
+    <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	  <script src="js/measure.js"></script>
+   <script type="text/javascript" src="jquery.typeahead.js"></script>
+   
 </body>
 </html>

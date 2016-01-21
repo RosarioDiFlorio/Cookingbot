@@ -13,17 +13,55 @@ html {
   text-align: left;
 }
 
+/* base styles */
+/* ----------- */
+
+html {
+  font-family: Georgia;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #333;
+}
+
+
+p {
+  margin: 0 0 10px 0;
+}
+
+/* site theme */
+/* ---------- */
+
+.title 
+{
+    font-family: Georgia;
+  margin: 20px 0 0 0;
+  font-size: 64px;
+}
+
 
 
 .typeahead,
 .tt-query,
 .tt-hint {
+  width: 0px;
+  height: 0px;
  
   font-size: 0px;
- 
+  
+  border: 2px solid #ccc;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+  outline: none;
 }
 
+.typeahead {
+  background-color: #fff;
+}
 
+.typeahead:focus {
+  border: 2px solid #0052a4;
+}
 
 .tt-query {
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -36,15 +74,15 @@ html {
 }
 
 .tt-dropdown-menu {
-
-  margin-top: 12px;
   
+  margin-top: 12px;
+  padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 3px;
-     -moz-border-radius: 3px;
-          border-radius: 3px;
+  -webkit-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
           box-shadow: 0 5px 10px rgba(0,0,0,.2);
@@ -95,4 +133,5 @@ html {
 .CustomTemplate .repo-description {
   font-size: 14px;
 }
+
 

@@ -29,6 +29,8 @@ while($i < $td->length)
 	echo $shopping . " <br>";
 	//echo $link . " <br>";
 	
+	$shopping =  utf8_decode($shopping);
+	
 	//funzione per inserire shopping category
 	insertShoppingCategory($shopping);
 	
@@ -49,6 +51,10 @@ while($i < $td->length)
 		echo $food . "<br>";
 		//echo $kilocal . "<br>";
 		//echo $kilojaul . "<br>";
+		
+		$food =  utf8_decode($food);
+		$kilocal =  utf8_decode($kilocal);
+		$kilojaul =  utf8_decode($kilojaul);
 		
 		//funzione per inserire food
 		insertFoodCtrlLang($food,$kilocal,$kilojaul,$shopping);

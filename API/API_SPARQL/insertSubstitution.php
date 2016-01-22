@@ -5,6 +5,7 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fakeIngredient,$ingList,$typeResult,$arrTypeResult)
 {	
+	echo "food: " . $food;
 	//controllo food
 	insertFoodCtrlLang($food,"","","");
 	for($i=0;$i<count($arrFoodSub)-1;$i++)
@@ -22,7 +23,7 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 			
 			
 			$query .= "comp:".str_ireplace(" ","_",$fakeIngredient[$i])." rdf:type fo:Ingredient;
-				comp:hasFood comp:".str_ireplace(" ","_",strtolower(translate($arrFoodSub[$i]),"it","en"))." ;";
+				fo:food comp:".str_ireplace(" ","_",strtolower(translate($arrFoodSub[$i],"it","en")))." ;";
 				
 			//aggiungo la quantità	
 			if($arrTypeResult[$i] == 'unit') {
@@ -82,7 +83,7 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 		
 		//collego al food
 		
-		$query = $base . "insert data {comp:".strtolower(translate($food,"it","en"))." comp:hasSubstitution comp:".$ingList." }";
+		$query = $base . "insert data {comp:".str_ireplace(" ","_",strtolower(translate($food,"it","en")))." comp:hasSubstitution comp:".$ingList." }";
 		echo "<br/>";
 		echo $query;
 		sparqlUpdate($query);

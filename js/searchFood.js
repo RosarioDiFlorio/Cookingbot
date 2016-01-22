@@ -1,8 +1,9 @@
 $(document).ready(function () {
 			
-				
+			$("#btn-subs").hide();
+			
 			$("#btn-insert").click(function()
-			{
+			{	
 				var food = $("#food").val().trim();
 				if(food != "")
 				{	
@@ -22,7 +23,8 @@ $(document).ready(function () {
 								$("#toAppend").append('<div><h2>food not found</h2></div>');
 								return;
 							}
-							$("#toAppend").append('<div class="heading"><h2>'+food+'</h2></div>');	
+							$("#toAppend").append('<div class="heading"><h2>'+food+'</h2></div>');
+							
 							kcal = 0;
 							kj = 0;
 							divisore = 0;
@@ -73,13 +75,27 @@ $(document).ready(function () {
 										$("#toAppend").append('<div><h3>'+foods[i].energy['value']+'</h3></div>');
 								}	
 							}
-							$("#toAppend").append('<button id="btn-insert" type="button" class="btn btn-primary"  >See all substitution</button>');
+							$("#btn-subs").show();
 						}//fine if	
 					
 					})//fine function
 				}
-			})	
+			})	//fine btn-insert
 			
+		$("#btn-subs").click(function()
+		{	var food = $("#food").val().trim();
+				if(food != "")
+				{	
+					console.log("btn-subs");
+					$.post( "API/get_substitution_API.php", { nameFood: food  })
+							.done(function( data ) 
+							{
+								
+								console.log(data);
+								
+							})
+				}
+		})//fine btn-sub
 });
 		
 		

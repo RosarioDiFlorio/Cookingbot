@@ -5,11 +5,12 @@ $folder = "API_SPARQL";
     
 function include_all_php($folder)
 {
+	//echo count(glob($folder."/*.php"));
     foreach (glob($folder."/*.php") as $filename)
     {
         //echo $filename;
-		 include_once dirname(__FILE__).'/'.$filename;
-		 //echo dirname(__FILE__).'/'.$filename;	
+		 include_once '/'.$filename;
+		 //echo '/'.$filename;	
     }
 }
 

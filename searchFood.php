@@ -91,7 +91,9 @@ json_encode($ar);
     <div class="bs-component  well ">
 						<div><label for="comment">enter the food you want to search</label></div>
 							<input class="form-control ingredients " type="text" placeholder="food"  id="food" ><button id="btn-insert" type="button" class="btn btn-primary"  >enter</button>
+					
 					<div id="toAppend"></div>
+					<button id="btn-subs" type="button" class="btn btn-primary"  >See all substitution</button>
     </div>
 		
   </div><!-- /.container -->

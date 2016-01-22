@@ -6,11 +6,8 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 function getRecipesByWords($language,$input){
 
 	$ingredienti = split(",",$input);
-
-
-$base = getPrefix();
-
-$query= $base."
+	$base = getPrefix();
+	$query=$base."
 SELECT ?recipe (COUNT(?recipe) AS ?count) WHERE{";
 				
 for ($i = 0;$i< count($ingredienti);$i++){

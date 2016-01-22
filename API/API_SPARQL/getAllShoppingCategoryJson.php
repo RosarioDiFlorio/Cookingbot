@@ -4,7 +4,7 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 /*
 * get all shopping category with label in english
 */
-function getAllShoppingCaterogyJson()
+function getAllShoppingCategoryJson()
 {
 	
 	$base = getPrefix();

@@ -28,17 +28,22 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i,$lang)
     if($mis == 'unit') {
     	$query = $query."fo:quantity \"".$quantity." ".$unit."\"";
     }
-
+	else
+	{
+		$query .=  useConverterForQuantity($quantity, $unit,true); //con il parametro "true" aggiunge il carattere "." alla fine
+		
+	}	
+	/*
     if($mis == 'metric') {
     	$query = $query."fo:metric_quantity \"".$quantity." ".$unit."\"";
     }
 
     if($mis == 'imperial') {
     	$query = $query."fo:imperial_quantity \"".$quantity." ".$unit."\"";
-    }
+    }*/
 	
 				
-	$query = $query.". }";
+	$query = $query." }";
 	
 	$risultato = sparqlUpdate($query);
 	

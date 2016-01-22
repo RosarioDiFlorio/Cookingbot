@@ -11,7 +11,7 @@ sendError("Utente non collegato");
 
 $food = $_POST['nameFood'];
 
-echo getAllSubstitutionsFood($food);
+echo getAllSubstitutionsFood($food,"en");
 
 
 ?>

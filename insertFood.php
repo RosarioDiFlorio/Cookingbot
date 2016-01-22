@@ -2,9 +2,9 @@
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
    include_once dirname(__FILE__).'/API/query_sparql.php';
+   include_all_php("API/API_SPARQL");
 
-
-	$res = getAllShoppingCaterogyJson();
+	$res = getAllShoppingCategoryJson();
 	
 	//print_r($res);
 	$data = json_decode($res);

@@ -9,10 +9,15 @@ function getRecipesByIngredients(){
             quantity = $('#quantity'+i).val().trim();
             unit = $('#misurazione'+i).val().trim();
             mis = $('input[name=mis'+i+']:checked').val().trim();
-            input=ingredient+quantity+unit+mis
+            input=input+ingredient+","+quantity+","+unit+","+mis+";";
         }
         console.log(npeople+" "+input);
 
+        $.post( "API/get_recipes_by_ingredients_API.php", { npeople: npeople, input: input})
+            .done(function( data ) {
+                console.log("Data Loaded: " + data );
+                $('#results').append(data);
+        });
 
 }
 
@@ -22,7 +27,7 @@ function getRecipesByWords(){
     lang = $("input[name=lang]:checked").val();
     input = $('#words').val().trim();
 
-    $.post( "API/get_recipes_API.php", { lang: lang, input: input})
+    $.post( "API/get_recipes_by_words_API.php", { lang: lang, input: input})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);

@@ -10,7 +10,7 @@ function useConverterForQuantity($quantity, $quantityType,$insertPoint)
 	$converter = new Converter();
 	
 	$arr = $converter->getAllMeasures(trim($quantityType),$quantity);
-	
+	$query ="";
 	if(count($arr) == 4)
 	{	
 		// g kg pound ounce

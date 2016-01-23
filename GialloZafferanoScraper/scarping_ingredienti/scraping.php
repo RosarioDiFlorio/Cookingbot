@@ -239,7 +239,7 @@ $unit="";
 
 $i =1;
 foreach($step_list as $value){
-	insertStep($i,$value[$i],$nomericetta);	
+	insertStep($i,utf8_decode($value),$nomericetta);	
 	$i++;
 }
 

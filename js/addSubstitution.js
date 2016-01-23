@@ -30,6 +30,7 @@ $(document).ready(function() {
 	$(".remove_field").click(function(){
 		 if(x > 1)
 		 {
+			// console.log("remove");
 			$(".input_fields_wrap").find("div")[x-1].remove();
 			x--;
 		 }

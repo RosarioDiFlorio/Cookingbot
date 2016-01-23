@@ -32,7 +32,8 @@ $(document).ready(function () {
 							{
 									//faccio una media
 								
-									for(i=0;i<foods.length;i++){
+									for(i=0;i<foods.length;i++)
+									{
 										//cerco le kilocalorie
 										str = foods[i].energy['value'];
 										var n = str.search(/kcal/);
@@ -90,8 +91,9 @@ $(document).ready(function () {
 					$.post( "API/get_substitution_API.php", { nameFood: food  })
 							.done(function( data ) 
 							{
-								
-								console.log(data);
+								$("#toAppendSubs").empty();
+								//console.log(data);
+								$("#toAppendSubs").append(data);
 								
 							})
 				}

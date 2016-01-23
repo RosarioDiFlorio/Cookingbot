@@ -10,16 +10,17 @@ function getAllSubstitutionsFood($food,$lang)
 	$base = getPrefix();
 	
 	$query = $base . "
-	SELECT distinct ?o ?labelSub ?quantity WHERE 
+	SELECT distinct ?o ?labelSub ?quantityResult ?quantity WHERE 
 			{
 					
 				{
 					?food comp:hasSubstitution ?o .
 					?food rdfs:label ?label .
 					?o ?x ?ing .
+					?ing fo:quantity ?quantity .
 					?ing fo:food ?f . 
 					?f rdfs:label ?labelSub .
-					?o fo:quantity ?quantity .
+					?o fo:quantity ?quantityResult .
 					FILTER(lcase(str(?label)) = \"".$food."\") .
 					 FILTER(lang(?labelSub)='".$lang."') .
 				}
@@ -27,9 +28,10 @@ function getAllSubstitutionsFood($food,$lang)
 				 { ?food comp:hasSubstitution ?o .
 					?food rdfs:label ?label .
 					?o ?x ?ing .
+					?ing fo:imperial_quantity ?quantity .
 					?ing fo:food ?f . 
 					?f rdfs:label ?labelSub .
-					?o fo:imperial_quantity ?quantity .
+					?o fo:imperial_quantity ?quantityResult .
 					FILTER(lcase(str(?label)) = \"".$food."\") .
 					 FILTER(lang(?labelSub)='".$lang."') .
 				}
@@ -37,9 +39,10 @@ function getAllSubstitutionsFood($food,$lang)
 				 { ?food comp:hasSubstitution ?o .
 					?food rdfs:label ?label .
 					?o ?x ?ing .
+					?ing fo:metric_quantity ?quantity .
 					?ing fo:food ?f . 
 					?f rdfs:label ?labelSub .
-					?o fo:metric_quantity ?quantity .
+					?o fo:metric_quantity ?quantityResult .
 					FILTER(lcase(str(?label)) = \"".$food."\") .
 					 FILTER(lang(?labelSub)='".$lang."') .
 				}

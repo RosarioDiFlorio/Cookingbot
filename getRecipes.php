@@ -40,9 +40,17 @@
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 
      <div class="container text-center" >
-        <div class="heading"><h2>Help us, add a new recipe!</h2></div>
-	
-	
+        <div class="heading"><h2>Search Recipe</h2></div>
+        <input type="button" value="Words" onclick="visible('wordss','ingredients');">
+         <input type="button" value="Ingredients" onclick="visible('ingredients','wordss');">
+         <br>
+	       Cuisine Filter<input type="text" id="cuisine">
+         Diet Filter<input type="text" id="diet">
+         Occasion Filter<input type="text" id="occasion">
+         Course Filter<input type="text" id="course">
+	<br>
+  <input type="radio" name="lang" value="en" > En
+               <input type="radio" name="lang" value="it" > It
 <div class="container text-center"  id="wordss">
         <div class="bs-component well"   >
     
@@ -52,8 +60,7 @@
           <div class="form-group">
             <i class="fa fa-shopping-cart fa-3x"></i>
             <div class="col-lg-12">
-              <input type="radio" name="lang" value="en" > En
-               <input type="radio" name="lang" value="it" > It
+              
                
               <input type="text" id="words">
             </div>
@@ -65,13 +72,7 @@
 
   </div>  
 
-  <div class="container text-center">
-        <h3>Results:</h3>
-        <div class="form-group" id="results">
-          Prova
-        </div>
-
-  </div>  
+  
 
 
 
@@ -104,6 +105,16 @@
             <button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
            <button type="button" class="btn btn-primary " onclick="getRecipesByIngredients();"><span>Search</span></button>
 		   
+        </div>
+
+        
+
+  </div>  
+
+<div class="container text-center">
+        <h3>Results:</h3>
+        <div class="form-group" id="results">
+          
         </div>
 
 	</div>	

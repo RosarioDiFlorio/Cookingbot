@@ -9,7 +9,7 @@ function include_all_php($folder)
     foreach (glob($folder."/*.php") as $filename)
     {
         //echo $filename;
-		 include_once '/'.$filename;
+		 include_once ''.$filename;
 		 //echo '/'.$filename;	
     }
 }

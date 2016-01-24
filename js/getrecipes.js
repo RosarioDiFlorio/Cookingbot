@@ -1,7 +1,12 @@
 function getRecipesByIngredients(){
     $("#results").html("");
+    lang = $("input[name=lang]:checked").val();
     npeople = $('#npeople').val();
     n = +$('#ningredient').val() +1;
+    cuisine = $('#cuisine').val().trim();
+    diet = $('#diet').val().trim();
+    occasion = $('#occasion').val().trim();
+    course = $('#course').val().trim();
     input ="";
     for (i=1;i<n;i++)
         {   
@@ -13,7 +18,7 @@ function getRecipesByIngredients(){
         }
         console.log(npeople+" "+input);
 
-        $.post( "API/get_recipes_by_ingredients_API.php", { npeople: npeople, input: input})
+        $.post( "API/get_recipes_by_ingredients_API.php", {lang: lang, npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);
@@ -26,8 +31,12 @@ function getRecipesByWords(){
     $("#results").html("");
     lang = $("input[name=lang]:checked").val();
     input = $('#words').val().trim();
+    cuisine = $('#cuisine').val().trim();
+    diet = $('#diet').val().trim();
+    occasion = $('#occasion').val().trim();
+    course = $('#course').val().trim();
 
-    $.post( "API/get_recipes_by_words_API.php", { lang: lang, input: input})
+    $.post( "API/get_recipes_by_words_API.php", { lang: lang, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);
@@ -201,5 +210,10 @@ function show(tipologia,numero) {
 
 }
 
+function visible(name1,name2){
+        console.log(name1+name2);
+        $('#'+name1).show();
+        $('#'+name2).hide();
+}
 
 

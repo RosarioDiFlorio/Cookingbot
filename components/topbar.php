@@ -40,7 +40,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="getRecipes.php">Recipes</a></li>
-            <li><a href="getSubstitutions.php">Substitutions</a></li>
+            <li><a href="searchFood.php">Substitutions</a></li>
           </ul>
         </li>
 
@@ -54,10 +54,10 @@
               <li><a href="scripts/logout.php">Logout</a></li>
             </ul>
           </li>
-        <? }
-        else { ?>
-          <li><a href="login.php">Login</a></li>
-        <?php } ?>
+        <?php }
+        else { 
+          echo '<li><a href="login.php">Login</a></li>';
+         } ?>
       </ul>
     </div><!--/.nav-collapse -->
   </div>

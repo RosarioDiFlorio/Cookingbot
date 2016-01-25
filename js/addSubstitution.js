@@ -31,7 +31,7 @@ $(document).ready(function() {
 		 if(x > 1)
 		 {
 			// console.log("remove");
-			$(".input_fields_wrap").find("div")[x-1].remove();
+			$(".input_fields_wrap").children("div")[x-1].remove();
 			x--;
 		 }
 	});
@@ -63,9 +63,22 @@ $(document).ready(function() {
 			i++;
 		});
 		
-		r = getRandomInt(10000,10000000000) * getRandomInt(2,1000);
-		ingredientList = food + "_sub_" + r;
-		//console.log(ingredientList);
+		//r = getRandomInt(10000,10000000000) * getRandomInt(2,1000);
+		//ingredientList = food + "_sub_" + r;
+		
+		
+		/* hash value of ingredients */
+		hashValue = Math.abs(food.hashCode());
+		for(i=0;i<subs.length;i++)
+		{
+			hashValue += Math.abs(subs[i].hashCode());
+
+		}
+		
+		ingredientList = hashValue;
+		
+		console.log(ingredientList);
+		
 		fakeIngredient = Array();
 		for(i=0;i<subs.length;i++){
 			fakeIngredient[i] = ingredientList + "_" + subs[i];
@@ -164,6 +177,15 @@ $(document).ready(function() {
 	}
 	
 	
-	
+	String.prototype.hashCode = function(){
+	var hash = 0;
+	if (this.length == 0) return hash;
+	for (i = 0; i < this.length; i++) {
+		char = this.charCodeAt(i);
+		hash = ((hash<<5)-hash)+char;
+		hash = hash & hash; // Convert to 32bit integer
+	}
+	return hash;
+}
 	
 });

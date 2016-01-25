@@ -1,7 +1,7 @@
 <?php
-require dirname(__FILE__) . "/dbconn.php";
-require dirname(__FILE__) . "/../classes/Sessione.php";
-require dirname(__FILE__) . "/../classes/Utility.php";
+require_once dirname(__FILE__) . "/dbconn.php";
+require_once dirname(__FILE__) . "/../classes/Sessione.php";
+require_once dirname(__FILE__) . "/../classes/Utility.php";
 
 
 class VotazioniAPI{
@@ -19,11 +19,11 @@ class VotazioniAPI{
 	---------------------------------------------------------------------------------------------------------------------------------------------------
 	*/
 	
-	
-	public function addRecipe($nomeRicetta){
+	/*  */
+	public function addRecipe($nomeRicetta,$idUtente){
 			
 		if(sizeof ($this->getRecipe($nomeRicetta))== 0){
-			$query ="INSERT INTO ricette (id_ricetta, nome_ricetta) VALUES (NULL, '".$nomeRicetta."') ";
+			$query ="INSERT INTO ricette (id_ricetta, nome_ricetta, id_utente) VALUES (NULL, '".$nomeRicetta."','".$idUtente."') ";
 			$this->db->query($query,0);
 		}
 	}
@@ -81,11 +81,11 @@ class VotazioniAPI{
 	-------------------------------------------------------------------------------------------------------------------------------------------------------
 	*/
 
-	public function addSubstitution($nomeSub){
+	public function addSubstitution($nomeSub,$idUtente){
 		if(  sizeof( $this->getSubstitution( $nomeSub)) == 0    ){
 		
-			$query="INSERT INTO sostituzioni (id_sub, nome_sub)
-			VALUES(NULL,'".$nomeSub."')";
+			$query="INSERT INTO sostituzioni (id_sub, nome_sub, id_utente)
+			VALUES(NULL,'".$nomeSub."', '".$idUtente."')";
 			$this->db->query($query,0);
 							
 		}

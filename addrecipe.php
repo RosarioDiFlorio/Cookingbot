@@ -5,13 +5,6 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_addrecipe = true;
-	if(!$loggedin)
-	{
-		header("Location: index.php?message=noLogin");
-		die();
-	}
-	
-	
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -144,10 +137,11 @@
         </div>
             <button type="button" class="btn btn-primary " onclick="add('step');"><span>Add Step</span></button>
             <button type="button" class="btn btn-primary " onclick="remov('step');"><span>Remove Step</span></button>
-           <button type="button" class="btn btn-primary " onclick="scelte('stages');"><span>Finish</span></button>
+           <button type="button" class="btn btn-primary " onclick="scelte('stages');"><span>Upload Photo</span></button>
 		   
 		   
         </div>
+		
 	</div>
 	
 	
@@ -182,7 +176,31 @@
 
 	</div>	
 	
-	
+	<div class="container text-center"  id="photo">
+        <div class="bs-component well"   >
+          
+          <h3>Upload a Photo</h3>
+		  <div class="form-group">
+		  <form action="saveImage.php" method="post" enctype="multipart/form-data" target="upload_target">
+                     <p id="f1_upload_form" align="center"><br/>
+						<label>
+							<input type="hidden" value="recipe" name="photo_id" id="photo_id" />
+						</label>	
+                         <label> 
+                              <input name="myfile" type="file" size="30" />
+                         </label>
+                         <label>
+                             <input type="submit" name="submitBtn" class="sbtn" value="Upload" />
+                         </label>
+                     </p>
+          </form>
+			</div>
+			</div>
+           <button type="button" class="btn btn-primary " onclick="window.location = 'http://localhost/CookingBot';"><span>Home</span></button>
+        </div>
+		</div>
+		
+	</div>
    
      <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
     <!-- Script specifici di view -->

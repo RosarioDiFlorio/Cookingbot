@@ -3,14 +3,15 @@ require dirname(__FILE__) . "/query_sparql.php";
 include_all_php("/API_SPARQL");
 
 function showImage($name){
-    $file='http://localhost/CookingBot/img/recipes/'.(strtolower($name)).'.jpg';
+    $file= 'http://localhost/CookingBot/img/recipes/'.(strtolower($name)).'.jpg';
 	
-    if (file_exists($file) == false) {
+    /*if (file_exists($file) == false) {
 		//non esiste foto, non mostro nulla
+		echo $file.'<br>Nessuna Immagine<br>';
     }
-	else {  
+	else {  */
 		echo '<img src="'. $file. '" alt="'. $name. '" style="max-height: 500px; max-width: 500px;"/><br>';
-    }
+    //}
 }
 
 //stampa le info

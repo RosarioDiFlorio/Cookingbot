@@ -29,13 +29,17 @@ function scelte(scelta) {
             return ;
         }
         else
-        {$('#info').hide();
-        $('#ingredients').show();}
+        {
+			$('#photo_id').val(name);
+			console.log("NAME: "+name);
+			console.log("HIDDEN: "+$('#photo_id').val());
+			$('#info').hide();
+			$('#ingredients').show();}
         });
 
 
             
-
+		console.log("NAME: "+name);
 
         return;
     }
@@ -61,6 +65,8 @@ function scelte(scelta) {
         }
 
         console.log(dati_step);
+		$('#stages').hide();
+		$('#photo').show();
         return;
     }
     

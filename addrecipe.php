@@ -5,6 +5,13 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_addrecipe = true;
+	if(!$loggedin)
+	{
+		header("Location: index.php?message=noLogin");
+		die();
+	}
+	
+	
 ?>
 <!DOCTYPE html>
 <html lang="it">

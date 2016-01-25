@@ -8,7 +8,7 @@
     $is_showRecipe = true;
 	
 	//VARIABILI PASSATE DALLA PAGINA CHE INVOCA QUESTA
-	$name = $_POST['name'];							//nome ricetta
+	/*$name = $_POST['name'];						//nome ricetta
 	$lang = $_POST['lang'];							//lingua in cui visualizzare i dati
 	$originalserves = $_POST['originalserves'];		//persone servite dalla ricetta in origine (dato ontologia)
 	$serves = $_POST['serves'];						//persone che si voglio servire (dato della ricerca)
@@ -17,9 +17,10 @@
 	$occasion = $_POST['occasion'];					//occasione
 	$diet = $_POST['diet'];							//dieta
 	$recipeURI = $_POST['recipeURI'];				//uri oggetti
-	$measure = $_POST['measure'];					//metric_quantity o imperial_quantity
-	
-	/*TEST HARDCODED
+	$liquidMeasure = $_POST['liquidMeasure'];		//"ml","l","teaspoon","tablespoon","cup","pint"
+	$solidMeasure = $_POST['solidMeasure'];			//"g","kg","ounce","pound"
+	*/
+	//TEST HARDCODED
 	$lang = "it";
 	$name='Insalata di pollo della mamma';
 	$originalserves = 4;
@@ -29,8 +30,9 @@
 	$occasion = "";
 	$diet = "";
 	$recipeURI = "comp:Recipe_insalata_di_pollo_della_mamma";
-	$measure = "metric_quantity";
-	*/
+	$liquidMeasure = "ml";
+	$solidMeasure = "g";
+	
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -83,7 +85,8 @@
 					'diet' => urlencode($diet),
 					'lang' => urlencode($lang),
 					'recipeURI' => urlencode($recipeURI),
-					'measure' => urlencode($measure)
+					'liquidMeasure' => urlencode($liquidMeasure),
+					'solidMeasure' => urlencode($solidMeasure)
 					
 				);
 				

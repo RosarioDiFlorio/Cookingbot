@@ -17,6 +17,12 @@ function getRecipeSteps($recipeURI, $lang){
 	";
 	
 	$results = sparqlQuery($query,"json");
-	return $results;
+	$dataStep = json_decode($results);
+	$toCicleStep = $dataStep->results->bindings;
+	$steps = [];
+	for($i = 0 ; $i<sizeof($toCicleStep); $i++){
+		$steps[$i] = $toCicleStep[$i]->text->value;
+	}
+	return $steps;
 }
 ?>

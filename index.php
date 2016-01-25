@@ -5,6 +5,18 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_index = true;
+	
+$strMessage = "";
+
+if(isset($_GET['message']))
+{
+	$message = $_GET['message'];
+	if($message == "noLogin")
+	{
+		$strMessage = "you need to be logged in for access to this page";
+		//echo $strMessage;	
+	}	
+}
 ?>
 <!DOCTYPE html>
 <html lang="it">

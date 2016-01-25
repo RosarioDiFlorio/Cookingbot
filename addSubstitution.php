@@ -1,16 +1,21 @@
 <?php
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
-	include_once dirname(__FILE__).'/API/http_API.php';
-	include_once dirname(__FILE__).'/API/query_sparql.php';
+    include_once dirname(__FILE__).'/API/query_sparql.php';
 
+	
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
-    $is_addrecipe = true;
+    $is_addSubstitution = true;
+	if(!$loggedin)
+	{
+		header("Location: index.php?message=noLogin");
+		die();
+	}
 	
 	$base = getPrefix();
-	
+		
 	$query = $base . "SELECT ?label WHERE { ?food rdf:type comp:Food; rdfs:label ?label}";
 	
 	$res = sparqlQuery($query,"json");

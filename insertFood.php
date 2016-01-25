@@ -3,7 +3,18 @@
    require_once dirname(__FILE__). '/classes/Sessione.php';
    include_once dirname(__FILE__).'/API/query_sparql.php';
    include_all_php("API/API_SPARQL");
-
+	
+	//Check se collegato
+    $loggedin = Sessione::isLoggedIn(true);
+	
+    //Variabile per attivare contesto della topbar
+    $is_addFood = true;
+	if(!$loggedin)
+	{
+		header("Location: index.php?message=noLogin");
+		die();
+	}
+	
 	$res = getAllShoppingCategoryJson();
 	
 	//print_r($res);
@@ -13,7 +24,8 @@
 	$ar = [];
 	$value = [];
 	//print_r($toCicle);
-	for($i = 0 ; $i<sizeof($toCicle); $i++){
+	for($i = 0 ; $i<sizeof($toCicle); $i++)
+	{
 		//echo $toCicle[$i]->shopping->value;
 		$value[$i] = $toCicle[$i]->shopping->value;
 		$ar[$i] = $toCicle[$i]->label->value;
@@ -23,10 +35,7 @@ $value = array_unique($value);
 $ar = array_unique($ar);
 json_encode($ar);
 
-    //Check se collegato
-    $loggedin = Sessione::isLoggedIn(true);
-    //Variabile per attivare contesto della topbar
-    $is_addrecipe = true;
+  
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -96,7 +105,7 @@ json_encode($ar);
 Keep this field blank if you do not have this information</label>
 						<input type="number" id="kjaul" min="0" class="form-control " />
 						<br />
-						<h3 class="heading">Jcal per 100g (optional)</h3>
+						<h3 class="heading">Kcal per 100g (optional)</h3>
 <label for="comment">Nutrition data: energy (in kcal) per 100g (or 100ml for liquids). <br/> Keep this field blank if you do not have this information</label>
 						<input type="number" id="kcal" min="0" class="form-control " />
 						<br />

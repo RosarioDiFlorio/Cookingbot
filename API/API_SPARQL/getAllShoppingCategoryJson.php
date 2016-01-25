@@ -12,9 +12,9 @@ function getAllShoppingCategoryJson()
 	$query = $base . "
 select ?shopping ?label where { ?shopping rdf:type fo:ShoppingCategory ;
     				rdfs:label ?label ;
-    filter(lang(?label)='en')
+					filter(lang(?label)='en')
 
-}"	;
+				}"	;
 	
 	$res = sparqlQuery($query,"json");
 	return $res;

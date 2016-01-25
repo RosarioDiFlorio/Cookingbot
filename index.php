@@ -6,17 +6,7 @@
     //Variabile per attivare contesto della topbar
     $is_index = true;
 	
-$strMessage = "";
 
-if(isset($_GET['message']))
-{
-	$message = $_GET['message'];
-	if($message == "noLogin")
-	{
-		$strMessage = "you need to be logged in for access to this page";
-		//echo $strMessage;	
-	}	
-}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -51,6 +41,29 @@ if(isset($_GET['message']))
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
     <div class="container-fluid text-center">
+	
+   <?php 
+   $strMessage = "";
+
+	if(isset($_GET['message']))
+	{
+		$message = $_GET['message'];
+		if($message == "noLogin")
+		{
+			$strMessage = "you need to be logged in for access to this page";
+			//echo $strMessage;	
+		
+		}
+
+		 if($message != "")
+		{
+			echo '<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Warning!</strong> '.$strMessage .'
+			</div>';
+		}
+	}
+  
+
+  ?>
         <div id="homeslider" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">

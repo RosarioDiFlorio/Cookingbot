@@ -120,7 +120,7 @@
 	</div>	
 	
 	
-   
+   </div>
      <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
     <!-- Script specifici di view -->
     <script src="js/getrecipes.js"></script>

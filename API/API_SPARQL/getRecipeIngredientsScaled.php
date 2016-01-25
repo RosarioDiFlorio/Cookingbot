@@ -1,7 +1,7 @@
 <?php
 include_once dirname(__FILE__).'/../query_sparql.php';
 
-function getRecipeIngredientsScaled($recipeURI, $measure, $lang, $newServed){
+function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 	
 	$base = getPrefix();
 	$query = $base . "
@@ -31,7 +31,24 @@ function getRecipeIngredientsScaled($recipeURI, $measure, $lang, $newServed){
 			".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
-			?ing fo:".$measure." ?peso.
+			?ing fo:metric_quantity ?peso.
+			?ing fo:food ?food.
+			?food rdfs:label ?name.
+			BIND(xsd:double(REPLACE(?peso, \" .*\", \"\", \"i\")) AS ?pesooriginale).
+			BIND(xsd:integer(?served) AS ?serviti).
+			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
+			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
+			FILTER langMatches(lang(?name), \"".$lang."\").
+		}
+		UNION
+		{
+			".$recipeURI." a fo:Recipe;
+			fo:serves ?served.
+			?list a fo:IngredientList.
+			".$recipeURI." fo:ingredients ?list.
+			?ing a fo:Ingredient.
+			?list ?x ?ing.
+			?ing fo:imperial_quantity ?peso.
 			?ing fo:food ?food.
 			?food rdfs:label ?name.
 			BIND(xsd:double(REPLACE(?peso, \" .*\", \"\", \"i\")) AS ?pesooriginale).
@@ -44,6 +61,20 @@ function getRecipeIngredientsScaled($recipeURI, $measure, $lang, $newServed){
 	";
 
 	$results = sparqlQuery($query,"json");
-	return $results;
+	$dataIng = json_decode($results);
+	$toCicleIng = $dataIng->results->bindings;
+	$ingredients = [];
+	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
+		$nameIng = $toCicleIng[$i]->name->value;
+		$quantity = $toCicleIng[$i]->quantity->value;
+		$matches = [];
+		preg_match("/[a-z]+/i",$quantity, $matches);
+		$unit = $matches[0];
+		if(!array_key_exists($nameIng,$ingredients)){
+			$ingredients[$nameIng]=[];
+		}
+		$ingredients[$nameIng][$unit]=$quantity;
+	}
+	return $ingredients;
 }
 ?>

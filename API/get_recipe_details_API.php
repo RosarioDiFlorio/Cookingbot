@@ -36,29 +36,34 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 }
 
 //stampa gli ingredienti, nel caso si visualizza per il numero di persone della ricetta
-function printIngredients($recipeURI, $measure, $lang){
-	$resIng = getRecipeIngredients($recipeURI, $measure, $lang);
-	$dataIng = json_decode($resIng);
-	$toCicleIng = $dataIng->results->bindings;
-	$ingredients = [];
-	$quantities = [];
+function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
+	$ingredients = getRecipeIngredients($recipeURI, $lang);
+	
 	echo '<h3>INGREDIENTS</h3>';
 	echo "<h4>";
-	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
-		$ingredients[$i] = $toCicleIng[$i]->name->value;
-		$quantities[$i] = $toCicleIng[$i]->quantity->value;
-		echo $ingredients[$i]." ".$quantities[$i]."<br>";
+	foreach ($ingredients as $key => $value){
+		echo $key." ";
+		if(array_key_exists($liquidMeasure,$value)){
+			echo $value[$liquidMeasure];
+		}
+		else{
+			if(array_key_exists($solidMeasure,$value)){
+				echo $value[$solidMeasure];
+			}
+			else{
+				if(array_key_exists("unit",$value)){
+					echo $value["unit"];
+				}
+			}
+		}
+		echo "<br>";
 	}
 	echo "</h4>";
 }
 
 //stampa gli ingredienti, nel caso si visualizza per un numero di persone diverso da quello della ricetta
-function printScaledIngredients($recipeURI, $measure, $lang, $serves){
-	$resIng = getRecipeIngredientsScaled($recipeURI, $measure, $lang, $serves);
-	$dataIng = json_decode($resIng);
-	$toCicleIng = $dataIng->results->bindings;
-	$ingredients = [];
-	$quantities = [];
+function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves){
+	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves);
 	if($serves<2){
 		echo '<h3>INGREDIENTS (FOR '.$serves.' PERSON)</h3>';
 	}
@@ -67,24 +72,32 @@ function printScaledIngredients($recipeURI, $measure, $lang, $serves){
 	}
 	
 	echo "<h4>";
-	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
-		$ingredients[$i] = $toCicleIng[$i]->name->value;
-		$quantities[$i] = $toCicleIng[$i]->quantity->value;
-		echo $ingredients[$i]." ".$quantities[$i]."<br>";
+	foreach ($ingredients as $key => $value){
+		echo $key." ";
+		if(array_key_exists($liquidMeasure,$value)){
+			echo $value[$liquidMeasure];
+		}
+		else{
+			if(array_key_exists($solidMeasure,$value)){
+				echo $value[$solidMeasure];
+			}
+			else{
+				if(array_key_exists("unit",$value)){
+					echo $value["unit"];
+				}
+			}
+		}
+		echo "<br>";
 	}
 	echo "</h4>";
 }
 
 //stampa gli step
 function printSteps($recipeURI, $lang){
-	$resStep = getRecipeSteps($recipeURI, $lang);
-	$dataStep = json_decode($resStep);
-	$toCicleStep = $dataStep->results->bindings;
-	$steps = [];
+	$steps = getRecipeSteps($recipeURI, $lang);
 	echo '<h3>STEPS</h3>';
 	echo "<h4>";
-	for($i = 0 ; $i<sizeof($toCicleStep); $i++){
-		$steps[$i] = $toCicleStep[$i]->text->value;
+	for($i = 0 ; $i<sizeof($steps); $i++){
 		$j=$i+1;
 		echo $j.") ".$steps[$i]."<br>";
 	}
@@ -92,15 +105,15 @@ function printSteps($recipeURI, $lang){
 }
 
 //formatta e invoca i metodi
-function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $measure, $lang){
+function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang){
 	echo '<h2>'.$name.'</h2>';
 	showImage($name);
 	printInfos($originalserves,$serves,$cuisine,$course,$occasion,$diet);
 	if($originalserves==$serves){
-		printIngredients($recipeURI, $measure, $lang);
+		printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang);
 	}
 	else{
-		printScaledIngredients($recipeURI, $measure, $lang, $serves);
+		printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves);
 	}
 	printSteps($recipeURI, $lang);
 	
@@ -116,6 +129,7 @@ function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $o
 	$occasion = $_POST['occasion'];
 	$diet = $_POST['diet'];
 	$recipeURI = $_POST['recipeURI'];
-	$measure = $_POST['measure'];
-	getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $measure, $lang);
+	$liquidMeasure = $_POST['liquidMeasure'];
+	$solidMeasure = $_POST['solidMeasure'];
+	getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang);
 ?>

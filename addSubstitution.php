@@ -7,7 +7,7 @@
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
-    $is_addSubstitution = true;
+    $is_add= true;
 	if(!$loggedin)
 	{
 		header("Location: index.php?message=noLogin");

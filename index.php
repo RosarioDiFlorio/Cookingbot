@@ -1,6 +1,8 @@
 <?php
+
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
+   
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar

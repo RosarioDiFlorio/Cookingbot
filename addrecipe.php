@@ -1,11 +1,18 @@
 <?php
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
-    //Check se collegato
+   
+	//Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
-    $is_addrecipe = true;
-?>
+     $is_add = true;
+	if(!$loggedin)
+	{
+		header("Location: index.php?message=noLogin");
+		die();
+	}
+	
+	?>
 <!DOCTYPE html>
 <html lang="it">
   <head>

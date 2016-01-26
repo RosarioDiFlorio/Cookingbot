@@ -91,7 +91,7 @@ class VotazioniAPI{
 		}
 	}
 
-
+	
 
 	public function getAllSubstitution(){
 		
@@ -108,6 +108,8 @@ class VotazioniAPI{
 		return $result[0];
 		
 	}
+	
+	
 
 	public function addSubstitutionVote($idUtente, $idSub,$voto){
 		if( ! ($this->hasVotingSub($idUtente,$idSub) )){

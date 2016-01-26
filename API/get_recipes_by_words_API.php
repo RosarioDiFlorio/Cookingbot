@@ -15,7 +15,11 @@ $cuisine = strtolower((trim($_POST['cuisine'])));
 $diet = strtolower((trim($_POST['diet'])));
 $occasion = strtolower((trim($_POST['occasion'])));
 $course = strtolower((trim($_POST['course'])));
-$results=  getRecipesByWords($lang,$input,$cuisine,$diet,$occasion,$course);
+$offset=0;
+if(isset($_POST['offset'])){
+	$offset = strtolower((trim($_POST['offset'])));
+}
+$results=  getRecipesByWords($lang,$input,$cuisine,$diet,$occasion,$course,$offset);
 $data = json_decode($results);
 	//print_r($data->results->bindings);
 	$toCicle = $data->results->bindings;

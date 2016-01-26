@@ -2,7 +2,8 @@
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
     include_once dirname(__FILE__).'/API/query_sparql.php';
-
+	require_once  dirname(__FILE__).'/API/get_food_API.php';
+	include_all_php("API/API_SPARQL");
 	
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
@@ -14,25 +15,7 @@
 		die();
 	}
 	
-	$base = getPrefix();
-		
-	$query = $base . "SELECT ?label WHERE { ?food rdf:type comp:Food; rdfs:label ?label}";
-	
-	$res = sparqlQuery($query,"json");
-	//print_r($res);
-	$data = json_decode($res);
-	//print_r($data->results->bindings);
-	$toCicle = $data->results->bindings;
-	$ar = [];
-	for($i = 0 ; $i<sizeof($toCicle); $i++){
-		//print_r($toCicle[$i]->label->value);
-		$ar[$i] = $toCicle[$i]->label->value;
-	}
-//$ar = array('apple', 'orange', 'banana', 'strawberry');
-$ar = array_unique($ar);
-json_encode($ar);
-
-
+   $arr = getAllFoodsAPI();
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +24,7 @@ json_encode($ar);
     <link href="typeahead.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 		
-		var locale = <?php echo json_encode($ar) ?>;
+		var locale = <?php echo $arr; ?>;
 			
 		$(document).ready(function () {
 			

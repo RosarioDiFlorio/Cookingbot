@@ -4,7 +4,7 @@
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
-    $is_getrecipe = true;
+    $is_search = true;
 ?>
 <!DOCTYPE html>
 <html lang="it">

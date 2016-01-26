@@ -3,7 +3,7 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
-function getRecipesByIngredients($npeople,$input,$language,$cuisine,$diet,$occasion,$course){
+function getRecipesByIngredients($npeople,$input,$language,$cuisine,$diet,$occasion,$course,$offset=0){
 
 	$base = getPrefix();
 	$query =$base."SELECT ?recipe (COUNT(?recipe) AS ?count) WHERE{";
@@ -108,7 +108,9 @@ if($course!= ''){
 		$query = $query."}
   
 GROUP BY ?recipe
-ORDER BY DESC (?count)";
+ORDER BY DESC (?count)
+LIMIT 10
+OFFSET ".$offset;
 
 $results =  sparqlQuery($query,'JSON');
 echo $query;

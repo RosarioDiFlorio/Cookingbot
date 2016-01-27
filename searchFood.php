@@ -1,31 +1,15 @@
 <?php
    //Controller di view
 	require_once dirname(__FILE__). '/classes/Sessione.php';
-	include_once dirname(__FILE__).'/API/http_API.php';
-	include_once dirname(__FILE__).'/API/query_sparql.php';
-
+	require_once  dirname(__FILE__).'/API/http_API.php';
+	require_once  dirname(__FILE__).'/API/query_sparql.php';
+	require_once  dirname(__FILE__).'/API/get_food_API.php';
+	include_all_php("API/API_SPARQL");
     //Check se collegato
-    $loggedin = Sessione::isLoggedIn(true);
+	$loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
-    $is_search = true;
-	
-	$base = getPrefix();
-	
-	$query = $base . "SELECT ?label WHERE { ?food rdf:type comp:Food; rdfs:label ?label}";
-	
-	$res = sparqlQuery($query,"json");
-	//print_r($res);
-	$data = json_decode($res);
-	//print_r($data->results->bindings);
-	$toCicle = $data->results->bindings;
-	$ar = [];
-	for($i = 0 ; $i<sizeof($toCicle); $i++){
-		//print_r($toCicle[$i]->label->value);
-		$ar[$i] = $toCicle[$i]->label->value;
-	}
-//$ar = array('apple', 'orange', 'banana', 'strawberry');
-$ar = array_unique($ar);
-json_encode($ar);
+    $is_addrecipe = true;
+	$arr = getAllFoodsAPI();
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -33,15 +17,26 @@ json_encode($ar);
     <link href="typeahead.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
 		
-		var locale = <?php echo json_encode($ar) ?>;
+		var locale = <?php echo $arr;	?>;
 			//console.log(locale);
 		$(document).ready(function () {
 			
+			
+			
+			
 			$('input.ingredients').typeahead({
-               // name: 'ingredients',
-                local: locale
-				
-				
+                name: 'Foods',
+                local: locale,
+				hint: true,
+				highlight: true,
+				minLength: 1
+				/*matcher: function(item) {
+					// Here, the item variable is the item to check for matching.
+					// Use this.query to get the current query.
+					// return true to signify that the item was matched.
+					console.log(item);
+					return true;
+				}*/
 				
 			})
 				
@@ -111,6 +106,9 @@ json_encode($ar);
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
 	  <script src="js/measure.js"></script>
    <script type="text/javascript" src="jquery.typeahead.js"></script>
+   <link href="css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<script src="js/lib/star-rating.min.js" type="text/javascript"></script>
    
 </body>
 </html>

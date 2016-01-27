@@ -8,8 +8,10 @@ if(!Sessione::isLoggedIn()) {
 sendError("Utente non collegato");
 }
 */
+$loggedin = Sessione::isLoggedIn(true);
 $votazioniAPI = new VotazioniAPI();	
-$sessione = new Sessione();
+$nomeSub;
+$voto;
 if(!empty($_POST)){
 	
 	if(isset($_POST['nomeSub']))
@@ -17,9 +19,11 @@ if(!empty($_POST)){
 	if(isset($_POST['voto']))
 		$voto = $_POST['voto'];
 		
-		
-		
-	$idUtente = $sessione->getUid();
+	
+
+	//$voto = "3";
+	
+	$idUtente = $_SESSION['idUtente'];
 	$sub = $votazioniAPI->getSubstitution($nomeSub);
 	$idSub = $sub['id_sub'];
 	$votazioniAPI->addSubstitutionVote($idUtente, $idSub,$voto);

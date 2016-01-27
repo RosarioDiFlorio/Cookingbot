@@ -116,7 +116,7 @@ $(document).ready(function () {
 										console.log( $( this ).attr("id"));
 										var id = $( this ).attr("id");
 										console.log(id);
-										$.post( "API/insert_vote_substitution.php", { nomeSub: id , voto: value  })
+										$.post( "API/insert_vote_substitution:API.php", { nomeSub: id , voto: value  })
 											.done(function( data ) 
 											{
 														$("#btn-subs").click();

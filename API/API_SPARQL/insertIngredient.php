@@ -7,10 +7,12 @@ require_once dirname(__FILE__).'/../query_sparql.php';
 function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lang)
 {	
 
+	$detailIT ='';
+	$detailEN ='';
 	if($lang == 'it'){
-		$ingredient =	translate($ingredient,"it","en");
 		$detailEN = translate($detail,'it','en');
 		$detailIT = $detail;
+		$ingredient = strtolower(translate($ingredient, "it", "en"));
 	}
 	else
 		if($lang == 'en'){
@@ -22,19 +24,18 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 
 	$name = str_ireplace(" ","_",$name);
 	$ingredient = str_ireplace(" ","_",$ingredient);
-	$ingredient = strtolower(translate($ingredient, "it", "en"));
 	$quantity = str_ireplace(" ","_",$quantity);
 	$unit = str_ireplace(" ","_",$unit);
 	$mis = str_ireplace(" ","_",$mis);
 	$i = str_ireplace(" ","_",$i);
-	echo "3 ho ricevuto".$ingredient." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
+	echo "3 ho ricevuto".$ingredient." ".$detail."/".$detailIT."/".$detailEN." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
 	$base = getPrefix();
 	
 	$query = $base . "	INSERT DATA { comp:Ing_".$name."_".$ingredient." a fo:Ingredient ;
     fo:food comp:".$ingredient.";";
 
     if($detail !=''){
-    	$query = $query."comp:details \"".detailIT."\"@it, \"".detailEN."\"@en";
+    	$query = $query."comp:details \"".$detailIT."\"@it, \"".$detailEN."\"@en; ";
     }
 
 
@@ -57,7 +58,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	
 				
 	$query = $query." }";
-	
+	echo $query;
 	$risultato = sparqlUpdate($query);
 	
 	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
@@ -65,6 +66,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	comp:Recipe_".$name." fo:ingredients comp:IngList_".$name.". }";
 
 	$risultato2 = sparqlUpdate($query);
+	
 
 	echo $risultato." ".$risultato2;
 	

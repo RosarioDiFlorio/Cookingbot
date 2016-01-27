@@ -15,7 +15,7 @@ function useConverterForQuantity($quantity, $quantityType,$insertPoint)
 	{	
 		// g kg pound ounce
 		$query .= "fo:metric_quantity \"".$arr['g']." g\";";
-		$query .= "fo:metric_quantity \"".$arr['kg']." kg ;";
+		$query .= "fo:metric_quantity \"".$arr['kg']." kg\" ;";
 		
 		$query .= "fo:imperial_quantity \"".$arr['pound']." pound\" ;";
 		$query .= "fo:imperial_quantity \"".$arr['ounce']." ounce\" ";

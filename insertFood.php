@@ -8,7 +8,7 @@
     $loggedin = Sessione::isLoggedIn(true);
 	
     //Variabile per attivare contesto della topbar
-    $is_add = true;
+    $is_addFood = true;
 	if(!$loggedin)
 	{
 		header("Location: index.php?message=noLogin");

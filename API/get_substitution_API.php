@@ -4,11 +4,19 @@ require dirname(__FILE__) . "/query_sparql.php";
 require dirname(__FILE__) . "/../classes/Sessione.php";
 require dirname(__FILE__) . "/../classes/Utility.php";
 
+require_once dirname(__FILE__) . "/../scripts/votazioni_api.php";
+
+//inizializzo la classe per connettermi alle tabelle delle votazioni_api
+$dbConn = new VotazioniAPI();
+/*
 if(!Sessione::isLoggedIn()) {
 sendError("Utente non collegato");
+}*/
+$isLoggin = false;
+if(Sessione::isLoggedIn())
+{
+	$isLoggin = true;
 }
-
-
 $food = $_POST['nameFood'];
 
 $str = getAllSubstitutionsFood($food,"en");
@@ -40,8 +48,8 @@ if(count($toCicle)>0)
 		//costruzione delle table
 		$i = 1;
 		foreach($ar as $value)
-		{	$str .= "<div class=\"col-sm-4\">	
-								<h4 class=\"heading \">substitution ".$i."</h4>";
+		{	$str .= "<div class=\"col-sm-12\">	
+								<h4 class=\"heading \">substitution ".$i ."</h4>";
 			$str .= "<table class=\"table table-bordered\"><tr>
 								<td><i class=\"fa fa-cutlery minIcon\"></i> </td>
 									<td><i class=\"glyphicon glyphicon-scale minIcon\" ></i> </td>
@@ -53,7 +61,7 @@ if(count($toCicle)>0)
 						{
 							//salvo i parametri
 							$rigaResult = "<tr>";
-							$rigaResult .= "<td><h4>".$nome."</h4>";
+							$rigaResult .= "<td><h3>".$nome."</h3>";
 							
 							$rigaResult .= "</td>";
 							
@@ -63,7 +71,7 @@ if(count($toCicle)>0)
 								
 							foreach($quantity as $measure)
 							{
-								$rigaResult .= "".$measure."</br>";
+								$rigaResult .= " <div class=\"col-sm-2\"> ".$measure." </div> ";
 							}
 							
 							$rigaResult .= "</td>";
@@ -71,7 +79,7 @@ if(count($toCicle)>0)
 						}else
 						{	
 							$str .= "<tr>";
-							$str .= "<td>".$nome."";
+							$str .= "<td><h3>".$nome."</h3>";
 							
 							$str .= "</td>";
 							
@@ -81,7 +89,7 @@ if(count($toCicle)>0)
 								
 							foreach($quantity as $measure)
 							{
-								$str .= "".$measure."</br>";
+								$str .= " <div class=\"col-sm-2\"> ".$measure." </div> ";
 							}
 							
 							$str .= "</td>";
@@ -94,10 +102,47 @@ if(count($toCicle)>0)
 			$str .= $rigaResult;
 			/* codice per il get del rating della sostituzione */
 			
+			$str .= "<tr>";
+			$str .= "<td>";
+			$str .= "<h3>Voto</h3>";
+			$str .= "</td>";
+			$str .= "<td>";
 			
 			
+			/* prendo la sostituzione dal db per conoscerne la votazione */
+			
+			$sostituzione = substr($toCicle[$i-1]->o->value,strpos($toCicle[$i-1]->o->value,"#")+1,strlen($toCicle[$i-1]->o->value));
+			//echo $sostituzione;
+			
+			
+
+			$arrSub = $dbConn->getSubstitution($sostituzione);
+			//print_r($arrSub);
+			$voto = $dbConn->getSubstitutionVote($arrSub['id_sub']);
+			//echo $voto;
+			if($isLoggin) 
+			{
+				/* controllo se l'utente ha già votato */
+				if( $dbConn->hasVotingSub($_SESSION['idUtente'],$arrSub['id_sub']))
+				{
+					$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">You have already rated this substitution</label>';
+
+				}
+				else
+				{
+					$str .= '<input type="number"  id="'.$sostituzione.'"  value = '.$voto.' class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" >';
+
+				}
+			}else{
+				$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">you must be logged in to send your vote (click <a href="login.php">here</a> for login)</label>';
+				
+			}
+			
+			$str .= "</td>";
+			$str .= "</tr>";
 			$str .= "</table></div>";
 			$i++;
+			
 		}
 
 
@@ -105,7 +150,11 @@ if(count($toCicle)>0)
 }
 else
 {
-	echo "<h2>this food haven't substitutions</h2><br/><button id=\"btn-add-subs\" type=\"button\" class=\"btn btn-default\"  >add one</button>";
-	
+	$str = "<h2>this food haven't substitutions</h2><br/>";
+	if($isLoggin) 
+		$str .= "<button id=\"btn-add-subs\" type=\"button\" class=\"btn btn-primary\"  >add one</button>";
+	else
+		$str .= '<label for="comment">you must be logged in to add a substutition(click <a href="login.php">here</a> for login)</label>';
+	echo $str;
 }
 ?>

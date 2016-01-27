@@ -91,7 +91,7 @@ class VotazioniAPI{
 		}
 	}
 
-	
+
 
 	public function getAllSubstitution(){
 		
@@ -108,8 +108,6 @@ class VotazioniAPI{
 		return $result[0];
 		
 	}
-	
-	
 
 	public function addSubstitutionVote($idUtente, $idSub,$voto){
 		if( ! ($this->hasVotingSub($idUtente,$idSub) )){
@@ -124,11 +122,12 @@ class VotazioniAPI{
 		$query = "SELECT * FROM votazioni_sostituzioni WHERE id_sub = '".$idSub."'";
 		$result = $this->db->query($query,1);
 		$count = 0;
+		if(count($result) == 0) return 0;
 		foreach ($result as $value){
 			$vote = $vote + $value['voto'];
 			$count++;
 		}
-		
+		if($vote == 0) return 0;
 		$vote = $vote / $count;
 		return $vote;
 		

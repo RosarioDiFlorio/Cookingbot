@@ -1,5 +1,5 @@
 <?php
-require dirname(__FILE__) . "/query_sparql.php";
+require_once dirname(__FILE__) . "/query_sparql.php";
 /*
 require dirname(__FILE__) . "/../../classes/Sessione.php";
 require dirname(__FILE__) . "/../../classes/Utility.php";
@@ -17,7 +17,9 @@ $diet = strtolower((trim($_POST['diet'])));
 $occasion = strtolower((trim($_POST['occasion'])));
 $course = strtolower((trim($_POST['course'])));
 $lang = strtolower((trim($_POST['lang'])));
-insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lang);
+$ctime = strtolower((trim($_POST['ctime'])));
+$ptime = strtolower((trim($_POST['ptime'])));
+insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lang,$ptime,$ctime);
 
 
 ?>

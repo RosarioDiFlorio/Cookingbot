@@ -13,15 +13,17 @@ function scelte(scelta) {
         lang = $("input[name=lang]:checked").val();
         name = $('#name').val().trim(); 
         food = $('#food').val().trim(); 
+        ptime= $('#ptime').val().trim();
+        ctime = $('#ctime').val().trim();
         numberp = $('#nopeople').val().trim();
         cuisine = $('#cuisine').val().trim();
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
         course = $('#course').val().trim();
-        dati = "name: "+name+ ", numberp: "+nopeople+", cuisine: "+cuisine+", diet: "+diet+", occasion: "+occasion+", course:"+ course;
+        dati = "name: "+name+ ", numberp: "+nopeople+", cuisine: "+cuisine+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" Ptime:"+ptime+" Ctime:"+ctime;
         console.log(dati)
 
-        $.post( "API/insert_recipe_API.php", { name: name, food: food, numberp: numberp, cuisine: cuisine, diet: diet, occasion: occasion, course: course, lang: lang})
+        $.post( "API/insert_recipe_API.php", { name: name, food: food, numberp: numberp, cuisine: cuisine, diet: diet, occasion: occasion, course: course, lang: lang, ptime: ptime, ctime: ctime})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 if(data=='error'){
@@ -81,14 +83,15 @@ function scelte(scelta) {
         for (i=1;i<n;i++)
         {   
             ingredient = $('#ingredient'+i).val().trim();
+            detail = $('#detail'+i).val().trim();
             quantity = $('#quantity'+i).val().trim();
             unit = $('#misurazione'+i).val().trim();
             mis = $('input[name=mis'+i+']:checked').val().trim();
             name = $('#name').val().trim();
-            console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
+            console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Detail: "+detail+" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
 
             //inserisci ingrediente con quantità
-            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient, quantity: quantity, unit: unit, mis: mis, name: name, i: i, lang: lang })
+            $.post( "API/insert_ingredient_API.php", { ingredient: ingredient,detail: detail, quantity: quantity, unit: unit, mis: mis, name: name, i: i, lang: lang })
             .done(function( data ) {
                 console.log("Data Loaded 2: " + data );
             });
@@ -113,7 +116,7 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+"> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled></select></div></div>";
+    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' />Detail <input type='text' id='detail"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+"> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled></select></div></div>";
     $('#ingredients1').append(stringa);
     }
 }

@@ -6,7 +6,7 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
      $is_add = true;
-	if(!$loggedin)
+	if($loggedin)
 	{
 		header("Location: index.php?message=noLogin");
 		die();
@@ -74,6 +74,26 @@
               <input type="number" id="nopeople" class="form-control"/>
             </div>  
           
+             <div class="form-group simple">
+            <i class="fa fa-clock-o fa-3x"></i>
+            <div class="col-lg-12">
+            <input type="checkbox" value="occasion" onclick="visibile('ptime');"> 
+              <h4>Preparation Time</h4>
+              <input type="text" id="ptime" class="form-control" disabled />
+            </div>  
+          </div>
+
+
+           <div class="form-group simple">
+            <i class="fa fa-clock-o fa-3x"></i>
+            <div class="col-lg-12">
+            <input type="checkbox" value="occasion" onclick="visibile('ctime');"> 
+              <h4>Cook Time</h4>
+              <input type="text" id="ctime" class="form-control" disabled />
+            </div>  
+          </div>
+
+
           <div class="form-group simple">
             <i class="fa fa-cutlery fa-3x"></i>
             <div class="col-lg-12">
@@ -109,9 +129,8 @@
           </div>
         
            <div class="form-group box">
-            <i class="fa fa-shopping-basket fa-3x"></i>
-            <div class="col-lg-12">
-               <input type="checkbox" value="course" onclick="visibile('course');"> 
+            <i class="fa fa-language fa-3x"></i>
+            <div class="col-lg-12"> 
                <h4>What language?</h4>
                <input type="radio" name="lang" value="en" >En
                <input type="radio" name="lang" value="it" > It
@@ -165,6 +184,8 @@
             <div class="col-lg-12">
               Name
               <input type="text" id="ingredient1" class="" />
+              Detail
+              <input type="text" id="detail1" class="" />
               Quantity
               <input type="number" id="quantity1" class="" />
                <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit

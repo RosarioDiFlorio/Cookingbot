@@ -1,15 +1,22 @@
 <?php
-include_once dirname(__FILE__).'/../query_sparql.php';
+require_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
 
-function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i,$lang)
+function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lang)
 {	
 
 	if($lang == 'it'){
 		$ingredient =	translate($ingredient,"it","en");
+		$detailEN = translate($detail,'it','en');
+		$detailIT = $detail;
 	}
+	else
+		if($lang == 'en'){
+			$detailEN = $detail;
+			$detailIT = translate($detail,'en','it');
+		}
 
 	insertFoodCtrlLang($ingredient,"","","");
 
@@ -25,6 +32,12 @@ function insertIngredient($ingredient,$quantity,$unit,$mis,$name,$i,$lang)
 	
 	$query = $base . "	INSERT DATA { comp:Ing_".$name."_".$ingredient." a fo:Ingredient ;
     fo:food comp:".$ingredient.";";
+
+    if($detail !=''){
+    	$query = $query."comp:details \"".detailIT."\"@it, \"".detailEN."\"@en;"
+    }
+
+
     if($mis == 'unit') {
     	$query = $query."fo:quantity \"".$quantity." ".$unit."\"";
     }

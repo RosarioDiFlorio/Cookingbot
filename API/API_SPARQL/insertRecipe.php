@@ -1,8 +1,8 @@
 <?php
-include_once dirname(__FILE__).'/../query_sparql.php';
+require_once dirname(__FILE__).'/../query_sparql.php';
 
 
-function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$language){	
+function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lang,$ptime,$ctime){	
 
 	insertFoodCtrlLang($food,"","","");
 	
@@ -72,7 +72,13 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
     fo:produces comp:".$food." ;
 	fo:serves \"".$numberp."\" ;
 	rdfs:label \"".$label."\"";
+	if($ptime != ""){
+		$query= $query."; comp:prepTime \"".$ptime."\"";
+	}
 	
+	if($ctime != ""){
+		$query= $query."; comp:cookTime \"".$ctime."\"";
+	}
 	
 	if($cuisine != ""){
 		$query= $query.". comp:Cuisine_".$cuisine." a fo:Cuisine; rdfs:label\"".$cuisineIT."\"@it , \"".$cuisineEN."\"@en.  
@@ -93,6 +99,8 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 		$query = $query.". comp:Course_".$course." a fo:Course; rdfs:label\"".$courseIT."\"@it , \"".$courseEN."\"@en.  
 		comp:Recipe_".$name." fo:course comp:Course_".$course;
 	}
+
+
 
 	//DA INSERIRE prepTime e cookTime
 	

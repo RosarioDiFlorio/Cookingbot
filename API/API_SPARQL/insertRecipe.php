@@ -2,10 +2,13 @@
 require_once dirname(__FILE__).'/../query_sparql.php';
 
 
-function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lang,$ptime,$ctime){	
+function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$language,$ptime,$ctime){	
 
 	insertFoodCtrlLang($food,"","","");
-	
+	$cuisineEN ='';
+	$occasionEN = '';
+	$dietEN='';
+	$courseEN ='';
 	$label=$name;
 	$name = str_ireplace(" ","_",$name);
 	

@@ -34,7 +34,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
     fo:food comp:".$ingredient.";";
 
     if($detail !=''){
-    	$query = $query."comp:details \"".detailIT."\"@it, \"".detailEN."\"@en;"
+    	$query = $query."comp:details \"".detailIT."\"@it, \"".detailEN."\"@en";
     }
 
 

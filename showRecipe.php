@@ -9,20 +9,21 @@
 	
 	//VARIABILI PASSATE DALLA PAGINA CHE INVOCA QUESTA
 	
-	$recipeURI = $_POST['recipeURI'];				//uri oggetti
-	$lang = $_POST['lang'];							//lingua in cui visualizzare i dati
-	$solidMeasure = $_POST['solidMeasure'];			//"g","kg","ounce","pound"
-	$liquidMeasure = $_POST['liquidMeasure'];
-	$name = $_POST['name'];						//nome ricetta	//"ml","l","teaspoon","tablespoon","cup","pint"
-	$serves = $_POST['serves'];						//persone che si vogliono servire (dato della ricerca)
-	$originalserves = $_POST['originalserves'];		//persone servite dalla ricetta in origine (dato ontologia)
-	$cuisine = $_POST['cuisine'];					//cucina
-	$diet = $_POST['diet'];							//dieta
-	$occasion = $_POST['occasion'];					//occasione
-	$course = $_POST['course'];						//portata
+	$recipeURI = $_GET['recipeURI'];				//uri oggetti
+	$lang = $_GET['lang'];							//lingua in cui visualizzare i dati
+	$solidMeasure = $_GET['solidMeasure'];			//"g","kg","ounce","pound"
+	$liquidMeasure = $_GET['liquidMeasure'];
+	$name = $_GET['name'];						//nome ricetta	//"ml","l","teaspoon","tablespoon","cup","pint"
+	$serves = $_GET['serves'];						//persone che si vogliono servire (dato della ricerca)
+	$originalserves = $_GET['originalserves'];		//persone servite dalla ricetta in origine (dato ontologia)
+	$cuisine = $_GET['cuisine'];					//cucina
+	$diet = $_GET['diet'];							//dieta
+	$occasion = $_GET['occasion'];					//occasione
+	$course = $_GET['course'];						//portata
 	
 	//TEST HARDCODED
-	/*$lang = "it";
+	/*
+	$lang = "it";
 	$name='Insalata di pollo della mamma';
 	$originalserves = 4;
 	$serves = 5;
@@ -75,7 +76,7 @@
 <div class="container text-center"  id="wordss">
         <div class="bs-component well"   >
           <?php 
-				$url = 'http://localhost/CookingBot/API/get_recipe_details_API.php';
+				$url = 'http://localhost/git/CookingBot/API/get_recipe_details_API.php';
 				$fields = array(
 					'name' => urlencode($name),
 					'originalserves' => urlencode($originalserves),

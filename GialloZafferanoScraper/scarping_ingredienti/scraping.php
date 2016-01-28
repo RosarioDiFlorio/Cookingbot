@@ -321,8 +321,13 @@ function getDataRecipe($url){
 */
 
 //insertRecipe($nomericetta,$nomericetta,$persone,"","","",$course,"it");
-insertPrepTimeRecipe($prepTime,$nomericetta);
-insertCookTimeRecipe($cookTime,$nomericetta);
+if($prepTime != ""){
+	insertPrepTimeRecipe($prepTime,$nomericetta);	
+}
+if($cookTime != ""){
+	insertCookTimeRecipe($cookTime,$nomericetta);
+}
+
 $i=1;
 $mis="";
 $unit="";
@@ -330,17 +335,35 @@ $unit="";
 	if(trim($value['tipo']) == "unit"){
 		$mis = "unit";
 		$unit = "unit";
+		if($value['forma'] != ""){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}
 	}else if(trim($value['tipo']) == "teaspoon" || trim($value['tipo']) =="tablespoon" ||trim($value['tipo'])== "cup"){
 		$mis = "imperial";
 		$unit = trim($value['tipo']);
-		
+		if($value['forma'] != ""){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}
 	}else{
 		
 		$mis = "metric";
 		$unit = trim($value['tipo']);
+		if(trim($value['tipo']) == "g" || trim($value['tipo']) =="kg"){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}else{
+			
+			if($value['forma'] != ""){
+				insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+			}
+			
+		}
+		
+		
 	}
-
-	insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");	
+	
+	
+	
+		
 	//echo $value['nome']."<br>";
 	//echo $value['quantita']."<br>";
 	//echo $unit."<br>";

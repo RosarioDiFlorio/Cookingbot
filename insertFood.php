@@ -37,11 +37,11 @@ $ar = $res[1];
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <!-- Tema material design -->
+    <!-- Tema material design 
     <link href="css/material.min.css" rel="stylesheet">
     <link href="css/material-fullpalette.min.css" rel="stylesheet">
     <link href="css/ripples.min.css" rel="stylesheet">
-    <link href="css/roboto.min.css" rel="stylesheet">
+    <link href="css/roboto.min.css" rel="stylesheet">-->
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
     <!-- CSS Specifico della view-->

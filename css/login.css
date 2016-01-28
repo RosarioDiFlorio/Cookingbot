@@ -9,4 +9,10 @@ body {
 }
 .row.text-center img {
     display: inline-block;
+    height: 200px;
+}
+
+i {
+	size:10px;
+
 }

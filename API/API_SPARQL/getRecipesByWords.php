@@ -3,53 +3,46 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
-function getRecipesByWords($language,$input,$cuisine,$diet,$occasion,$course,$offset=0){
+function getRecipesByWords($input,$cuisine,$diet,$occasion,$course,$offset=0){
 
-	echo ' ho ricevuto'.$language.' '.$input.' Cuisine: '.$cuisine.' Diet: '.$diet.' Occasion: '.$occasion.' Course: '.$course;
-
-
-	$ingredienti = split(",",$input);
+	$keywords = split(",",$input);
 	$base = getPrefix();
 	$query=$base."
-SELECT ?recipe (COUNT(?recipe) AS ?count) WHERE{";
+	SELECT ?recipe (COUNT(?recipe) AS ?count) WHERE{";
 				
-for ($i = 0;$i< count($ingredienti);$i++){
+	for ($i = 0;$i< count($keywords);$i++){
 
 		if($i>0)
 		{
 			$query = $query."UNION";
 		}
 
-		$ingrediente = $ingredienti[$i];
+		$word = $keywords[$i];
 
-$query = $query."
-
-
-  	{
-		SELECT DISTINCT ?recipe WHERE{
-		  {
-			?recipe a fo:Recipe.
-			?recipe fo:method ?method.
-			?method ?x ?step.
-			?step fo:instruction ?instr.
-			FILTER CONTAINS(STR(?instr),\"".$ingrediente."\")
-		  }
-		  UNION
-		  {
-			?recipe a fo:Recipe;
-			  rdfs:label ?text.
-			FILTER CONTAINS(STR(?text),\"".$ingrediente."\")
-		  }
-		} 
-	}";
+		$query = $query."
 
 
+		{
+			SELECT DISTINCT ?recipe WHERE{
+				{
+					?recipe a fo:Recipe.
+					?recipe fo:method ?method.
+					?method ?x ?step.
+					?step fo:instruction ?instr.
+					FILTER regex(?instr, \"".$word."\", \"i\" )
+				}
+				UNION
+				{
+					?recipe a fo:Recipe;
+					rdfs:label ?text.
+					FILTER regex(?text, \"".$word."\", \"i\" )
+				}
+			} 
+		}";
 
-	
+	}
 
-}
-
-if($cuisine != ''){
+	if($cuisine != ''){
 		$query=$query."?recipe fo:cuisine ?cuisine.";
 	}
 	if($diet != ''){
@@ -63,48 +56,44 @@ if($cuisine != ''){
 	}
 
 
-if($cuisine != ''){
-	$query=$query."{
-    ?cuisine a fo:Cuisine;
-          rdfs:label ?cuisinetext.
-          FILTER contains(?cuisinetext,\"".$cuisine."\")
-           FILTER langMatches(lang(?cuisinetext), \"".$language."\").}";
-				}
+	if($cuisine != ''){
+		$query=$query."
+		?cuisine a fo:Cuisine;
+			  rdfs:label ?cuisinetext.
+			  FILTER regex(?cuisinetext, \"".$cuisine."\", \"i\" ).";
+	}
 
-if($diet!= ''){
-	$query=$query."{
-    ?diet a fo:Diet;
-          rdfs:label ?diettext.
-          FILTER contains(?diettext,\"".$diet."\")
-           FILTER langMatches(lang(?diettext), \"".$language."\").}";
-				}
+	if($diet!= ''){
+		$query=$query."
+		?diet a fo:Diet;
+			  rdfs:label ?diettext.
+			  FILTER regex(?diettext, \"".$diet."\", \"i\" ).";
+					}
 
-if($occasion!= ''){
-	$query=$query."{
-    ?occasion a fo:Occasion;
-          rdfs:label ?occasiontext.
-          FILTER contains(?occasiontext,\"".$occasion."\")
-           FILTER langMatches(lang(?occasiontext), \"".$language."\").}";
-				}
+	if($occasion!= ''){
+		$query=$query."
+		?occasion a fo:Occasion;
+			  rdfs:label ?occasiontext.
+			  FILTER regex(?occasiontext, \"".$occasion."\", \"i\" ).";
+	}
 
 
-if($course!= ''){
-	$query=$query."{
-    ?course a fo:Course;
-          rdfs:label ?coursetext.
-          FILTER contains(?coursetext,\"".$course."\")
-           FILTER langMatches(lang(?coursetext), \"".$language."\").}";
-				}
+	if($course!= ''){
+		$query=$query."
+		?course a fo:Course;
+			  rdfs:label ?coursetext.
+			  FILTER regex(?coursetext, \"".$course."\", \"i\" ).";
+	}
 
 
-$query =$query."} GROUP BY ?recipe
-ORDER BY DESC (?count)
-LIMIT 10
-OFFSET ".$offset;
+	$query =$query."} GROUP BY ?recipe
+	ORDER BY DESC (?count)
+	LIMIT 10
+	OFFSET ".$offset;
 
-$results =  sparqlQuery($query,'JSON');
-return $results;
-}
+	$results =  sparqlQuery($query,'JSON');
+	return $results;
+	}
 
 
 ?>

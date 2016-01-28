@@ -8,20 +8,21 @@
     $is_showRecipe = true;
 	
 	//VARIABILI PASSATE DALLA PAGINA CHE INVOCA QUESTA
-	/*$name = $_POST['name'];						//nome ricetta
-	$lang = $_POST['lang'];							//lingua in cui visualizzare i dati
-	$originalserves = $_POST['originalserves'];		//persone servite dalla ricetta in origine (dato ontologia)
-	$serves = $_POST['serves'];						//persone che si voglio servire (dato della ricerca)
-	$cuisine = $_POST['cuisine'];					//cucina
-	$course = $_POST['course'];						//portata
-	$occasion = $_POST['occasion'];					//occasione
-	$diet = $_POST['diet'];							//dieta
+	
 	$recipeURI = $_POST['recipeURI'];				//uri oggetti
-	$liquidMeasure = $_POST['liquidMeasure'];		//"ml","l","teaspoon","tablespoon","cup","pint"
+	$lang = $_POST['lang'];							//lingua in cui visualizzare i dati
 	$solidMeasure = $_POST['solidMeasure'];			//"g","kg","ounce","pound"
-	*/
+	$liquidMeasure = $_POST['liquidMeasure'];
+	$name = $_POST['name'];						//nome ricetta	//"ml","l","teaspoon","tablespoon","cup","pint"
+	$serves = $_POST['serves'];						//persone che si vogliono servire (dato della ricerca)
+	$originalserves = $_POST['originalserves'];		//persone servite dalla ricetta in origine (dato ontologia)
+	$cuisine = $_POST['cuisine'];					//cucina
+	$diet = $_POST['diet'];							//dieta
+	$occasion = $_POST['occasion'];					//occasione
+	$course = $_POST['course'];						//portata
+	
 	//TEST HARDCODED
-	$lang = "it";
+	/*$lang = "it";
 	$name='Insalata di pollo della mamma';
 	$originalserves = 4;
 	$serves = 5;
@@ -32,7 +33,7 @@
 	$recipeURI = "comp:Recipe_insalata_di_pollo_della_mamma";
 	$liquidMeasure = "ml";
 	$solidMeasure = "g";
-	
+	*/
 ?>
 <!DOCTYPE html>
 <html lang="it">

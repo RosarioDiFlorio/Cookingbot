@@ -19,7 +19,7 @@ function insertPrepTimeRecipe($timePrep,$nomericetta)
 	}
     		
 	$query = $query." }";
-	echo $query;
+	//echo $query;
 	
 	$risultato = sparqlUpdate($query);
 	//echo $risultato;
@@ -34,10 +34,10 @@ function insertCookTimeRecipe($timeCook,$nomericetta){
 	}
     		
 	$query = $query." }";
-	echo $query;
+	//echo $query;
 	
 	$risultato = sparqlUpdate($query);
-	echo $risultato;
+	//echo $risultato;
 	
 }
 //test

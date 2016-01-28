@@ -7,7 +7,7 @@ require_once dirname(__FILE__).'/../query_sparql.php';
 function insertDetailIngredientRecipe($detail,$nomeingrediente,$nomericetta,$lang)
 {	
 
-	
+	$query ="";
 	$detailIT ='';
 	$detailEN ='';
 	if($lang == 'it'){
@@ -43,7 +43,7 @@ function insertDetailIngredientRecipe($detail,$nomeingrediente,$nomericetta,$lan
 
 //Ing_Panna_cotta_al_cocco_con_coulis_di_lamponi_coconut
 //test
-insertDetailIngredientRecipe("del brasile","cocco","Panna cotta al cocco con coulis di lamponi","it");
+//insertDetailIngredientRecipe("del brasile","cocco","Panna cotta al cocco con coulis di lamponi","it");
 
 
 ?>

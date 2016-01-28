@@ -52,9 +52,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 			</h5>
 			
 			</xsl:for-each>
-			
-			
-
+			<h6 id="serves"><xsl:value-of select='//*[@id="rInfos"]/li[2]/strong' /> </h6>
+			<h7 id="serves"><xsl:value-of select='//*[@id="rInfos"]/li[3]/strong' /> </h7>
+		
 </div>
 
 </html>

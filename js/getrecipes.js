@@ -11,6 +11,7 @@ function getRecipesByIngredients(num){
     $("#results").html("");
    offset = offset + num;
    if(offset < 0)offset = 0;
+   if(num == 0)offset = 0;
    lang = $("input[name=lang]:checked").val();
     npeople = $('#npeople').val();
     n = +$('#ningredient').val() +1;
@@ -45,6 +46,7 @@ function getRecipesByWords(num){
     $("#results").html("");
     offset = offset + num;
 	if(offset < 0)offset = 0;
+	 if(num == 0)offset = 0;
 	console.log(offset);
 	lang = $("input[name=lang]:checked").val();
 	console.log(lang);

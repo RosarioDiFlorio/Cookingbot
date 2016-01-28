@@ -20,6 +20,8 @@ $diet = strtolower((trim($_POST['diet'])));
 $occasion = strtolower((trim($_POST['occasion'])));
 $course = strtolower((trim($_POST['course'])));
 $npeople = strtolower((trim($_POST['npeople'])));
+$liquid = strtolower((trim($_POST['liquidMeasure'])));
+$solid = strtolower((trim($_POST['solidMeasure'])));
 $offset=0;
 if(isset($_POST['offset'])){
 	$offset = strtolower((trim($_POST['offset'])));
@@ -106,13 +108,14 @@ $data = json_decode($results);
 		{
 			$course ="None";
 		}
-
+		
+		//IMMAGINE
 		echo "<td>";
 		$file= 'http://localhost/CookingBot/img/recipes/'.$recipename[1].'.jpg'; 
 		echo '<img src="'. $file. '" alt="no image" style="max-height: 250px; max-width: 250px;"/><br>';
 		echo "</td>";
-		echo "<td id=\"".$recipe[$i]."_details\">";
-		echo "";
+		//RECIPE DETAILS
+		echo "<td>";
 		echo '<b>Recipe Name:</b> '.$recipename[1]."<br><b>Matches:</b> ".$count[$i]." <br>";
 		echo '<b>Produces:</b> '.$food."<br><b>Serves:</b> ".$serves;
 		if($serves==0){
@@ -137,8 +140,10 @@ $data = json_decode($results);
 		
 		echo '<br><b>Cuisine:</b> '.$cuisine.'<br><b>Diet:</b> '.$diet.'<br><b>Occasion:</b> '.$occasion.'<br><b>Course:</b> '.$course.'<br>';
 		echo "</td>";
+		//BUTTON
+		$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course;
 		echo "<td>";
-		echo '<button type="button" class="btn btn-primary " onclick=""><span>SHOW RECIPE</span></button>';
+		echo '<button type="button" class="btn btn-primary value="'.$value.'" onClick="openRecipe("'$value'");" ><span>SHOW RECIPE</span></button>';
 		echo "</td>";
 
 	}

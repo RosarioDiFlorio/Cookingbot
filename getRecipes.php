@@ -49,7 +49,7 @@
          Occasion Filter<input type="text" id="occasion">
          Course Filter<input type="text" id="course">
 	<br>
-  <input type="radio" name="lang" value="en" > En
+  <input type="radio" name="lang" value="en" checked> En
                <input type="radio" name="lang" value="it" > It
 <div class="container text-center"  id="wordss">
         <div class="bs-component well"   >

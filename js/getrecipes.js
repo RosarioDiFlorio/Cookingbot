@@ -20,6 +20,8 @@ function getRecipesByIngredients(num){
     occasion = $('#occasion').val().trim();
     course = $('#course').val().trim();
     input ="";
+	liquidMeasure = $('#liquidMeasure').val();
+	solidMeasure = $('#solidMeasure').val();
     for (i=1;i<n;i++)
         {   
             ingredient = $('#ingredient'+i).val().trim();
@@ -30,7 +32,7 @@ function getRecipesByIngredients(num){
         }
         console.log(npeople+" "+input);
 
-        $.post( "API/get_recipes_API.php", {type: "ingredients", lang:lang,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
+        $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure,type: "ingredients", lang:lang,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);
@@ -56,8 +58,10 @@ function getRecipesByWords(num){
     diet = $('#diet').val().trim();
     occasion = $('#occasion').val().trim();
     course = $('#course').val().trim();
-
-    $.post( "API/get_recipes_API.php", { type: "words", lang:lang ,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
+	liquidMeasure = $('#liquidMeasure').val();
+	solidMeasure = $('#solidMeasure').val();
+	
+    $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure, type: "words", lang:lang ,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);

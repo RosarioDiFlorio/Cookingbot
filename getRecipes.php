@@ -49,6 +49,24 @@
          Occasion Filter<input type="text" id="occasion">
          Course Filter<input type="text" id="course">
 	<br>
+	 <div class="heading"><h2>Show liquids in:</h2></div>
+		<select id="liquidMeasure">
+		<option value="ml">ml</option>
+		<option value="l">l</option>
+		<option value="teaspoon">teaspoon</option>
+		<option value="tablespoon">tablespoon</option>
+		<option value="cup">cup</option>
+		<option value="pint">pint</option>
+		
+		</select>
+		
+	  <div class="heading"><h2>Show solids: in:</h2></div>
+	  <select id="solidMeasure">
+		<option value="g">g</option>
+		<option value="kg">kg</option>
+		<option value="ounce">ounce</option>
+		<option value="pound">pound</option>
+		</select><br>
   <input type="radio" name="lang" value="en" checked> En
                <input type="radio" name="lang" value="it" > It
 <div class="container text-center"  id="wordss">

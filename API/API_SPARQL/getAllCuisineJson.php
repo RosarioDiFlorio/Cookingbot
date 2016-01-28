@@ -1,16 +1,14 @@
 <?php
 include_once dirname(__FILE__).'/../query_sparql.php';
 
-/*
-* get all shopping category with label in english
-*/
-function getAllShoppingCategoryJson($lang)
+
+function getAllCuisineJson($lang)
 {
 	
 	$base = getPrefix();
 	
 	$query = $base . "
-select ?shopping ?label where { ?shopping rdf:type fo:ShoppingCategory ;
+select ?cuisine ?label where { ?cuisine rdf:type fo:Cuisine ;
     				rdfs:label ?label ;
 					filter(lang(?label)='".$lang."')
 

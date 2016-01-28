@@ -92,7 +92,7 @@ if($course!= ''){
 	$query=$query."{
     ?course a fo:Course;
           rdfs:label ?coursetext.
-          FILTER contains(?coursetext,\"".$occasion."\")
+          FILTER contains(?coursetext,\"".$course."\")
            FILTER langMatches(lang(?coursetext), \"".$language."\").}";
 				}
 

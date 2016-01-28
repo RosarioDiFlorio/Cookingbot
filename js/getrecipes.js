@@ -23,13 +23,13 @@ function getRecipesByIngredients(num){
 	liquidMeasure = $('#liquidMeasure').val();
 	solidMeasure = $('#solidMeasure').val();
     for (i=1;i<n;i++)
-        {   
+    {   
             ingredient = $('#ingredient'+i).val().trim();
            // quantity = $('#quantity'+i).val().trim();
             //unit = $('#misurazione'+i).val().trim();
             //mis = $('input[name=mis'+i+']:checked').val().trim();
             input=input+ingredient+","+quantity+","+unit+","+mis+";";
-        }
+    }
         console.log(npeople+" "+input);
 
         $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure,type: "ingredients", lang:lang,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
@@ -128,4 +128,11 @@ function visible(name1,name2){
         $('#'+name2).hide();
 }
 
+
+function openRecipe(val)
+{	
+	
+	window.open(val);
+	
+}
 

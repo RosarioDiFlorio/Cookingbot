@@ -53,7 +53,8 @@
                <input type="radio" name="lang" value="it" > It
 <div class="container text-center"  id="wordss">
         <div class="bs-component well"   >
-    
+		 <h3>Insert Number Peoples</h3>
+          <input type="text" id="npeopleWords">
           
           <h3>Insert words!</h3>
           <div  id="words1">
@@ -66,7 +67,7 @@
             </div>
           </div>
         </div>
-            <button type="button" class="btn btn-primary " onclick="getRecipesByWords();"><span>Search Recipes</span></button>
+            <button type="button" class="btn btn-primary " onclick="getRecipesByWords(0);"><span>Search Recipes</span></button>
        
         </div>
 
@@ -91,19 +92,13 @@
             <div class="col-lg-12">
               Name
               <input type="text" id="ingredient1" class="" />
-              Quantity
-              <input type="number" id="quantity1" class="" />
-               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
-               <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
-               <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
-               <select id="misurazione1" class="" disabled>
-               </select>
+             
             </div>
           </div>
         </div>
             <button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
             <button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-primary " onclick="getRecipesByIngredients();"><span>Search</span></button>
+           <button type="button" class="btn btn-primary " onclick="getRecipesByIngredients(0);"><span>Search</span></button>
 		   
         </div>
 
@@ -111,12 +106,16 @@
 
   </div>  
 
-<div class="container text-center">
-        <h3>Results:</h3>
+<div class="container text-center ">
+       <!-- <h3>Results:</h3>-->
         <div class="form-group" id="results">
           
         </div>
-
+		<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
+		<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
+		
+		<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
+		<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
 	</div>	
 	
 	

@@ -24,15 +24,114 @@ while (!feof($fd)) {
 /*
 $ricetta = trim(fgets($fd));
 $res = getDataRecipe($ricetta);
-*/
+//*/
+
+function getTimesRecipe($url){
+	
+}
+
+function getDetailsRecipe($url){
+	$scraping = new Wrapper();
+	set_time_limit(0);
+	$pathRules = 'rules_data_recipes.xsl';
+	$str = $scraping->getData($url,$pathRules);
+	$dom = new DOMDocument;
+	$dom->loadXML($str);
+	echo $str;
+	
+	$nomericetta = $dom->getElementsByTagName("h1")->item(0)->nodeValue;
+	$nomericetta = formatString($nomericetta);
+	//echo $nomericetta;
+	if(sizeof($nomericetta) == 0)
+		return -1;
+	$course = $dom->getElementsByTagName("h2")->item(0)->nodeValue;
+	$course = formatString($course);
+	//echo $course;
+	
+	$persone = $dom->getElementsByTagName("h3")->item(0)->nodeValue + 0;
+	$persone = formatString($persone);
+	//echo $persone;
+	if(sizeof($persone) == 0)
+		return -1;
+	
+	
+	$ing_list = [];
+	$log = fopen("log.txt","a+");
+	$tocycle = $dom->getElementsByTagName("h4");
+	$j = 0;
+	
+	for($i = 0;$i<$tocycle->length;$i = $i+2){
+		$nomeIng = $tocycle->item($i)->nodeValue;
+		$nomeIng = formatString($nomeIng);
+		//echo $nomeIng;
+		$ing_list[$j]['nome'] = $nomeIng;
+		
+		
+		$quantitaIng = $tocycle->item($i+1)->nodeValue;
+		$quantitaIng = formatString($quantitaIng);
+		$quantitaIng = str_replace($nomeIng," ",$quantitaIng);
+		$quantitaIng = str_replace("gr","g",$quantitaIng);
+		$quantitaIng = str_replace(",","",$quantitaIng);
+		$quantitaIng = str_replace("cucchiaino","teaspoon",$quantitaIng);
+		$quantitaIng = str_replace("cucchiaini","teaspoon",$quantitaIng);
+		$quantitaIng = str_replace("cucchiaio","tablespoon",$quantitaIng);
+		$quantitaIng = str_replace("cucchiai","tablespoon",$quantitaIng);
+		$quantitaIng = str_replace("tazza","cup",$quantitaIng);
+		$quantitaIng = str_replace("tazze","cup",$quantitaIng);
+		$quantitaIng = trim($quantitaIng);
+		$quantitaIng = str_replace('"',"",$quantitaIng);
+		//echo $quantitaIng;
+		$patternForma ='/^[a-zA-Z].*[a-zA-Z] (00\'\')|^[a-zA-Z].*[a-zA-Z] (00\")|^[a-zA-Z].*[a-zA-Z] (00)|^[a-zA-Z].*[a-zA-Z] /';
+
+		preg_match($patternForma,$quantitaIng,$matches);
+		
+		if(sizeof($matches)!=0){
+			$forma  = $matches[0];
+			
+			//print_r($matches);
+			//echo $forma;
+			//fwrite($log,$forma."\n");
+		}else{
+			$forma = "";
+		}
+		$ing_list[$j]['forma'] = $forma;
+		//print_r($ing_list);
+		
+		$j++;
+	}
+	if(sizeof($ing_list) == 0)
+		return -1;
+	
+	
+	$tocycle = $dom->getElementsByTagName("h5");
+	$step_list = [];
+	$str = "";
+	for($i = 0;$i<$tocycle->length-3;$i++){
+		$step = $tocycle->item($i)->nodeValue;
+		$str = $str."".$step;
+		
+	}
+	$step_list = array_filter(explode(".",$str));
+	if(sizeof($step_list) == 0)
+		return -1;
+	
+	
+	foreach($ing_list as $value){
+		//insertDetailIngredientRecipe($value['forma'],$value['nome'],$nomericetta,"it");	
+		echo $value['forma']."<br>";
+	}
+	
+	return 1;
+	
+	
+	
+}
 
 
 function getDataRecipe($url){
 	$scraping = new Wrapper();
 	set_time_limit(0);
-
-
-
+	
 	$pathRules = 'rules_data_recipes.xsl';
 	$str = $scraping->getData($url,$pathRules);
 	$dom = new DOMDocument;
@@ -56,6 +155,12 @@ function getDataRecipe($url){
 	//echo $persone;
 	if(sizeof($persone) == 0)
 		return -1;
+	
+	$prepTime = $dom->getElementsByTagName("h6")->item(0)->nodeValue;
+	$prepTime = formatString($prepTime);
+	
+	$cookTime = $dom->getElementsByTagName("h7")->item(0)->nodeValue;
+	$cookTime = formatString($cookTime);
 	
 	$ing_list = [];
 	$log = fopen("log.txt","a+");
@@ -190,7 +295,7 @@ function getDataRecipe($url){
 	//print_r($step_list);
 	if(sizeof($step_list) == 0)
 		return -1;
-	
+	//print_r($ing_list);
 /*
 	$del = "-----------------------------------------";
 	$fd = fopen("newdatiricette.txt","a+");
@@ -215,7 +320,14 @@ function getDataRecipe($url){
 	
 */
 
-insertRecipe($nomericetta,$nomericetta,$persone,"","","",$course,"it");
+//insertRecipe($nomericetta,$nomericetta,$persone,"","","",$course,"it");
+if($prepTime != ""){
+	insertPrepTimeRecipe($prepTime,$nomericetta);	
+}
+if($cookTime != ""){
+	insertCookTimeRecipe($cookTime,$nomericetta);
+}
+
 $i=1;
 $mis="";
 $unit="";
@@ -223,27 +335,47 @@ $unit="";
 	if(trim($value['tipo']) == "unit"){
 		$mis = "unit";
 		$unit = "unit";
+		if($value['forma'] != ""){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}
 	}else if(trim($value['tipo']) == "teaspoon" || trim($value['tipo']) =="tablespoon" ||trim($value['tipo'])== "cup"){
 		$mis = "imperial";
 		$unit = trim($value['tipo']);
-		
+		if($value['forma'] != ""){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}
 	}else{
 		
 		$mis = "metric";
 		$unit = trim($value['tipo']);
+		if(trim($value['tipo']) == "g" || trim($value['tipo']) =="kg"){
+			insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+		}else{
+			
+			if($value['forma'] != ""){
+				insertIngredient($value['nome'],$value['forma'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");
+			}
+			
+		}
+		
+		
 	}
-
-	insertIngredient($value['nome'],$value['quantita'],$unit,$mis,$nomericetta,$i,"it");	
 	
+	
+	
+		
+	//echo $value['nome']."<br>";
+	//echo $value['quantita']."<br>";
+	//echo $unit."<br>";
 }
 
 $i =1;
 foreach($step_list as $value){
-	insertStep($i,utf8_decode($value),$nomericetta);	
+	//insertStep($i,utf8_decode($value),$nomericetta);	
 	$i++;
 }
 
-	
+
 return 1;
 	
 

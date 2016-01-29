@@ -2,7 +2,7 @@
 include_once dirname(__FILE__).'/../query_sparql.php';
 
 
-function getAllDieteJson($lang)
+function getAllDietJson($lang)
 {
 	
 	$base = getPrefix();

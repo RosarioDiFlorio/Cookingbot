@@ -164,7 +164,6 @@ function translate($word, $from, $to)
 		$strResponse = $translatorObj->curlRequest($detectMethodUrl, $authHeader);
 		//Interprets a string of XML into an object.
 		$xmlObj = simplexml_load_string($strResponse);
-		$languageCode = "";
 		foreach((array)$xmlObj[0] as $val){
 			$languageCode = $val;
 		}

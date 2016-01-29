@@ -58,6 +58,7 @@ function getRecipesByWords(num){
     diet = $('#diet').val().trim();
     occasion = $('#occasion').val().trim();
     course = $('#course').val().trim();
+	console.log(course);
 	liquidMeasure = $('#liquidMeasure').val();
 	solidMeasure = $('#solidMeasure').val();
 	
@@ -92,8 +93,9 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' /></div></div>";
+    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-2x"></i>'+"<h4>Ingredient "+n+"</h4><div ><input type='text'  class=\"form-control ingredients \" id='ingredient"+n+"' /></div></div>";
     $('#ingredients1').append(stringa);
+	setUpTypeahed();
     }
 }
 
@@ -122,10 +124,12 @@ function remov(tipo){
 
 }
 
-function visible(name1,name2){
-        console.log(name1+name2);
+function visible(name1,name2,tipo){
+	$("#tipo").empty();
+       // console.log(name1+name2);
         $('#'+name1).show();
         $('#'+name2).hide();
+		$("#tipo").append(tipo);
 }
 
 

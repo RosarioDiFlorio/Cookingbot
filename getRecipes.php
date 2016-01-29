@@ -1,13 +1,54 @@
 <?php
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
+    include_once dirname(__FILE__).'/API/get_all_cuisine_API.php';
+	include_once dirname(__FILE__).'/API/get_all_occasion_API.php';
+	include_once dirname(__FILE__).'/API/get_all_course_API.php';
+	include_once dirname(__FILE__).'/API/get_all_diet_API.php';
+	require_once  dirname(__FILE__).'/API/get_food_API.php';
+    include_all_php("API/API_SPARQL");
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_search = true;
+	
+	$arr = getAllFoodsAPI();
+	
 ?>
 <!DOCTYPE html>
 <html lang="it">
+ <script src="jquery.min.js"></script>
+ <link href="typeahead.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+		
+		var locale = <?php echo $arr;	?>;
+			//console.log(locale);
+		$(document).ready(function () {
+				setUpTypeahed();
+		});
+		
+		function setUpTypeahed()
+		{
+				$('input.ingredients').typeahead({
+                name: 'Foods',
+                local: locale,
+				hint: true,
+				highlight: true,
+				minLength: 1
+				/*matcher: function(item) {
+					// Here, the item variable is the item to check for matching.
+					// Use this.query to get the current query.
+					// return true to signify that the item was matched.
+					console.log(item);
+					return true;
+				}*/
+				
+			})
+			
+		}
+	</script>
+
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,111 +79,213 @@
   </head>
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
-
-     <div class="container text-center" >
-        <div class="heading"><h2>Search Recipe</h2></div>
-        <input type="button" value="Words" onclick="visible('wordss','ingredients');">
-         <input type="button" value="Ingredients" onclick="visible('ingredients','wordss');">
-         <br>
-	       Cuisine Filter<input type="text" id="cuisine">
-         Diet Filter<input type="text" id="diet">
-         Occasion Filter<input type="text" id="occasion">
-         Course Filter<input type="text" id="course">
-	<br>
-	 <div class="heading"><h2>Show liquids in:</h2></div>
-		<select id="liquidMeasure">
-		<option value="ml">ml</option>
-		<option value="l">l</option>
-		<option value="teaspoon">teaspoon</option>
-		<option value="tablespoon">tablespoon</option>
-		<option value="cup">cup</option>
-		<option value="pint">pint</option>
+	<div class="container col-sm-12" >
+		<div class="heading"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
+		 
+			 
+		<div class="container col-sm-4" >
+			</-- CUISINE -->
+			<div>
+				<div class="heading"><span for="comment">Select the cuisine:</span></div>
+				<select class="form-control" id="cuisine">
+									<option value =" ">Select a cuisine:</option>
+									 <?php
+									 
+										$res = getAllCuisine();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+											echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			  </div>
+			  
+				</-- OCCASION -->
+			<div>
+				<div class="heading"><span for="comment">Select the occasion:</span></div>
+				<select class="form-control" id="occasion">
+									<option value =" ">Select an occasion:</option>
+									 <?php
+									 
+										$res = getAllOccasion();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+			  
+			  
+			   </-- DIET-->
+			<div>
+				<div class="heading"><span for="comment">Select the diet:</span></div>
+				<select class="form-control" id="diet">
+									<option value =" ">Select a diet:</option>
+									 <?php
+									 
+										$res = getAllDiet();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+			  
+			  
+			</-- COURSE-->
+			<div>
+				<div class="heading"><span for="comment">Select the course:</span></div>
+				<select class="form-control" id="course">
+									<option value =" ">Select a course:</option>
+									 <?php
+									 
+										$res = getAllCourse();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+		</div>
 		
-		</select>
 		
-	  <div class="heading"><h2>Show solids: in:</h2></div>
-	  <select id="solidMeasure">
-		<option value="g">g</option>
-		<option value="kg">kg</option>
-		<option value="ounce">ounce</option>
-		<option value="pound">pound</option>
-		</select><br>
-  <input type="radio" name="lang" value="en" checked> En
-               <input type="radio" name="lang" value="it" > It
-<div class="container text-center"  id="wordss">
-        <div class="bs-component well"   >
-		 <h3>Insert Number Peoples</h3>
-          <input type="text" id="npeopleWords">
-          
-          <h3>Insert words!</h3>
-          <div  id="words1">
-          <div class="form-group">
-            <i class="fa fa-shopping-cart fa-3x"></i>
-            <div class="col-lg-12">
-              
-               
-              <input type="text" id="words">
-            </div>
-          </div>
-        </div>
-            <button type="button" class="btn btn-primary " onclick="getRecipesByWords(0);"><span>Search Recipes</span></button>
-       
-        </div>
-
-  </div>  
-
-  
-
-
-
-	
-	<div class="container text-center"  id="ingredients">
-        <div class="bs-component well"   >
-		
-          <input type="hidden" value="1" id="ningredient">
-          <h3>Insert Number Peoples</h3>
-          <input type="text" id="npeople">
-          <h3>Insert Ingredients</h3>
-          <div  id="ingredients1">
-          <div class="form-group">
-            <i class="fa fa-shopping-cart fa-3x"></i>
-              <h4>Ingredient 1</h4>
-            <div class="col-lg-12">
-              Name
-              <input type="text" id="ingredient1" class="" />
-             
-            </div>
-          </div>
-        </div>
-            <button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
-            <button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-primary " onclick="getRecipesByIngredients(0);"><span>Search</span></button>
+		<div class="container col-sm-4" >
+			<div class="heading"><span for="comment">Show liquids in:</span></div>
+			<select  class="form-control" id="liquidMeasure">
+			<option value="ml">ml</option>
+				<option value="l">l</option>
+				<option value="teaspoon">teaspoon</option>
+				<option value="tablespoon">tablespoon</option>
+				<option value="cup">cup</option>
+				<option value="pint">pint</option>
+			</select>
+			
+			<div class="heading"><span for="comment">Show solid in:</span></div>
+				<select   class="form-control" id="solidMeasure">
+					<option value="g">g</option>
+					<option value="kg">kg</option>
+					<option value="ounce">ounce</option>
+					<option value="pound">pound</option>
+				</select>
+			<div>
+				<span for="comment">select the language:</span>
+				<input type="radio" name="lang" value="en" checked> En
+				<input type="radio" name="lang" value="it" > It
+			</div>	   
+				   
+				
+			<div >
+				<span for="comment">select the type of search:</span>
+				<div>
+					<input type="button" class="btn btn-default" value="Words" onclick="visible('wordss','ingredients','by words');">
+					<input type="button"  class="btn btn-default" value="Ingredients" onclick="visible('ingredients','wordss','by ingredients');">
+				 </div>
+				<!--   Cuisine Filter<input type="text" id="cuisine">
+				 Diet Filter<input type="text" id="diet">
+				 Occasion Filter<input type="text" id="occasion">
+				 Course Filter<input type="text" id="course"> -->
+			</div>	
+				
+			
+		</div>
+		 <!--FINE CONTENITORI PARTE FILTRI -->
+		 
+		 
+		 
+		 <!--RICERCA PER WORDS -->
+		<div class="container col-sm-4 text-center"  id="wordss">
+				<span for="comment">Insert Number of Peoples you want to serve</span>
+				
+				<input type="text" class="form-control " id="npeopleWords">
+			  
+				<h3>Insert words!</h3>
+				<div  id="words1">
+					<div class="form-group">
+						<i class="fa fa-shopping-cart fa-2x"></i>
+						<div >
+						<input type="text"  class="form-control " id="words">
+						</div>
+					</div>
+				</div>
+				<button type="button" class="btn btn-primary " onclick="getRecipesByWords(0);"><span>Search Recipes</span></button>
 		   
-        </div>
+			
 
-        
+		</div>  
 
-  </div>  
+	  
 
-<div class="container text-center ">
-       <!-- <h3>Results:</h3>-->
-        <div class="form-group" id="results">
-          
-        </div>
-		<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
-		<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
+
+
+		<!--RICERCA PER INGREDIENTS -->
+		<div  id="ingredients">
+			 <div class="container text-center  col-sm-4"  >
+				<input type="hidden" value="1" id="ningredient">
+				<span for="comment">Insert Number of Peoples you want to serve</span>
+				<input type="text"  class="form-control " id="npeople">
+			</div>
+			  
+			<div  class="col-sm-4">
+			
+				
+				<button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
+				<button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
+				<button type="button" class="btn btn-primary " onclick="getRecipesByIngredients(0);"><span>Search</span></button>
+				  
+			</div>
+			   
+			<div id="ingredients1" class="form-group  col-sm-4">
+			<h3>Insert Ingredients</h3>
+				<i class="fa fa-shopping-cart fa-2x "></i>
+				<h4>Ingredient 1</h4>
+				<input type="text"  class="form-control ingredients " id="ingredient1" class="" />
+			</div>
+				
+		</div>  
+
+		<div class="container text-center ">
+		   <!-- <h3>Results:</h3>-->
+			<div class="form-group" id="results">
+			  
+			</div>
+			<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
+			<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
+			
+			<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
+			<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
+		</div>	
 		
-		<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
-		<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
-	</div>	
-	
-	
-   </div>
+		
+	</div>
      <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
     <!-- Script specifici di view -->
     <script src="js/getrecipes.js"></script>
     <script src="js/lib/highcharts.js"></script>
     <script src="js/lib/highcharts-more.js"></script>
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	 <script type="text/javascript" src="jquery.typeahead.js"></script>
   </body>
 </html>

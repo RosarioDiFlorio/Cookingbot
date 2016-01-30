@@ -12,10 +12,33 @@ function scelte(scelta) {
         
         lang = $("input[name=lang]:checked").val();
         name = $('#name').val().trim(); 
+        if( name == "")
+        {
+            console.log("name empty");
+            $('#name').focus();
+            return ;
+
+        }
         food = $('#food').val().trim(); 
+        if( food == "")
+        {
+            console.log("food empty");
+            $('#food').focus();
+            return ;
+
+        }
+
         ptime= $('#ptime').val().trim();
         ctime = $('#ctime').val().trim();
         numberp = $('#nopeople').val().trim();
+
+         if( numberp < 1)
+        {
+            console.log("number empty");
+            $('#nopeople').focus();
+            return ;
+
+        }
         cuisine = $('#cuisine').val().trim();
         diet = $('#diet').val().trim();
         occasion = $('#occasion').val().trim();  
@@ -53,10 +76,20 @@ function scelte(scelta) {
         n = +$('#nstep').val() +1;
         console.log(n);
         dati_step ="";
+        for (i=1;i<n;i++)
+        {   
+            step = $('#step'+i).val();
+            if( step ==''){
+                console.log('error stepempty');
+                $('#step'+i).focus();
+                return ;
+            }
+        }
         name = $('#name').val().trim(); 
         for (i=1;i<n;i++)
         {   
             step = $('#step'+i).val();
+            
             console.log("Step "+i+" "+step);
              // vado a inserire il food nel caso non esiste
             $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
@@ -74,11 +107,28 @@ function scelte(scelta) {
     
     if(scelta=='ingredients') {
     	console.log(scelta);
+         n = +$('#ningredient').val() +1;
+        for (i=1;i<n;i++)
+        {   
+            ingredient = $('#ingredient'+i).val().trim();
+            if( ingredient ==''){
+                console.log('error ingredient empty');
+                $('#ingredient'+i).focus();
+                return ;
+            }
+            detail = $('#detail'+i).val().trim();
+            quantity = $('#quantity'+i).val().trim();
+            if( quantity <= 0){
+                console.log('error quantity ');
+                $('#quantity'+i).focus();
+                return ;
+            }
+        }
         $('#ingredients').hide();
         $('#stages').show();
         // parte finale query 
         lang = $("input[name=lang]:checked").val();
-        n = +$('#ningredient').val() +1;
+       
         dati_ingredient ="";
         for (i=1;i<n;i++)
         {   
@@ -116,7 +166,7 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' />Detail <input type='text' id='detail"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+"> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled></select></div></div>";
+    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' />Detail <input type='text' id='detail"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+" checked> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled>"+'<option value="unit">Unit</option>'+"</select></div></div>";
     $('#ingredients1').append(stringa);
     }
 }

@@ -71,7 +71,7 @@
             <i class="fa fa-users fa-3x"></i>
               <h4>How much people will it serves?</h4>
             <div class="col-lg-12">
-              <input type="number" id="nopeople" class="form-control"/>
+              <input type="number" value="1" id="nopeople" min ="1" max="10" class="form-control"/>
             </div>  
           
              <div class="form-group simple">
@@ -132,7 +132,7 @@
             <i class="fa fa-language fa-3x"></i>
             <div class="col-lg-12"> 
                <h4>What language?</h4>
-               <input type="radio" name="lang" value="en" >En
+               <input type="radio" name="lang" value="en" checked>En
                <input type="radio" name="lang" value="it" > It
             </div>
           </div>
@@ -188,10 +188,11 @@
               <input type="text" id="detail1" class="" />
               Quantity
               <input type="number" id="quantity1" class="" />
-               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
+               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');" checked> Unit
                <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
                <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
-               <select id="misurazione1" class="" disabled>
+               <select id="misurazione1" class="">
+                <option value="unit">Unit</option>
                </select>
             </div>
           </div>

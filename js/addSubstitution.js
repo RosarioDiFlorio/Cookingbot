@@ -7,6 +7,9 @@ $(document).ready(function() {
 	
 	$(".alert").hide();
 	
+	
+	
+	
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
         e.preventDefault();
@@ -14,7 +17,7 @@ $(document).ready(function() {
             x++; //text box increment
           
 			//$(wrapper).append('<div><p class="heading"></p><i class="glyphicon glyphicon-plus-sign minIcon"></i><h3 class="heading">food</h3><input class="form-control ingredients" type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /><h3 class="heading">quantity</h3><input type="text"  class="form-control" name="quantity[]" /></div>'); //add input box
-			$(wrapper).append('<div ><h3 class="heading">food</h3> <input class="form-control ingredients " type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /> <h3 class="heading">quantity</h3> <input type="text"  class="col-ms-12 " name="quantity[]" /> <input type="radio" name="mis'+x+'" value="unit" onclick="show(\'unit\',' + x + '	);"> Unit <input type="radio" name="mis'+x+'" value="metric" onclick="show(\'metric\',' + x + ');"> Metric <input type="radio" name="mis'+x+'" value="imperial" onclick="show(\'imperial\',' + x + ');"> Imperial<select id="misurazione' + x + '"  disabled> </select></div>');
+			$(wrapper).append('<div class="col-sm-4"><div class="heading">food</div> <input class="ingredients " type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /> <div class="heading">quantity</div> <div class="col-sm-4"><input type="number" min="0" class="form-control"  name="quantity[]" /></div> <input type="radio" name="mis'+x+'" value="unit" onclick="show(\'unit\',' + x + '	);"> Unit <input type="radio" name="mis'+x+'" value="metric" onclick="show(\'metric\',' + x + ');"> Metric <input type="radio" name="mis'+x+'" value="imperial" onclick="show(\'imperial\',' + x + ');"> Imperial<select id="misurazione' + x + '"  disabled> </select></div>');
 			$('input.ingredients').typeahead({
                 name: 'ingredients',
                 local: locale
@@ -22,6 +25,10 @@ $(document).ready(function() {
 		}
     });
     
+	//inserisco 2 campi in più di default;
+	$(add_button).click();
+	$(add_button).click();
+	
     /*$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); 
 		$(this).parent('div').remove(); x--;

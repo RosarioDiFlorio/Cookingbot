@@ -152,7 +152,7 @@ else
 {
 	$str = "<h2>this food haven't substitutions</h2><br/>";
 	if($isLoggin) 
-		$str .= "<button id=\"btn-add-subs\" type=\"button\" class=\"btn btn-primary\"  >add one</button>";
+		$str .= "<button id=\"btn-add-subs\" onClick=\"addSubstitution('".$food."');\"  type=\button\" class=\"btn btn-info\">add one</button>";
 	else
 		$str .= '<label for="comment">you must be logged in to add a substutition(click <a href="login.php">here</a> for login)</label>';
 	echo $str;

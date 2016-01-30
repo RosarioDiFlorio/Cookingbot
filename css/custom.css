@@ -59,6 +59,28 @@ body {
 #graphcontainer, #graphcontainer div {
     max-width: 520px !important;
 }
+
+/*  heading */
+
+.heading{
+	
+	font-weight: bold;
+}
+
+.suggest{
+	color:#999;
+}
+
+.smallSpaceTop{
+	margin-top:10px;
+
+}
+.smallSpaceBottom{
+
+	margin-bottom:10px;
+}
+
+
 /* ---------- CODICE RESPONSIVE ---------- */
 /* Cellulari(risoluzione max 480px) */
 @media(max-width:480px) {
@@ -77,3 +99,4 @@ body {
         height: auto !important;
     }
 }
+

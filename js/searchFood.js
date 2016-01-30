@@ -136,6 +136,10 @@ $(document).ready(function () {
 		
 });
 		
-		
+function addSubstitution(food)
+{
+	window.open("addSubstitution.php?food=" + food)
+	
+}
 		
 		

@@ -80,13 +80,16 @@
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 	<div class="container col-sm-12" >
-		<div class="heading"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
+		<div class="heading smallSpaceTop smallSpaceBottom"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
 		 
-			 
+		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment">in this section you can find a recipe using keyword or by inserting the ingredients that must have looked for the recipe</span></div> 
+	
+	<div id="filter"> <!-- INIZIO DIV CON I FILTRI -->	
+	
 		<div class="container col-sm-4" >
 			</-- CUISINE -->
 			<div>
-				<div class="heading"><span for="comment">Select the cuisine:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the cuisine:</span></div>
 				<select class="form-control" id="cuisine">
 									<option value =" ">Select a cuisine:</option>
 									 <?php
@@ -107,7 +110,7 @@
 			  
 				</-- OCCASION -->
 			<div>
-				<div class="heading"><span for="comment">Select the occasion:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the occasion:</span></div>
 				<select class="form-control" id="occasion">
 									<option value =" ">Select an occasion:</option>
 									 <?php
@@ -129,7 +132,7 @@
 			  
 			   </-- DIET-->
 			<div>
-				<div class="heading"><span for="comment">Select the diet:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the diet:</span></div>
 				<select class="form-control" id="diet">
 									<option value =" ">Select a diet:</option>
 									 <?php
@@ -151,7 +154,7 @@
 			  
 			</-- COURSE-->
 			<div>
-				<div class="heading"><span for="comment">Select the course:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the course:</span></div>
 				<select class="form-control" id="course">
 									<option value =" ">Select a course:</option>
 									 <?php
@@ -173,7 +176,7 @@
 		
 		
 		<div class="container col-sm-4" >
-			<div class="heading"><span for="comment">Show liquids in:</span></div>
+			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show liquids in:</span></div>
 			<select  class="form-control" id="liquidMeasure">
 			<option value="ml">ml</option>
 				<option value="l">l</option>
@@ -183,25 +186,27 @@
 				<option value="pint">pint</option>
 			</select>
 			
-			<div class="heading"><span for="comment">Show solid in:</span></div>
+			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show solid in:</span></div>
 				<select   class="form-control" id="solidMeasure">
 					<option value="g">g</option>
 					<option value="kg">kg</option>
 					<option value="ounce">ounce</option>
 					<option value="pound">pound</option>
 				</select>
-			<div>
+			<div class="heading smallSpaceTop smallSpaceBottom">
 				<span for="comment">select the language:</span>
 				<input type="radio" name="lang" value="en" checked> En
 				<input type="radio" name="lang" value="it" > It
 			</div>	   
 				   
 				
-			<div >
-				<span for="comment">select the type of search:</span>
-				<div>
-					<input type="button" class="btn btn-default" value="Words" onclick="visible('wordss','ingredients','by words');">
-					<input type="button"  class="btn btn-default" value="Ingredients" onclick="visible('ingredients','wordss','by ingredients');">
+			<div class="heading smallSpaceTop smallSpaceBottom">
+				<div for="comment " class="smallSpaceBottom smallSpaceTop">select the type of search:</div>
+				<div >
+					<!--<input type="radio" name="lang" value="en" onclick="visible('wordss','ingredients','by words');" checked> words
+					<input type="radio" name="lang" value="it" onclick="visible('ingredients','wordss','by ingredients');" > ingredients-->
+					<input type="button" class="btn btn-info" value="Words" onclick="visible('wordss','ingredients','by words');">
+					<input type="button"  class="btn btn-info" value="Ingredients" onclick="visible('ingredients','wordss','by ingredients');">
 				 </div>
 				<!--   Cuisine Filter<input type="text" id="cuisine">
 				 Diet Filter<input type="text" id="diet">
@@ -212,29 +217,33 @@
 			
 		</div>
 		 <!--FINE CONTENITORI PARTE FILTRI -->
-		 
+	
+	</div> <!-- FINE DIV  CON I FILTRI -->	 
 		 
 		 
 		 <!--RICERCA PER WORDS -->
-		<div class="container col-sm-4 text-center"  id="wordss">
-				<span for="comment">Insert Number of Peoples you want to serve</span>
-				
-				<input type="text" class="form-control " id="npeopleWords">
-			  
-				<h3>Insert words!</h3>
-				<div  id="words1">
-					<div class="form-group">
-						<i class="fa fa-shopping-cart fa-2x"></i>
-						<div >
-						<input type="text"  class="form-control " id="words">
+		<div id="wordss"> 
+			<div class="container col-sm-4 text-center"  >
+					<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
+					
+					<input type="text" class="form-control " id="npeopleWords">
+				  
+					<div class="heading smallSpaceTop smallSpaceBottom">Insert words!</div>
+					<div  id="words1">
+						<div class="form-group">
+							<i class="fa fa-shopping-cart fa-2x"></i>
+							<div >
+							<input type="text" placeholder="chicken,sauce,..."  class="form-control " id="words">
+							</div>
 						</div>
 					</div>
-				</div>
-				<button type="button" class="btn btn-primary " onclick="getRecipesByWords(0);"><span>Search Recipes</span></button>
-		   
-			
-
-		</div>  
+					
+			   
+				
+			</div>
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop" onclick="getRecipesByWords(0);"><span>Search recipes</span></button></div>	
+		
+		</div>		
 
 	  
 
@@ -244,26 +253,27 @@
 		<div  id="ingredients">
 			 <div class="container text-center  col-sm-4"  >
 				<input type="hidden" value="1" id="ningredient">
-				<span for="comment">Insert Number of Peoples you want to serve</span>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
 				<input type="text"  class="form-control " id="npeople">
 			</div>
 			  
 			<div  class="col-sm-4">
-			
+			<div class="heading smallSpaceTop smallSpaceBottom" for="comment">Insert Ingredients</div>
 				
-				<button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
-				<button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-				<button type="button" class="btn btn-primary " onclick="getRecipesByIngredients(0);"><span>Search</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('ingredient');"><span>Add Ingredient</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
+				
 				  
 			</div>
+			
 			   
 			<div id="ingredients1" class="form-group  col-sm-4">
-			<h3>Insert Ingredients</h3>
+			
 				<i class="fa fa-shopping-cart fa-2x "></i>
-				<h4>Ingredient 1</h4>
-				<input type="text"  class="form-control ingredients " id="ingredient1" class="" />
+				<span class="heading smallSpaceTop smallSpaceBottom " for="comment">Ingredient 1</span>
+				<input type="text"  class=" ingredients " id="ingredient1" />
 			</div>
-				
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop" onclick="getRecipesByIngredients(0);"><span>Search recipes</span></button></div>	
 		</div>  
 
 		<div class="container text-center ">
@@ -271,11 +281,11 @@
 			<div class="form-group" id="results">
 			  
 			</div>
-			<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
-			<button type="button" class="btn btn-primary btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
+			<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
+			<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
 			
-			<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
-			<button type="button" class="btn btn-primary btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
+			<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
+			<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
 		</div>	
 		
 		

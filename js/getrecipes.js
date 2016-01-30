@@ -93,7 +93,7 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-2x"></i>'+"<h4>Ingredient "+n+"</h4><div ><input type='text'  class=\"form-control ingredients \" id='ingredient"+n+"' /></div></div>";
+    stringa = "<div class=\"form-group\"><i class=\"fa fa-shopping-cart fa-2x\"></i><span class=\"heading\" for=\"comment\">Ingredient "+n+"</span><input type='text'  class=\"ingredients\" id='ingredient"+n+"' /></div>";
     $('#ingredients1').append(stringa);
 	setUpTypeahed();
     }

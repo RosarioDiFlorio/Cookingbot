@@ -16,6 +16,12 @@
 	}
 	
    $arr = getAllFoodsAPI();
+   $toSearch = "";
+   if(isset($_GET['food']))
+   {
+	   
+	   $toSearch = $_GET['food'];
+   }
 ?>
 
 <!DOCTYPE html>
@@ -78,46 +84,55 @@
 			
 						<div class="heading"><h2>Select an ingredient that you want to replace</h2></div>
 					
-					<div class="bs-component well">	
+					<div class="">	
 					<form id="formSubstitute">
 					
-						<div><label for="comment">enter the food you want to search</label></div>
-							<input class="form-control ingredients" type="text" placeholder="food"  id="sel1" />
+						<div><label for="comment" class="suggest">enter the food you want to search</label></div>
+						
+							<input class=" ingredients" type="text" <?php if($toSearch== "")echo  "placeholder=\"food\"";else echo "value=\"".$toSearch."\"" ?>  id="sel1" />
 					
 						<br />
 						
-						<i class="glyphicon glyphicon-transfer "></i>
+						<i class="glyphicon glyphicon-circle-arrow-down smallSpaceTop"></i>
 						<div class="heading"><h2>Enter the substitutes ingredients</h2></div>
-						
+						<div class="heading smallSpaceBottom smallSpaceTop suggest">add or remove these fields for many ingredients we need to create a replacement to the ingredient desired</div>
 						<div class="input_fields_wrap ">
 							
 							
-					<div >
-							<h3 class="heading">food</h3>
-							<input class=" form-control ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
-							<h3 class="heading">quantity</h3>
-							<input type="text"  class="col-ms-12 " name="quantity[]" />
-               <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
-               <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
-               <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
-               <select id="misurazione1" class="" disabled>
-               </select></div>
+								<div class="col-sm-4">
+										<div class="heading ">food</div>
+										<input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
+										
+										<div class="heading ">quantity</div>
+										<div class="col-sm-4">
+
+										<input type="number" min="0" class="form-control " name="quantity[]" /></div>
+										
+						  <div> <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
+						   <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
+						   <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
+						   <select id="misurazione1" class="" disabled>
+						   </select></div>
+						   </div>
            
 			
 						</div>
-						<button type="button" class="btn btn-primary add_field_button">Add More Ingredients</button>
-						<button href="#" type="button" class=" btn btn-primary  remove_field" >Remove last</button>
+			<div class="col-xs-12">
+						<button type="button" class="btn btn-info add_field_button smallSpaceTop smallSpaceBottom">Add More Ingredients</button>
+						<button href="#" type="button" class=" btn btn-info  remove_field smallSpaceTop smallSpaceBottom" >Remove last</button>
 						<br />
 						<i class="glyphicon glyphicon-scale" ></i>
 						<h3 class="heading">resulting quantity</h3>
-						
-			 <div class="col-lg-12">
-             <input type="text" name="qantityResult" class="col-ms-12" />
-               <input type="radio" name="misResult" value="unit" onclick="show('unit','Result');"> Unit
-               <input type="radio" name="misResult" value="metric" onclick="show('metric','Result');"> Metric
-               <input type="radio" name="misResult" value="imperial" onclick="show('imperial','Result');"> Imperial
-               <select id="misurazioneResult" class="" disabled>
-               </select>
+					<div class="heading smallSpaceBottom smallSpaceTop suggest">you can specify the amount resulting in the following field</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-2"><input type="number" min="0" name="qantityResult" class="form-control" /></div>
+				<div class="col-sm-4">
+					<input type="radio" name="misResult" value="unit" onclick="show('unit','Result');"> Unit
+					<input type="radio" name="misResult" value="metric" onclick="show('metric','Result');"> Metric
+					<input type="radio" name="misResult" value="imperial" onclick="show('imperial','Result');"> Imperial
+					<select id="misurazioneResult" class="" disabled>
+					</select>
+				</div>
             </div>
 
 			
@@ -125,12 +140,13 @@
 			
 			
 						</form>
+					<div class="col-sm-12">	
 						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> One or more ingredient missed</div></div>
-						<button id="btn" type="button" class="btn btn-primary" >enter</button>
-				
+						<button id="btn" type="button" class="btn btn-success btn-lg smallSpaceTop" >enter</button>
+					</div>
 						
 				
-					</div>		
+		</div>		
 	</div><!-- /.container -->
   <!-- Script specifici di view -->
     

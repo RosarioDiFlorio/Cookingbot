@@ -43,15 +43,14 @@ p {
 .typeahead,
 .tt-query,
 .tt-hint {
-  width: 0px;
-  height: 0px;
- 
-  font-size: 0px;
-  
-  border: 2px solid #ccc;
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+ width:100%;
+  font-size: 18px;
+  padding-left:5px;
+  line-height: 30px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
   outline: none;
 }
 
@@ -74,15 +73,15 @@ p {
 }
 
 .tt-dropdown-menu {
-  
+  width: 422px;
   margin-top: 12px;
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+   -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
           box-shadow: 0 5px 10px rgba(0,0,0,.2);
@@ -133,5 +132,4 @@ p {
 .CustomTemplate .repo-description {
   font-size: 14px;
 }
-
 

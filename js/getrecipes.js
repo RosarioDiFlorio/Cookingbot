@@ -28,7 +28,7 @@ function getRecipesByIngredients(num){
            // quantity = $('#quantity'+i).val().trim();
             //unit = $('#misurazione'+i).val().trim();
             //mis = $('input[name=mis'+i+']:checked').val().trim();
-            input=input+ingredient+","+quantity+","+unit+","+mis+";";
+            input=input+ingredient+";";
     }
         console.log(npeople+" "+input);
 

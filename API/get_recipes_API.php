@@ -32,7 +32,7 @@ if($type=="words"){
 }
 else{
 	if($type=="ingredients"){
-		$results = getRecipesByIngredients($input,$cuisine,$diet,$occasion,$course,$offset);
+		$results = getRecipesByIngredients($input,$lang,$cuisine,$diet,$occasion,$course,$offset);
 	}
 	else{
 		//else is with substitutions

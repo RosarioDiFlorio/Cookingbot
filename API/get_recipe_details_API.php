@@ -3,7 +3,7 @@ require dirname(__FILE__) . "/query_sparql.php";
 include_all_php("/API_SPARQL");
 
 function showImage($name){
-    $file= 'http://localhost/CookingBot/img/recipes/'.(strtolower($name)).'.jpg';
+    $file= 'http://localhost/git/CookingBot/img/recipes/'.(strtolower($name)).'.jpg';
 	
     /*if (file_exists($file) == false) {
 		//non esiste foto, non mostro nulla
@@ -39,58 +39,63 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 //stampa gli ingredienti, nel caso si visualizza per il numero di persone della ricetta
 function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 	$ingredients = getRecipeIngredients($recipeURI, $lang);
-	
-	echo '<h3>INGREDIENTS</h3>';
-	echo "<h4>";
-	foreach ($ingredients as $key => $value){
-		echo $key." ";
-		if(array_key_exists($liquidMeasure,$value)){
-			echo $value[$liquidMeasure];
-		}
-		else{
-			if(array_key_exists($solidMeasure,$value)){
-				echo $value[$solidMeasure];
+	if(!empty($ingredients))
+	{
+		echo '<h3>INGREDIENTS</h3>';
+		echo "<h4>";
+		foreach ($ingredients as $key => $value){
+			echo $key." ";
+			if(array_key_exists($liquidMeasure,$value)){
+				echo $value[$liquidMeasure];
 			}
 			else{
-				if(array_key_exists("unit",$value)){
-					echo $value["unit"];
+				if(array_key_exists($solidMeasure,$value)){
+					echo $value[$solidMeasure];
+				}
+				else{
+					if(array_key_exists("unit",$value)){
+						echo $value["unit"];
+					}
 				}
 			}
+			echo "<br>";
 		}
-		echo "<br>";
+		echo "</h4>";
 	}
-	echo "</h4>";
 }
 
 //stampa gli ingredienti, nel caso si visualizza per un numero di persone diverso da quello della ricetta
 function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves){
 	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves);
-	if($serves<2){
-		echo '<h3>INGREDIENTS (FOR '.$serves.' PERSON)</h3>';
-	}
-	else{
-		echo '<h3>INGREDIENTS (FOR '.$serves.' PEOPLE)</h3>';
-	}
-	
-	echo "<h4>";
-	foreach ($ingredients as $key => $value){
-		echo $key." ";
-		if(array_key_exists($liquidMeasure,$value)){
-			echo $value[$liquidMeasure];
+	if(!empty($ingredients))
+	{
+		if($serves<2){
+			echo '<h3>INGREDIENTS (FOR '.$serves.' PERSON)</h3>';
 		}
 		else{
-			if(array_key_exists($solidMeasure,$value)){
-				echo $value[$solidMeasure];
+			echo '<h3>INGREDIENTS (FOR '.$serves.' PEOPLE)</h3>';
+		}
+		
+		echo "<h4>";
+		foreach ($ingredients as $key => $value){
+			echo $key." ";
+			if(array_key_exists($liquidMeasure,$value)){
+				echo $value[$liquidMeasure];
 			}
 			else{
-				if(array_key_exists("unit",$value)){
-					echo $value["unit"];
+				if(array_key_exists($solidMeasure,$value)){
+					echo $value[$solidMeasure];
+				}
+				else{
+					if(array_key_exists("unit",$value)){
+						echo $value["unit"];
+					}
 				}
 			}
+			echo "<br>";
 		}
-		echo "<br>";
+		echo "</h4>";
 	}
-	echo "</h4>";
 }
 
 //stampa gli step
@@ -98,7 +103,7 @@ function printSteps($recipeURI, $lang){
 	$steps = getRecipeSteps($recipeURI, $lang);
 	echo '<h3>STEPS</h3>';
 	echo "<h4>";
-	for($i = 0 ; $i<sizeof($steps); $i++){
+	for($i = 0 ; $i<count($steps); $i++){
 		$j=$i+1;
 		echo $j.") ".$steps[$i]."<br>";
 	}

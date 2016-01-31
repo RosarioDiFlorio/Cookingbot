@@ -7,7 +7,7 @@ function getRecipeIngredients($recipeURI, $lang){
 	$query = $base . "
 	SELECT ?ing ?name ?quantity WHERE{
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 				fo:ingredients ?ingList.
 			?ing a fo:Ingredient.
 			?ingList ?x ?ing.
@@ -18,7 +18,7 @@ function getRecipeIngredients($recipeURI, $lang){
 		}
 		UNION
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 				fo:ingredients ?ingList.
 			?ing a fo:Ingredient.
 			?ingList ?x ?ing.
@@ -29,7 +29,7 @@ function getRecipeIngredients($recipeURI, $lang){
 		}
 		UNION
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 				fo:ingredients ?ingList.
 			?ing a fo:Ingredient.
 			?ingList ?x ?ing.
@@ -42,19 +42,22 @@ function getRecipeIngredients($recipeURI, $lang){
 
 	$results = sparqlQuery($query,"json");
 	$dataIng = json_decode($results);
-	$toCicleIng = $dataIng->results->bindings;
-	$ingredients = [];
-	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
-		$nameIng = $toCicleIng[$i]->name->value;
-		$quantity = $toCicleIng[$i]->quantity->value;
-		$matches = [];
-		preg_match("/[a-z]+/i",$quantity, $matches);
-		$unit = $matches[0];
-		if(!array_key_exists($nameIng,$ingredients)){
-			$ingredients[$nameIng]=[];
+	if(!empty($dataIng))
+	{
+		$toCicleIng = $dataIng->results->bindings;
+		$ingredients = [];
+		for($i = 0 ; $i<sizeof($toCicleIng); $i++){
+			$nameIng = $toCicleIng[$i]->name->value;
+			$quantity = $toCicleIng[$i]->quantity->value;
+			$matches = [];
+			preg_match("/[a-z]+/i",$quantity, $matches);
+			$unit = $matches[0];
+			if(!array_key_exists($nameIng,$ingredients)){
+				$ingredients[$nameIng]=[];
+			}
+			$ingredients[$nameIng][$unit]=$quantity;
 		}
-		$ingredients[$nameIng][$unit]=$quantity;
+		return $ingredients;
 	}
-	return $ingredients;
 }
 ?>

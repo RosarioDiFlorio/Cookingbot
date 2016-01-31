@@ -8,10 +8,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 	
 	SELECT DISTINCT ?name ?quantity WHERE{
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 			fo:serves ?served.
 			?list a fo:IngredientList.
-			".$recipeURI." fo:ingredients ?list.
+			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
 			?ing fo:quantity ?peso.
@@ -25,10 +25,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 		}
 		UNION
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 			fo:serves ?served.
 			?list a fo:IngredientList.
-			".$recipeURI." fo:ingredients ?list.
+			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
 			?ing fo:metric_quantity ?peso.
@@ -42,10 +42,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 		}
 		UNION
 		{
-			".$recipeURI." a fo:Recipe;
+			comp:".$recipeURI." a fo:Recipe;
 			fo:serves ?served.
 			?list a fo:IngredientList.
-			".$recipeURI." fo:ingredients ?list.
+			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
 			?ing fo:imperial_quantity ?peso.
@@ -62,30 +62,34 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 
 	$results = sparqlQuery($query,"json");
 	$dataIng = json_decode($results);
-	$toCicleIng = $dataIng->results->bindings;
-	$ingredients = [];
-	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
-		$nameIng = $toCicleIng[$i]->name->value;
-		echo $nameIng." ";
-		if(property_exists($toCicleIng[$i],"quantity")){
-			$weight = $toCicleIng[$i]->quantity->value;
-			echo $weight."<br>";
-			$matches = [];
-			preg_match("/[a-z]+/i",$weight, $matches);
-			$unit = $matches[0];
-		}
-		else{
-			$unit = "NA";
-			if($lang=="it")
-				$weight = "quanto basta";
-			else
-				$weight = "as needed";
-		}
-		if(!array_key_exists($nameIng,$ingredients)){
-				$ingredients[$nameIng]=[];
+	
+	if(!empty($dataIng))
+	{	
+		$toCicleIng = $dataIng->results->bindings;
+		$ingredients = [];
+		for($i = 0 ; $i<sizeof($toCicleIng); $i++){
+			$nameIng = $toCicleIng[$i]->name->value;
+			echo $nameIng." ";
+			if(property_exists($toCicleIng[$i],"quantity")){
+				$weight = $toCicleIng[$i]->quantity->value;
+				echo $weight."<br>";
+				$matches = [];
+				preg_match("/[a-z]+/i",$weight, $matches);
+				$unit = $matches[0];
 			}
-		$ingredients[$nameIng][$unit]=$weight;
+			else{
+				$unit = "NA";
+				if($lang=="it")
+					$weight = "quanto basta";
+				else
+					$weight = "as needed";
+			}
+			if(!array_key_exists($nameIng,$ingredients)){
+					$ingredients[$nameIng]=[];
+				}
+			$ingredients[$nameIng][$unit]=$weight;
+		}
+		return $ingredients;
 	}
-	return $ingredients;
 }
 ?>

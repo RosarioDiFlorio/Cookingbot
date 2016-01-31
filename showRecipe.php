@@ -20,6 +20,8 @@
 	$diet = $_GET['diet'];							//dieta
 	$occasion = $_GET['occasion'];					//occasione
 	$course = $_GET['course'];						//portata
+	$cooktime = $_GET['cooktime'];					//cooktime
+	$preptime = $_GET['preptime'];					//preptime
 	
 	//TEST HARDCODED
 	/*
@@ -88,7 +90,9 @@
 					'lang' => urlencode($lang),
 					'recipeURI' => urlencode($recipeURI),
 					'liquidMeasure' => urlencode($liquidMeasure),
-					'solidMeasure' => urlencode($solidMeasure)
+					'solidMeasure' => urlencode($solidMeasure),
+					'cooktime' => urlencode($cooktime),
+					'preptime' => urlencode($preptime)
 					
 				);
 				

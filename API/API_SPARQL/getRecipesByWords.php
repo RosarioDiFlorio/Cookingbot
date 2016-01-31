@@ -85,7 +85,7 @@ function getRecipesByWords($input,$cuisine,$diet,$occasion,$course,$offset=0){
 			  FILTER regex(?coursetext, \"".$course."\", \"i\" ).";
 	}
 
-
+	
 	$query =$query."} GROUP BY ?recipe
 	ORDER BY DESC (?count)
 	LIMIT 10

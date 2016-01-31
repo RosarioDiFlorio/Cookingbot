@@ -9,7 +9,7 @@ function getRecipeInfo($recipe,$lang){
 $base = getPrefix();
 
 $query= $base."
-SELECT ?textfood ?serves ?textcuisine ?textdiet ?textoccasion ?textcourse WHERE{
+SELECT ?textfood ?serves ?textcuisine ?textdiet ?textoccasion ?textcourse ?cooktime ?preptime WHERE{
 comp:".$recipe." a fo:Recipe;
 			fo:produces ?food;
 			fo:serves ?serves.
@@ -33,6 +33,13 @@ OPTIONAL{comp:".$recipe." fo:course ?course.
 	?course rdfs:label ?textcourse.
 FILTER langmatches(lang(?textcourse),\"".$lang."\").
 }
+
+OPTIONAL{comp:".$recipe." comp:cookTime ?cooktime;
+				comp:prepTime ?preptime.
+	
+}
+
+
 	?food rdfs:label ?textfood.
 FILTER langmatches(lang(?textfood),\"".$lang."\").
 }";

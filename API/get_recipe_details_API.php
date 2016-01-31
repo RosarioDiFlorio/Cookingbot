@@ -41,6 +41,7 @@ function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 	$ingredients = getRecipeIngredients($recipeURI, $lang);
 	if(!empty($ingredients))
 	{
+		
 		echo '<h3>INGREDIENTS</h3>';
 		echo "<h4>";
 		foreach ($ingredients as $key => $value){
@@ -111,7 +112,7 @@ function printSteps($recipeURI, $lang){
 }
 
 //formatta e invoca i metodi
-function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang){
+function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang,$cooktime,$preptime){
 	echo '<h2>'.$name.'</h2>';
 	showImage($name);
 	printInfos($originalserves,$serves,$cuisine,$course,$occasion,$diet);
@@ -121,8 +122,15 @@ function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $o
 	else{
 		printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves);
 	}
+	printTime($cooktime,$preptime);
 	printSteps($recipeURI, $lang);
 	
+}
+
+function printTime($cooktime,$preptime)
+{
+	echo "<div><strong>Cooking time:</strong>".$cooktime."</div>";
+	echo "<div><strong>Preparation time:</strong>".$preptime."</div>";
 }
 
 //esecuzione vera e propria del codice
@@ -137,5 +145,7 @@ function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $o
 	$recipeURI = $_POST['recipeURI'];
 	$liquidMeasure = $_POST['liquidMeasure'];
 	$solidMeasure = $_POST['solidMeasure'];
-	getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang);
+	$cooktime = $_POST['cooktime'];					//cooktime
+	$preptime = $_POST['preptime'];					//preptime
+	getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang,$cooktime,$preptime);
 ?>

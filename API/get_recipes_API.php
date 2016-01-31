@@ -23,6 +23,8 @@ $npeople = strtolower((trim($_POST['npeople'])));
 $liquid = strtolower((trim($_POST['liquidMeasure'])));
 $solid = strtolower((trim($_POST['solidMeasure'])));
 $offset=0;
+$cooktime;
+$preptime;
 if(isset($_POST['offset'])){
 	$offset = strtolower((trim($_POST['offset'])));
 }
@@ -46,7 +48,7 @@ $data = json_decode($results);
 	$count = [];
 	
 	echo "<div class=\"well\">";
-	echo "<table class=\"table table-striped\" >";
+	echo "<table class=\"table table-hover\" >";
 	for($i = 0 ; $i<sizeof($toCicle); $i++){
 		//print_r($toCicle[$i]->label->value);
 		echo "<tr class=\"text-left\">";
@@ -108,6 +110,24 @@ $data = json_decode($results);
 		{
 			$course ="None";
 		}
+		/*prelevo cooktime se è settato lo prendo altrimenti lo metto pari a "None"*/
+		if(isset($info[0]->cooktime->value))
+		{
+			$cooktime = $info[0]->cooktime->value;
+		}
+		else 
+		{
+			$cooktime ="None";
+		}
+		/*prelevo preptime se è settato lo prendo altrimenti lo metto pari a "None"*/
+		if(isset($info[0]->preptime->value))
+		{
+			$preptime = $info[0]->preptime->value;
+		}
+		else 
+		{
+			$preptime ="None";
+		}
 		
 		//IMMAGINE
 		echo "<td>";
@@ -143,7 +163,7 @@ $data = json_decode($results);
 		echo "</td>";
 		//BUTTON
 		//$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course;
-		$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course);
+		$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course).'&cooktime='.urlencode($cooktime).'&preptime='.urlencode($preptime);
 		echo "<td>";
 		//$value = urlencode($value);
 		echo '<button type="button" class="btn btn-info btn-lg" value="'.$value.'" onClick="openRecipe(\''.$value.'\');" ><span>SHOW RECIPE</span></button>';

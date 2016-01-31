@@ -99,7 +99,7 @@
 						<div class="input_fields_wrap ">
 							
 							
-								<div class="col-sm-4">
+								<div class="col-sm-4 ">
 										<div class="heading ">food</div>
 										<input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
 										

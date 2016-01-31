@@ -241,7 +241,7 @@
 			   
 				
 			</div>
-			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop" onclick="getRecipesByWords(0);"><span>Search recipes</span></button></div>	
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByWords(0);"><span>Search recipes</span></button></div>	
 		
 		</div>		
 
@@ -273,19 +273,21 @@
 				<span class="heading smallSpaceTop smallSpaceBottom " for="comment">Ingredient 1</span>
 				<input type="text"  class=" ingredients " id="ingredient1" />
 			</div>
-			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop" onclick="getRecipesByIngredients(0);"><span>Search recipes</span></button></div>	
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByIngredients(0);"><span>Search recipes</span></button></div>	
 		</div>  
 
 		<div class="container text-center ">
 		   <!-- <h3>Results:</h3>-->
-			<div class="form-group" id="results">
+			<div class="form-group col-xs-12" id="results">
 			  
 			</div>
+			<div class="col-xs-12 smallSpaceBottom">
 			<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
 			<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>
 			
 			<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
 			<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>
+			</div>
 		</div>	
 		
 		

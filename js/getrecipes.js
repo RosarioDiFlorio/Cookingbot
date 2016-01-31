@@ -34,6 +34,7 @@ function getRecipesByIngredients(num){
 
         $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure,type: "ingredients", lang:lang,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
             .done(function( data ) {
+				hideAllButton();
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);
 				$(".btn-ingredients").show();
@@ -64,10 +65,10 @@ function getRecipesByWords(num){
 	
     $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure, type: "words", lang:lang ,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
             .done(function( data ) {
+				hideAllButton();
                 console.log("Data Loaded: " + data );
                 $('#results').append(data);
 				$("#btn-ingredients").hide();
-	
 				$(".btn-words").show();
         });
 	
@@ -140,3 +141,9 @@ function openRecipe(val)
 	
 }
 
+function hideAllButton()
+{
+	$(".btn-words").hide();
+	$(".btn-ingredients").hide();
+	
+}

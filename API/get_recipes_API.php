@@ -45,11 +45,11 @@ $data = json_decode($results);
 	$recipe = [];
 	$count = [];
 	
-	echo "<div class=\"bs-component well\">";
-	echo "<table style=\"width:100%\">";
+	echo "<div class=\"well\">";
+	echo "<table class=\"table table-striped\" >";
 	for($i = 0 ; $i<sizeof($toCicle); $i++){
 		//print_r($toCicle[$i]->label->value);
-		echo "<tr>";
+		echo "<tr class=\"text-left\">";
 		
 		$count[$i] = $toCicle[$i]->count->value;
 		if($count[$i]== 0) {echo 'Sorry no matching found! :(';
@@ -111,14 +111,15 @@ $data = json_decode($results);
 		
 		//IMMAGINE
 		echo "<td>";
-		$file= 'http://localhost/CookingBot/img/recipes/'.$recipename[1].'.jpg'; 
+		$file= 'http://localhost/git/CookingBot/img/recipes/'.$recipename[1].'.jpg'; 
 		echo '<img src="'. $file. '" alt="no image" style="max-height: 250px; max-width: 250px;"/><br>';
 		echo "</td>";
 		//RECIPE DETAILS
 		echo "<td>";
-		echo '<b>Recipe Name:</b> '.$recipename[1]."<br><b>Matches:</b> ".$count[$i]." <br>";
-		echo '<b>Produces:</b> '.$food."<br><b>Serves:</b> ".$serves;
-		if($serves==0){
+		//echo '<b>Recipe Name:</b> '.$recipename[1]."<br><b>Matches:</b> ".$count[$i]." <br>";
+		echo '<h4><strong>Recipe Name:</strong> '.$recipename[1] ."</h4>";
+		//echo '<b>Produces:</b> '.$food."<br><b>Serves:</b> ".$serves;
+		/*if($serves==0){
 			if($lang=="it")
 				echo '4 persone';
 			else
@@ -136,16 +137,16 @@ $data = json_decode($results);
 				else
 					echo ' people';
 			}
-		}
+		}*/
 		
-		echo '<br><b>Cuisine:</b> '.$cuisine.'<br><b>Diet:</b> '.$diet.'<br><b>Occasion:</b> '.$occasion.'<br><b>Course:</b> '.$course.'<br>';
+		//echo '<br><b>Cuisine:</b> '.$cuisine.'<br><b>Diet:</b> '.$diet.'<br><b>Occasion:</b> '.$occasion.'<br><b>Course:</b> '.$course.'<br>';
 		echo "</td>";
 		//BUTTON
 		//$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course;
 		$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course);
 		echo "<td>";
 		//$value = urlencode($value);
-		echo '<button type="button" class="btn btn-primary" value="'.$value.'" onClick="openRecipe(\''.$value.'\');" ><span>SHOW RECIPE</span></button>';
+		echo '<button type="button" class="btn btn-info btn-lg" value="'.$value.'" onClick="openRecipe(\''.$value.'\');" ><span>SHOW RECIPE</span></button>';
 		echo "</td>";
 
 	}

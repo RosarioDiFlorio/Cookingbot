@@ -19,8 +19,9 @@ function getRecipeSteps($recipeURI, $lang){
 	$results = sparqlQuery($query,"json");
 	$steps = [];
 	$dataStep = json_decode($results);
-	if(!empty($dataStep))
+	if(!empty($dataStep->results->bindings))
 	{	
+		
 		$toCicleStep = $dataStep->results->bindings;
 	
 		for($i = 0 ; $i<count($toCicleStep); $i++){
@@ -51,7 +52,7 @@ function getRecipeSteps($recipeURI, $lang){
 		
 		$results = sparqlQuery($query,"json");
 		$dataStep = json_decode($results);
-		if(!empty($dataStep))
+		if(!empty($dataStep->results->bindings))
 		{	
 			$toCicleStep = $dataStep->results->bindings;
 		

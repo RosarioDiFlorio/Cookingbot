@@ -66,14 +66,25 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 	$ingredients = [];
 	for($i = 0 ; $i<sizeof($toCicleIng); $i++){
 		$nameIng = $toCicleIng[$i]->name->value;
-		$quantity = $toCicleIng[$i]->quantity->value;
-		$matches = [];
-		preg_match("/[a-z]+/i",$quantity, $matches);
-		$unit = $matches[0];
-		if(!array_key_exists($nameIng,$ingredients)){
-			$ingredients[$nameIng]=[];
+		echo $nameIng." ";
+		if(property_exists($toCicleIng[$i],"quantity")){
+			$weight = $toCicleIng[$i]->quantity->value;
+			echo $weight."<br>";
+			$matches = [];
+			preg_match("/[a-z]+/i",$weight, $matches);
+			$unit = $matches[0];
 		}
-		$ingredients[$nameIng][$unit]=$quantity;
+		else{
+			$unit = "NA";
+			if($lang=="it")
+				$weight = "quanto basta";
+			else
+				$weight = "as needed";
+		}
+		if(!array_key_exists($nameIng,$ingredients)){
+				$ingredients[$nameIng]=[];
+			}
+		$ingredients[$nameIng][$unit]=$weight;
 	}
 	return $ingredients;
 }

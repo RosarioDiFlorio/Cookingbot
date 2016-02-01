@@ -240,8 +240,9 @@
 				
 					<!--<input type="radio" name="lang" value="en" onclick="visible('wordss','ingredients','by words');" checked> words
 					<input type="radio" name="lang" value="it" onclick="visible('ingredients','wordss','by ingredients');" > ingredients-->
-					<input type="button" class="btn btn-info" value="Words" onclick="visible('wordss','ingredients','by words');">
-					<input type="button"  class="btn btn-info" value="Ingredients" onclick="visible('ingredients','wordss','by ingredients');">
+					<input type="button" class="btn btn-info" value="Words" onclick="visible('wordss','ingredients','substitutions','by words');" data-toggle="tooltip" title="search recipes by keywords">
+					<input type="button"  class="btn btn-info" value="Ingredients" onclick="visible('ingredients','wordss','substitutions','by ingredients');" data-toggle="tooltip" title="search recipes by entering the ingredients at your disposal" >
+					<input type="button"  class="btn btn-info" value="Substitutions" onclick="visible('substitutions','wordss','ingredients','by substitutions');"  data-toggle="tooltip" title="Search using your ingredients and possible substitutions">
 				 </div>
 				 
 				<!--   Cuisine Filter<input type="text" id="cuisine">
@@ -285,23 +286,19 @@
 		<div  id="ingredients"class="col-xs-12 text-center"> 
 		<div class="container col-xs-4 text-center"  ></div>
 			 <div class="container text-center  col-sm-4"  >
-				<input type="hidden" value="1" id="ningredient">
+				<input type="hidden" value="1" id="ningredients">
 				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
 				<input type="text"  class="form-control " id="npeople">
 				
 				<div  >
 				<div class="heading smallSpaceTop smallSpaceBottom text-center" for="comment">Insert Ingredients</div>
 				
-				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('ingredient');"><span>Add Ingredient</span></button>
-				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('ingredients');"><span>Add Ingredient</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('ingredients');"><span>Remove Ingredient</span></button>
 				
 				  
 				</div>
 			</div>
-			  
-			
-			
-			   
 			<div id="ingredients1" class="form-group  col-xs-12">
 			
 				<i class="fa fa-shopping-cart fa-2x "></i>
@@ -312,6 +309,40 @@
 			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByIngredients(0);"><span>Search recipes</span></button></div>	
 		</div>  
 
+		
+		
+		<!--RICERCA PER SOSTITUZIONI -->
+		<div  id="substitutions"class="col-xs-12 text-center"> 
+		<div class="container col-xs-4 text-center"  ></div>
+			 <div class="container text-center  col-sm-4"  >
+				<input type="hidden" value="1" id="nsubstitutions">
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
+				<input type="text"  class="form-control " id="npeople">
+				
+				<div  >
+				<div class="heading smallSpaceTop smallSpaceBottom text-center" for="comment">Insert Ingredients</div>
+				
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('substitutions');"><span>Add Ingredient</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('substitutions');"><span>Remove Ingredient</span></button>
+				
+				  
+				</div>
+			</div>
+			  
+			
+			
+			   
+			<div id="substitutions1" class="form-group  col-xs-12">
+			
+				<i class="fa fa-shopping-cart fa-2x "></i>
+				<div><span class="heading smallSpaceTop smallSpaceBottom " for="comment"> Ingredient 1  </span></div>
+				<input type="text"  class=" ingredients  smallSpaceBottom " id="substitution1" />
+				
+			</div>
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesBySubstitutions(0);"><span>Search recipes</span></button></div>	
+		</div>  
+		
+		
 		<div class="container text-center ">
 		   <!-- <h3>Results:</h3>-->
 			<div class="form-group col-xs-12" id="results">
@@ -327,7 +358,12 @@
 				<ul class="pager  btn-words">
 				  <li><a href="#" onclick="getRecipesByWords(-10);">Previous</a></li>
 				  <li><a href="#" onclick="getRecipesByWords(10);" >Next</a></li>
-				</ul>		
+				</ul>	
+
+			<ul class="pager  btn-subs">
+				  <li><a href="#" onclick="getRecipesBySubstitutions(-10);">Previous</a></li>
+				  <li><a href="#" onclick="getRecipesBySubstitutions(10);" >Next</a></li>
+				</ul>					
 			<!--<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>
 			<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(10);" ><span>next page</span></button>-->
 			</div>

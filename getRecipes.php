@@ -77,11 +77,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
-    <!-- Tema material design 
-    <link href="css/material.min.css" rel="stylesheet">
-    <link href="css/material-fullpalette.min.css" rel="stylesheet">
-    <link href="css/ripples.min.css" rel="stylesheet">
-    <link href="css/roboto.min.css" rel="stylesheet"> -->
+    <!-- flag -->
+    <link href="css/flags.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/custom.css" rel="stylesheet">
     <!-- CSS Specifico della view-->
@@ -95,12 +92,20 @@
   </head>
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
+	
 	<div class="container col-sm-12" >
 		<div class="heading smallSpaceTop smallSpaceBottom"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
 		 
 		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment">in this section you can find a recipe using keyword or by inserting the ingredients that must have looked for the recipe</span></div> 
+		
+		 <div class="heading smallSpaceTop smallSpaceBottom">
+				<span for="comment">select the language:</span>
+				<img  class="flag flag-gb"  /><input type="radio" name="lang" value="en" checked> En
+				<img  class="flag flag-it"  /> <input type="radio" name="lang" value="it" > It
+			</div>	  
+	
 	<div class="text-center" id="openFilter" data-toggle="tooltip" title="Add a filter!!!"> <button type="button" class="btn btn-info btn-block">Filter</button></div>
-
+	
 	<div id="filter"> <!-- INIZIO DIV CON I FILTRI -->	
 	
 		<div class="container col-sm-6" >
@@ -225,11 +230,7 @@
 		 <div class="col-xs-12">
 		 
 		 
-		 <div class="heading smallSpaceTop smallSpaceBottom">
-				<span for="comment">select the language:</span>
-				<input type="radio" name="lang" value="en" checked> En
-				<input type="radio" name="lang" value="it" > It
-			</div>	   
+		 
 				   
 				
 			<div class="heading smallSpaceTop smallSpaceBottom">
@@ -319,12 +320,12 @@
 			<div class="col-xs-12 smallSpaceBottom">
 					<ul class="pager  btn-ingredients">
 						<li><a href="#" onclick="getRecipesByIngredients(-10);">Previous</a></li>
-						<li><a href="#" onclick="getRecipesByIngredients(-10);" >Next</a></li>
+						<li><a href="#" onclick="getRecipesByIngredients(10);" >Next</a></li>
 					</ul>
 			<!--<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(-10);" ><span>previous page</span></button>
 			<button type="button" class="btn btn-info btn-ingredients" onclick="getRecipesByIngredients(10);" ><span>next page</span></button>-->
 				<ul class="pager  btn-words">
-				  <li><a href="#" onclick="getRecipesByWords(10);">Previous</a></li>
+				  <li><a href="#" onclick="getRecipesByWords(-10);">Previous</a></li>
 				  <li><a href="#" onclick="getRecipesByWords(10);" >Next</a></li>
 				</ul>		
 			<!--<button type="button" class="btn btn-info btn-words" onclick="getRecipesByWords(-10);" ><span>previous page</span></button>

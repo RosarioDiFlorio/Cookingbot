@@ -137,7 +137,7 @@ $data = json_decode($results);
 		//RECIPE DETAILS
 		echo "<td>";
 		//echo '<b>Recipe Name:</b> '.$recipename[1]."<br><b>Matches:</b> ".$count[$i]." <br>";
-		echo '<h4><strong>Recipe Name:</strong> '.$recipename[1] ."</h4>";
+		echo '<h4> <strong>Recipe Name:</strong> '.$recipename[1] ."</h4>";
 		//echo '<b>Produces:</b> '.$food."<br><b>Serves:</b> ".$serves;
 		/*if($serves==0){
 			if($lang=="it")
@@ -160,11 +160,11 @@ $data = json_decode($results);
 		}*/
 		
 		//echo '<br><b>Cuisine:</b> '.$cuisine.'<br><b>Diet:</b> '.$diet.'<br><b>Occasion:</b> '.$occasion.'<br><b>Course:</b> '.$course.'<br>';
-		echo "</td>";
+		//echo "</td>";
 		//BUTTON
 		//$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course;
 		$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course).'&cooktime='.urlencode($cooktime).'&preptime='.urlencode($preptime);
-		echo "<td>";
+		//echo "<td>";
 		//$value = urlencode($value);
 		echo '<button type="button" class="btn btn-info btn-lg" value="'.$value.'" onClick="openRecipe(\''.$value.'\');" ><span>SHOW RECIPE</span></button>';
 		echo "</td>";

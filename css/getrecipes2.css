@@ -1,0 +1,45 @@
+.btn-w {
+	/*width: 200px;*/
+	text-transform: capitalize;
+	border-radius: 4px;
+
+}
+.btn-w span {
+	/*display: block;*/
+}
+.btn-w i {
+	font-size: 45px !important;
+    color: #ffa726;
+
+}
+
+.fa {
+	color:#ce3e3e;
+	
+}
+
+.simple {
+	margin-top:20px;
+	margin-bottom:30px;
+}
+.box {
+	margin-top:20px;
+	margin-bottom:30px;
+}
+
+.bs-component {
+float: none !important;
+	display: inline-block;
+}
+
+#ingredients {
+	display: none
+}
+
+#substitutions {
+	display: none
+}
+
+#searchWithSubs {
+	display: none
+}

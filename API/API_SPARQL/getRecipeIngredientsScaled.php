@@ -6,7 +6,7 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 	$base = getPrefix();
 	$query = $base . "
 	
-	SELECT DISTINCT ?name ?quantity WHERE{
+	SELECT DISTINCT ?ing ?name ?detail ?quantity WHERE{
 		{
 			comp:".$recipeURI." a fo:Recipe;
 			fo:serves ?served.
@@ -22,6 +22,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
 			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 		UNION
 		{
@@ -39,6 +43,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
 			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 		UNION
 		{
@@ -56,6 +64,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
 			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 	}
 	";
@@ -88,6 +100,11 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 					$ingredients[$nameIng]=[];
 				}
 			$ingredients[$nameIng][$unit]=$weight;
+			$detail="";
+			if(property_exists($toCicleIng[$i],"detail")){
+				$detail = $toCicleIng[$i]->detail->value;
+			}
+			$ingredients[$nameIng]["details"]=$detail;
 		}
 		return $ingredients;
 	}

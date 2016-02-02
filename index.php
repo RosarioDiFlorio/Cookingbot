@@ -1,7 +1,12 @@
 <?php
 
-   //Controller di view
-   require_once dirname(__FILE__). '/classes/Sessione.php';
+	/* NO CACHING */
+	header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+	header("Pragma: no-cache"); // HTTP 1.0.
+	header("Expires: 0"); // Proxies.
+	
+	//Controller di view
+	require_once dirname(__FILE__). '/classes/Sessione.php';
    
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
@@ -19,9 +24,12 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="CookingBot">
     <meta name="author" content="CBteam">
-	<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-<META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
-    <title>CookingBot</title>
+	<!-- NO CACHING -->
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    
+	<title>CookingBot</title>
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->

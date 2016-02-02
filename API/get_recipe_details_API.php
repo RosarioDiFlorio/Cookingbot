@@ -3,8 +3,10 @@ require dirname(__FILE__) . "/query_sparql.php";
 include_all_php("/API_SPARQL");
 
 function showImage($name){
-    $file= 'http://localhost/git/CookingBot/img/recipes/'.(strtolower($name)).'.jpg';
 	
+	
+	$file= 'http://localhost/git/CookingBot/img/recipes/'.$name.'.jpg';
+	//echo $file;
     /*if (file_exists($file) == false) {
 		//non esiste foto, non mostro nulla
 		echo $file.'<br>Nessuna Immagine<br>';
@@ -114,7 +116,12 @@ function printSteps($recipeURI, $lang){
 //formatta e invoca i metodi
 function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang,$cooktime,$preptime){
 	echo '<h2>'.$name.'</h2>';
-	showImage($name);
+	
+	//echo $recipeURI;
+	$imgPath = str_ireplace("Recipe_","",$recipeURI);
+	$imgPath = str_ireplace("_"," ",$imgPath);
+	showImage($imgPath);
+	
 	printInfos($originalserves,$serves,$cuisine,$course,$occasion,$diet);
 	if($originalserves==$serves){
 		printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang);

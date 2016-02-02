@@ -5,7 +5,7 @@ function getRecipeIngredients($recipeURI, $lang){
 	
 	$base = getPrefix();
 	$query = $base . "
-	SELECT ?ing ?name ?quantity WHERE{
+	SELECT ?ing ?name ?detail ?quantity WHERE{
 		{
 			comp:".$recipeURI." a fo:Recipe;
 				fo:ingredients ?ingList.
@@ -15,6 +15,10 @@ function getRecipeIngredients($recipeURI, $lang){
 			?food rdfs:label ?name.
 			?ing fo:metric_quantity ?quantity.
 			FILTER langmatches(lang(?name),\"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 		UNION
 		{
@@ -26,6 +30,10 @@ function getRecipeIngredients($recipeURI, $lang){
 			?food rdfs:label ?name.
 			?ing fo:imperial_quantity ?quantity.
 			FILTER langmatches(lang(?name),\"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 		UNION
 		{
@@ -37,6 +45,10 @@ function getRecipeIngredients($recipeURI, $lang){
 			?food rdfs:label ?name.
 			?ing fo:quantity ?quantity.
 			FILTER langmatches(lang(?name),\"".$lang."\").
+			OPTIONAL{
+				?ing comp:details ?detail.
+				FILTER langmatches(lang(?detail),\"".$lang."\").
+			}
 		}
 	}ORDER BY (?x)";
 
@@ -48,14 +60,30 @@ function getRecipeIngredients($recipeURI, $lang){
 		$ingredients = [];
 		for($i = 0 ; $i<sizeof($toCicleIng); $i++){
 			$nameIng = $toCicleIng[$i]->name->value;
-			$quantity = $toCicleIng[$i]->quantity->value;
-			$matches = [];
-			preg_match("/[a-z]+/i",$quantity, $matches);
-			$unit = $matches[0];
-			if(!array_key_exists($nameIng,$ingredients)){
-				$ingredients[$nameIng]=[];
+			//echo $nameIng." ";
+			if(property_exists($toCicleIng[$i],"quantity")){
+				$weight = $toCicleIng[$i]->quantity->value;
+				//echo $weight."<br>";
+				$matches = [];
+				preg_match("/[a-z]+/i",$weight, $matches);
+				$unit = $matches[0];
 			}
-			$ingredients[$nameIng][$unit]=$quantity;
+			else{
+				$unit = "NA";
+				if($lang=="it")
+					$weight = "quanto basta";
+				else
+					$weight = "as needed";
+			}
+			if(!array_key_exists($nameIng,$ingredients)){
+					$ingredients[$nameIng]=[];
+				}
+			$ingredients[$nameIng][$unit]=$weight;
+			$detail="";
+			if(property_exists($toCicleIng[$i],"detail")){
+				$detail = $toCicleIng[$i]->detail->value;
+			}
+			$ingredients[$nameIng]["details"]=$detail;
 		}
 		return $ingredients;
 	}

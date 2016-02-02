@@ -48,7 +48,7 @@ if(count($toCicle)>0)
 		//costruzione delle table
 		$i = 1;
 		foreach($ar as $value)
-		{	$str .= "<div class=\"col-sm-12\">	
+		{	$str .= "<div class=\"col-sm-12 well\">	
 								<h4 class=\"heading \">substitution ".$i ."</h4>";
 			$str .= "<table class=\"table table-bordered\"><tr>
 								<td><i class=\"fa fa-cutlery minIcon\"></i> </td>

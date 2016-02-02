@@ -72,11 +72,11 @@
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 
      <div class="container text-center" >
-        <div class="heading"><h2>Recipe Details</h2></div>
+        <div ><h3><?php if($lang =="en") echo "Recipe Details"; else echo "Dettagli Ricetta";  ?></h3></div>
 	
 	
 <div class="container text-center"  id="wordss">
-        <div class="bs-component well"   >
+        <div class="row well"   >
           <?php 
 				$url = 'http://localhost/git/CookingBot/API/get_recipe_details_API.php';
 				$fields = array(

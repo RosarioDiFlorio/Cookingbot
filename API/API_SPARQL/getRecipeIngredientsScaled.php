@@ -69,10 +69,10 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 		$ingredients = [];
 		for($i = 0 ; $i<sizeof($toCicleIng); $i++){
 			$nameIng = $toCicleIng[$i]->name->value;
-			echo $nameIng." ";
+			//echo $nameIng." ";
 			if(property_exists($toCicleIng[$i],"quantity")){
 				$weight = $toCicleIng[$i]->quantity->value;
-				echo $weight."<br>";
+				//echo $weight."<br>";
 				$matches = [];
 				preg_match("/[a-z]+/i",$weight, $matches);
 				$unit = $matches[0];

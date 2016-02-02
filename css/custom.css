@@ -80,6 +80,27 @@ body {
 	margin-bottom:10px;
 }
 
+.smallPaddingTop{
+	padding-top:10px;
+
+}
+.smallPaddingBottom{
+
+	padding-bottom:10px;
+}
+
+.smallPadding{
+	padding:10px;
+}
+
+.allRed{
+	background-color:#ce3e3e;
+	color:#fff;
+}
+.allBlack{
+	background-color:#000;
+	color:#fff;
+}
 
 /* ---------- CODICE RESPONSIVE ---------- */
 /* Cellulari(risoluzione max 480px) */

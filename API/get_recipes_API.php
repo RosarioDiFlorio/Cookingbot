@@ -132,12 +132,12 @@ $data = json_decode($results);
 		//IMMAGINE
 		echo "<td>";
 		$file= 'http://localhost/git/CookingBot/img/recipes/'.$recipename[1].'.jpg'; 
-		echo '<img src="'. $file. '" alt="no image" style="max-height: 250px; max-width: 250px;"/><br>';
+		echo '<div class="col-xs-12 col-ms-6"><img src="'. $file. '" alt="no image" class="img-responsive" style=" width: 250px;"/></div>';
 		echo "</td>";
 		//RECIPE DETAILS
 		echo "<td>";
 		//echo '<b>Recipe Name:</b> '.$recipename[1]."<br><b>Matches:</b> ".$count[$i]." <br>";
-		echo '<h4> <strong>Recipe Name:</strong> '.$recipename[1] ."</h4>";
+		echo '<div class="col-xs-12 col-ms-6"><h4> <strong>Recipe Name:</strong> '.$recipename[1] ."</h4></div>";
 		//echo '<b>Produces:</b> '.$food."<br><b>Serves:</b> ".$serves;
 		/*if($serves==0){
 			if($lang=="it")

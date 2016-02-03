@@ -110,7 +110,7 @@ function insertRecipe($name,$food,$numberp,$cuisine,$diet,$occasion,$course,$lan
 	$query = $query.".}";
 				
 	$risultati = sparqlUpdate($query);
-	echo $query;
+	//echo $query;
 	
 	
 }

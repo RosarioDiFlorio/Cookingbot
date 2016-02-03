@@ -157,7 +157,25 @@ $(document).ready(function() {
 			$.post( "API/insert_substitution_API.php", { nameFood: food , quantityResult : qRes , ing : ing , quantity : quan, fakeIng: fakeIng, ingList : ingredientList , misResult : misResult ,typeMis : arrMisType})
 				.done(function( data ) {
 					console.log("Success: " + data);
-				
+					if(data.trim() == ''){
+
+					$.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: 'Your substitution was insert with success!',
+        });
+
+				}
+				else
+				{
+
+					$.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: 'Your substituion was not insert!',
+        });
+					return ;
+				}
 				
 			});
 		}

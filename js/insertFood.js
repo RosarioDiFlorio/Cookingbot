@@ -39,6 +39,25 @@ $("#btn-insert").click(function()
 		$.post( "API/insert_food_API.php", { nameFood: food , kc : kcal , kj : kjaul , shop: shopping })
 			.done(function( data ) {
 				console.log("Success: " + data);
+				if(data.trim() == ''){
+
+					$.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: 'Your food was insert with success!',
+        });
+
+				}
+				else
+				{
+
+					$.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: 'Your food was not insert!',
+        });
+					return ;
+				}
 			$("#contain").hide();
 			$("#success").show();
 			

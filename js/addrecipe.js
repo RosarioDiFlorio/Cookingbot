@@ -49,17 +49,36 @@ function scelte(scelta) {
         $.post( "API/insert_recipe_API.php", { name: name, food: food, numberp: numberp, cuisine: cuisine, diet: diet, occasion: occasion, course: course, lang: lang, ptime: ptime, ctime: ctime})
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
-                if(data=='error'){
-            alert("Ricetta già esistente");
+                if(data.trim()=='error'){
+                $.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: 'This recipe already exists!',
+        });
             return ;
         }
-        else
+        else if(data.trim() == '')
         {
+            $.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: "Your recipe's infos were insert with success!",
+        });
 			$('#photo_id').val(name);
 			console.log("NAME: "+name);
 			console.log("HIDDEN: "+$('#photo_id').val());
 			$('#info').hide();
 			$('#ingredients').show();}
+            else
+                {
+
+                    $.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: "Your recipe's info were not insert!",
+        });
+                    return ;
+                }
         });
 
 
@@ -95,13 +114,33 @@ function scelte(scelta) {
             $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
             .done(function( data ) {
                 console.log("Data Loaded: " + data );
+                if(data.trim() == ''){
+
+                    $.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: 'Your steps were insert with success!',
+        });
+                    $('#stages').hide();
+        $('#photo').show();
+
+                }
+                else
+                {
+
+                    $.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: 'Your steps were not insert!',
+        });
+                    return ;
+                }
             });
 
         }
 
         console.log(dati_step);
-		$('#stages').hide();
-		$('#photo').show();
+		
         return;
     }
     
@@ -124,8 +163,7 @@ function scelte(scelta) {
                 return ;
             }
         }
-        $('#ingredients').hide();
-        $('#stages').show();
+        
         // parte finale query 
         lang = $("input[name=lang]:checked").val();
        
@@ -144,11 +182,33 @@ function scelte(scelta) {
             $.post( "API/insert_ingredient_API.php", { ingredient: ingredient,detail: detail, quantity: quantity, unit: unit, mis: mis, name: name, i: i, lang: lang })
             .done(function( data ) {
                 console.log("Data Loaded 2: " + data );
+                if(data.trim() == ''){
+
+                    $.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: 'Your ingredients were insert with success!',
+        });
+                    $('#ingredients').hide();
+        $('#stages').show();
+
+                }
+                else
+                {
+
+                    $.toaster({
+            title: 'Error',
+            priority: 'danger',
+            message: 'Your ingredients were not insert!',
+        });
+                    return ;
+                }
             });
 
 
 
         }
+        
         return;
     }
 }
@@ -229,5 +289,12 @@ function show(tipologia,numero) {
 
 }
 
+function suctoa(){
 
+            $.toaster({
+            title: 'Congratulation',
+            priority: 'success',
+            message: 'Your recipe was inserts with success!',
+        });
+}
 

@@ -30,7 +30,7 @@ function insertStep($i,$step,$name)
 	$query = $base . "	INSERT DATA { comp:Recipe_".$name." fo:method comp:Method_".$name.".
 					}";
 	$risultato= sparqlUpdate($query);
-	echo $risultato;
+	//echo $risultato;
 }
 
 

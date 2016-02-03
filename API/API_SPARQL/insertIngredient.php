@@ -28,7 +28,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	$unit = str_ireplace(" ","_",$unit);
 	$mis = str_ireplace(" ","_",$mis);
 	$i = str_ireplace(" ","_",$i);
-	echo "3 ho ricevuto".$ingredient." ".$detail."/".$detailIT."/".$detailEN." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
+	//echo "3 ho ricevuto".$ingredient." ".$detail."/".$detailIT."/".$detailEN." - ".$quantity." - ".$unit." - ".$mis." - ".$name."\n";
 	$base = getPrefix();
 	
 	$query = $base . "	INSERT DATA { comp:Ing_".$name."_".$ingredient." a fo:Ingredient ;
@@ -58,7 +58,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	
 				
 	$query = $query." }";
-	echo $query;
+	//echo $query;
 	$risultato = sparqlUpdate($query);
 	
 	$query = $base . "	INSERT DATA { comp:IngList_".$name." a fo:IngredientList;
@@ -68,7 +68,7 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	$risultato2 = sparqlUpdate($query);
 	
 
-	echo $risultato." ".$risultato2;
+	//echo $risultato." ".$risultato2;
 	
 }
 

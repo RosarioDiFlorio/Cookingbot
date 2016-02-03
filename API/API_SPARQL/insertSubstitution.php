@@ -11,7 +11,7 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 	{
 		insertFoodCtrlLang($arrFoodSub[$i],"","","");
 	}
-	echo "query fake ingredient";
+	//echo "query fake ingredient";
 	//creazione ingrediente fake
 		$base = getPrefix();
 	
@@ -48,11 +48,11 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 		}			
 			
 		$query .= "}";
-		echo $query;
+		//echo $query;
 		sparqlUpdate($query);
 		
 		
-	echo "query IngredientList";
+	//echo "query IngredientList";
 	//creazione ingredientList
 			$query = $base . "insert data { comp:".str_ireplace(" ","_",$ingList)." rdf:type fo:IngredientList ;";
 			
@@ -96,16 +96,16 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 			
 			$query .= ". }";
 			//echo "<br/>";
-			echo $query;
+			// echo $query;
 			sparqlUpdate($query);
 			
 	//fine creazione ingredientList
 		
 		//collego al food
-			echo "query collegamento al food";
+			//echo "query collegamento al food";
 		$query = $base . "insert data {comp:".str_ireplace(" ","_",strtolower(translate($food,"it","en")))." comp:hasSubstitution comp:".$ingList." }";
-		echo "<br/>";
-		echo $query;
+		//echo "<br/>";
+		//echo $query;
 		sparqlUpdate($query);
 	
 }

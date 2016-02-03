@@ -6,7 +6,7 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
      $is_add = true;
-	if(!$loggedin)
+	if($loggedin)
 	{
 		header("Location: index.php?message=noLogin");
 		die();
@@ -219,7 +219,7 @@
                               <input name="myfile" type="file" size="30" />
                          </label>
                          <label>
-                             <input type="submit" name="submitBtn" class="sbtn" value="Upload" />
+                             <input type="submit" name="submitBtn" class="sbtn" value="Upload" onclick="suctoa();" />
                          </label>
                      </p>
           </form>

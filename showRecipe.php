@@ -40,6 +40,15 @@
 ?>
 <!DOCTYPE html>
 <html lang="it">
+<script src="jquery.min.js"></script>
+<script src="js/showRecipe.js"></script>
+	<script>
+		$(document).ready(function () {
+			$('[data-toggle="tooltip"]').tooltip();  //init tooltip
+		});
+		
+		
+	</script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,7 +81,7 @@
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 
      <div class="container text-center" >
-        <div ><h3><?php if($lang =="en") echo "Recipe Details"; else echo "Dettagli Ricetta";  ?></h3></div>
+       <!-- <div ><h3><?php if($lang =="en") echo "Recipe Details"; else echo "Dettagli Ricetta";  ?></h3></div>-->
 	
 	
 <div class="container text-center"  id="wordss">
@@ -121,10 +130,39 @@
         </div>
 
   </div>  
+  
+  
+  <!-- Trigger the modal with a button -->
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title" id="header">Modal Header</h4>
+      </div>
+      <div class="modal-body" id="content">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+  
      <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune ?>
     <!-- Script specifici di view -->
     <script src="js/lib/highcharts.js"></script>
     <script src="js/lib/highcharts-more.js"></script>
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	 <link href="css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<script src="js/lib/star-rating.min.js" type="text/javascript"></script>
   </body>
 </html>

@@ -12,7 +12,7 @@ function showImage($name){
 		echo $file.'<br>Nessuna Immagine<br>';
     }
 	else {  */
-		echo '<div class="allBlack"><img src="'. $file. '" alt="'. $name. '" style="max-height: 500px; max-width: 500px;"/></div>';
+		echo '<div class="col-ms-6 allBlack  text-center smallPadding"><img src="'. $file. '" alt="'. $name. '" class="img-responsive " /></div></div>';
     //}
 }
 
@@ -65,70 +65,44 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 //stampa gli ingredienti, nel caso si visualizza per il numero di persone della ricetta
 function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 	$ingredients = getRecipeIngredients($recipeURI, $lang);
+	$tooltip;
+	$substitution;
 	if(!empty($ingredients))
-	{
+	{	
+		echo "<div class=\"col-xs-12  text-left  smallSpaceBottom \">";
 		$ingredients = removeDuplicate($ingredients);
 		if($lang == "en")
-			echo '<h3>INGREDIENTS</h3>';
+		{	
+			$substitution = "show substitutions";
+			$tooltip = "click here to see the substitution ingredients for this ingredient";
+			if($serves<2){
+				
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' person)</h3>';
+			}
+			else{
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' people)</h3>';
+			}
+		}
 		else
-			echo '<h3>INGREDIENTI</h3>';
+		{	
+			$substitution = "mostra le sostituzioni";
+			$tooltip = "clicca quì per visualizzare gli ingredienti che possono sostituire questo ingrediente";
+			if($serves<2){
+				
+				echo '<h3><strong>INGREDIENTI </strong>( per '.$serves.' persona)</h3>';
+			}
+			else{
+				
+				echo '<h3><strong>INGREDIENTI</strong> ( per '.$serves.' persone)</h3>';
+				
+			}
+		}
 		
-		echo "<div class=\"col-xs-12 smallSpaceBottom  \">";
-
+		
+		echo "<table class=\"table table-bordered\">";
 		foreach ($ingredients as $key => $value){
-			echo "<div class=\"col-xs-12\"><strong>";
-			echo $key." ";
-			if(array_key_exists($liquidMeasure,$value)){
-				echo $value[$liquidMeasure];
-			}
-			else{
-				if(array_key_exists($solidMeasure,$value)){
-					echo $value[$solidMeasure];
-				}
-				else{
-					if(array_key_exists("unit",$value)){
-						echo $value["unit"];
-					}
-				}
-			}
-			echo "</strong></div>";
-		}
-		echo "</div>";
-	}
-}
-
-//stampa gli ingredienti, nel caso si visualizza per un numero di persone diverso da quello della ricetta
-function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves){
-	
-	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves);
-	
-	if(!empty($ingredients))
-	{
-		$ingredients = removeDuplicate($ingredients);
-		if($lang == "en")
-		{
-			if($serves<2){
-				
-				echo '<h3>INGREDIENTS ( for '.$serves.' person)</h3>';
-			}
-			else{
-				echo '<h3>INGREDIENTS ( for '.$serves.' people)</h3>';
-			}
-		}
-		else
-		{
-			
-			if($serves<2){
-				
-				echo '<h3>INGREDIENTI ( per '.$serves.' persona)</h3>';
-			}
-			else{
-				echo '<h3>INGREDIENTI ( per '.$serves.' persone)</h3>';
-			}
-		}
-		echo "<div class=\"col-xs-12 smallSpaceBottom \">";
-
-		foreach ($ingredients as $key => $value){
+			echo "<tr>";
+			echo "<td>";
 			echo "<div class=\"col-xs-12 smallSpaceBottom \"><strong>";
 			echo $key." ";
 			if(array_key_exists($liquidMeasure,$value)){
@@ -144,8 +118,85 @@ function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang
 					}
 				}
 			}
-			echo "</strong></div>";
+			echo "</td>";
+			echo "<td class=\"text-center\">";
+			
+			echo "</strong><input type=\"button\" class=\"btn btn-info\" value=\"".$substitution."\" onclick=\"showSubstitutions('".$key."');\" data-toggle=\"tooltip\" title=\"".$tooltip."\"> </div>";
+			echo "</td>";
+			echo "<tr>";
 		}
+		
+		echo "</table>";
+		echo "</div>";
+	}
+}
+
+//stampa gli ingredienti, nel caso si visualizza per un numero di persone diverso da quello della ricetta
+function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves){
+	
+	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves);
+	$tooltip;
+	$substitution;
+	if(!empty($ingredients))
+	{	
+		echo "<div class=\"col-xs-12  text-left  smallSpaceBottom \">";
+		$ingredients = removeDuplicate($ingredients);
+		if($lang == "en")
+		{	
+			$substitution = "show substitutions";
+			$tooltip = "click here to see the substitution ingredients for this ingredient";
+			if($serves<2){
+				
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' person)</h3>';
+			}
+			else{
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' people)</h3>';
+			}
+		}
+		else
+		{	
+			$substitution = "mostra le sostituzioni";
+			$tooltip = "clicca quì per visualizzare gli ingredienti che possono sostituire questo ingrediente";
+			if($serves<2){
+				
+				echo '<h3><strong>INGREDIENTI </strong>( per '.$serves.' persona)</h3>';
+			}
+			else{
+				
+				echo '<h3><strong>INGREDIENTI</strong> ( per '.$serves.' persone)</h3>';
+				
+			}
+		}
+		
+		
+		echo "<table class=\"table table-bordered\">";
+		foreach ($ingredients as $key => $value){
+			echo "<tr>";
+			echo "<td>";
+			echo "<div class=\"col-xs-12 smallSpaceBottom \"><strong>";
+			echo $key." ";
+			if(array_key_exists($liquidMeasure,$value)){
+				echo $value[$liquidMeasure];
+			}
+			else{
+				if(array_key_exists($solidMeasure,$value)){
+					echo $value[$solidMeasure];
+				}
+				else{
+					if(array_key_exists("unit",$value)){
+						echo $value["unit"];
+					}
+				}
+			}
+			echo "</td>";
+			echo "<td class=\"text-center\">";
+			
+			echo "</strong><input type=\"button\" class=\"btn btn-info\" value=\"".$substitution."\" onclick=\"showSubstitutions('".$key."','".$lang."');\" data-toggle=\"tooltip\" title=\"".$tooltip."\"> </div>";
+			echo "</td>";
+			echo "<tr>";
+		}
+		
+		echo "</table>";
 		echo "</div>";
 	}
 }
@@ -153,10 +204,12 @@ function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang
 //stampa gli step
 function printSteps($recipeURI, $lang){
 	$steps = getRecipeSteps($recipeURI, $lang);
+	echo "<div class=\"text-left\">";
 	if($lang == "en")
-		echo '<h3>STEPS</h3>';
+		echo '<h3><strong>STEPS</strong></h3>';
 	else
-		echo '<h3>SVOLGIMENTO</h3>';
+		echo '<h3><strong>SVOLGIMENTO</strong></h3>';
+	echo "</div>";
 	echo "<div class=\"col-xs-12 text-left smallSpaceBottom \">";
 	for($i = 0 ; $i<count($steps); $i++){
 		$j=$i+1;
@@ -169,11 +222,14 @@ function printSteps($recipeURI, $lang){
 function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $occasion, $diet, $recipeURI, $liquidMeasure, $solidMeasure, $lang,$cooktime,$preptime){
 	$title = substr($name,1,strlen($name));
 	$title = strtoupper($name[0]) . $title;
-	echo '<div class="allRed text-left smallPadding smallSpaceBottom"><h2><strong>'.$title.'</strong></h2></div>';
+	
 	
 	//echo $recipeURI;
 	$imgPath = str_ireplace("Recipe_","",$recipeURI);
 	$imgPath = str_ireplace("_"," ",$imgPath);
+	
+	
+	echo '<div class="col-ms-12 "><div class="col-ms-6 text-left allRed smallPadding "><h2><strong>'.$title.'</strong></h2></div>';
 	showImage($imgPath);
 	
 	printInfos($originalserves,$serves,$cuisine,$course,$occasion,$diet,$lang);

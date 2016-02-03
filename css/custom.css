@@ -102,6 +102,16 @@ body {
 	color:#fff;
 }
 
+.allGray{
+	background-color:#ccc;
+	color:#000;
+}
+
+/* img responsive centrate */
+.img-responsive {
+    margin: 0 auto;
+}
+
 /* ---------- CODICE RESPONSIVE ---------- */
 /* Cellulari(risoluzione max 480px) */
 @media(max-width:480px) {

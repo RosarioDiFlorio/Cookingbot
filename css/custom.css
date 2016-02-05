@@ -112,6 +112,17 @@ body {
     margin: 0 auto;
 }
 
+/* testo campi input */
+ input.form-control{
+ text-align: center;
+font-weight:bold;
+
+}
+
+input{
+margin-bottom:10px;
+}
+
 /* ---------- CODICE RESPONSIVE ---------- */
 /* Cellulari(risoluzione max 480px) */
 @media(max-width:480px) {

@@ -1,20 +1,59 @@
 <?php
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
-   
+     include_once dirname(__FILE__).'/API/get_all_cuisine_API.php';
+	include_once dirname(__FILE__).'/API/get_all_occasion_API.php';
+	include_once dirname(__FILE__).'/API/get_all_course_API.php';
+	include_once dirname(__FILE__).'/API/get_all_diet_API.php';
+	require_once  dirname(__FILE__).'/API/get_food_API.php';
+	include_all_php("API/API_SPARQL");
 	//Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
      $is_add = true;
-	if($loggedin)
+	if(!$loggedin)
 	{
 		header("Location: index.php?message=noLogin");
 		die();
 	}
 	
+	$arr = getAllFoodsAPI();
+	
 	?>
 <!DOCTYPE html>
 <html lang="it">
+ <script src="jquery.min.js"></script>
+ <link href="typeahead.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+		
+		var locale = <?php echo $arr;	?>;
+			//console.log(locale);
+		$(document).ready(function () {
+				setUpTypeahed();
+				//$('[data-toggle="tooltip"]').tooltip();  //init tooltip
+				
+		});
+		
+		function setUpTypeahed()
+		{
+				$('input.ingredients').typeahead({
+                name: 'Foods',
+                local: locale,
+				hint: true,
+				highlight: true,
+				minLength: 1
+				/*matcher: function(item) {
+					// Here, the item variable is the item to check for matching.
+					// Use this.query to get the current query.
+					// return true to signify that the item was matched.
+					console.log(item);
+					return true;
+				}*/
+				
+			})
+			
+		}
+	</script>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,10 +85,17 @@
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 
+	<!-- DIV LOADING -->
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#pleaseWaitDialog">Open Modal</button>-->
+
+	<?php require_once("components/waitdialog.php");?>
+
+	
+	
      <div class="container text-center" >
         <div class="heading"><h2>Help us, add a new recipe!</h2></div>
 
-		<div class="bs-component well" id="info" >
+		<div class="bs-component" id="info" >
 		
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
@@ -62,8 +108,9 @@
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
               <h4>Product</h4>
+			  <div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the food product from this recipe:</span></div>
             <div class="col-lg-12">
-              <input type="text" id="food" class="form-control" />
+              <input type="text" id="food" class="ingredients" />
             </div>
           </div>
 
@@ -97,10 +144,29 @@
           <div class="form-group simple">
             <i class="fa fa-cutlery fa-3x"></i>
             <div class="col-lg-12">
-            <input type="checkbox" value="occasion" onclick="visibile('cuisine');"> 
+           
               <h4>What is the cuisine of this recipe?</h4>
             
-              <input type="text" id="cuisine" class="form-control" disabled />
+              </-- CUISINE -->
+			<div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the cuisine:</span></div>
+				<select class="form-control" id="cuisine">
+									<option value =" ">Select a cuisine:</option>
+									 <?php
+									 
+										$res = getAllCuisine();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+											echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			  </div>
             </div>  
           </div>
           <div class="form-group box">
@@ -108,23 +174,86 @@
             <div class="col-lg-12">
                <input type="checkbox" value="diet" onclick="visibile('diet');"> 
                <h4> Diet </h4>
-               <input type="text" id="diet" class="form-control"  disabled />
+               
+				   </-- DIET-->
+			<div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the diet:</span></div>
+				<select class="form-control" id="diet">
+									<option value =" ">Select a diet:</option>
+									 <?php
+									 
+										$res = getAllDiet();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+			   
             </div>
           </div> 
           <div class="form-group box">
             <i class="fa fa-birthday-cake fa-3x"></i>
             <div class="col-lg-12">
-               <input type="checkbox" value="occasion" onclick="visibile('occasion');"> 
+              
                <h4>Occasion to made it?</h4>
-               <input type="text" id="occasion" class="form-control"  disabled />
+              
+					</-- OCCASION -->
+			<div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the occasion:</span></div>
+				<select class="form-control" id="occasion">
+									<option value =" ">Select an occasion:</option>
+									 <?php
+									 
+										$res = getAllOccasion();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+			  
             </div>
           </div> 
            <div class="form-group box">
             <i class="fa fa-shopping-basket fa-3x"></i>
             <div class="col-lg-12">
-               <input type="checkbox" value="course" onclick="visibile('course');"> 
+              
                <h4>What king of dish is it?</h4>
-               <input type="text" id="course" class="form-control"  disabled />
+				
+				</-- COURSE-->
+			<div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the course:</span></div>
+				<select class="form-control" id="course">
+									<option value =" ">Select a course:</option>
+									 <?php
+									 
+										$res = getAllCourse();
+								
+										$value = $res[0];
+										$ar = $res[1];
+										 for($i = 0;$i < count($value); $i++)
+										{
+												echo "<option value =\"".$ar[$i]."\">".$ar[$i]."</option>";
+										}
+																	  
+									 ?>
+				</select>
+			  
+			</div>
+				
             </div>
           </div>
         
@@ -140,13 +269,13 @@
 
 
 
-          <button type="button" class="btn btn-primary " onclick="scelte('info');"><span>Continue to add Steps</span></button>
+          <button type="button" class="btn btn-success " onclick="scelte('info');"><span>Continue to add Steps</span></button>
         </div>
       </div>
 	</div><!-- /.container -->
 	
 	<div class="container text-center"  id="stages" >
-        <div class="bs-component well" >
+        <div class="bs-component" >
 		
           <input type="hidden" value="1" id="nstep">
           <i class="fa fa-file-text fa-3x"></i>
@@ -156,14 +285,14 @@
             
               <h4>Step 1</h4>
             <div >
-              
-              <input type="text" id="step1" class="form-control" />
+				  <textarea class="form-control" rows="5" id="step1"></textarea>
+             <!-- <input type="text" id="step1" class="form-control" />-->
             </div>
           </div>
         </div>
-            <button type="button" class="btn btn-primary " onclick="add('step');"><span>Add Step</span></button>
-            <button type="button" class="btn btn-primary " onclick="remov('step');"><span>Remove Step</span></button>
-           <button type="button" class="btn btn-primary " onclick="scelte('stages');"><span>Upload Photo</span></button>
+            <button type="button" class="btn btn-default " onclick="add('step');"><span>Add Step</span></button>
+            <button type="button" class="btn btn-default " onclick="remov('step');"><span>Remove Step</span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('stages');"><span>Insert steps into recipes</span></button>
 		   
 		   
         </div>
@@ -172,22 +301,27 @@
 	
 	
 	<div class="container text-center"  id="ingredients">
-        <div class="bs-component well"   >
+       
 		
-          <input type="hidden" value="1" id="ningredient">
+          <input type="hidden" value="1" id="ningredient" >
           
-          <h3>What are the ingredients of this recipe?</h3>
+          <div class="suggest">What are the ingredients of this recipe?</div>
           <div  id="ingredients1">
-          <div class="form-group">
-            <i class="fa fa-shopping-cart fa-3x"></i>
+		  <i class="fa fa-shopping-cart fa-3x"></i>
               <h4>Ingredient 1</h4>
-            <div class="col-lg-12">
-              Name
-              <input type="text" id="ingredient1" class="" />
-              Detail
-              <input type="text" id="detail1" class="" />
-              Quantity
-              <input type="number" id="quantity1" class="" />
+          <div class="form-group col-xs-12">
+            
+            <div class="col-sm-4">
+             <div> Name </div>
+              <input type="text" id="ingredient1" class="ingredients" />
+			</div>
+			<div class="col-sm-4">			
+			Detail
+              <input type="text" id="detail1" class="form-control" />
+              </div>
+			  <div class="col-sm-4">
+			  Quantity
+              <input type="number" id="quantity1" class="form-control" />
                <input type="radio" name="mis1" value="unit" onclick="show('unit','1');" checked> Unit
                <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
                <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
@@ -197,16 +331,40 @@
             </div>
           </div>
         </div>
-            <button type="button" class="btn btn-primary " onclick="add('ingredient');"><span>Add Ingredient</span></button>
-            <button type="button" class="btn btn-primary " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-primary " onclick="scelte('ingredients');"><span>Continue To Add Steps</span></button>
+		<?php
+		/*echo "<i class=\"fa fa-shopping-cart fa-3x\"></i>
+				<h4>Ingredient "+n+"</h4>
+				<div class=\"form-group col-xs-12\">
+				<div class=\"col-lg-12\">
+				  <div class=\"col-sm-4\">
+				<div>Name </div> 
+				<input type=\"text\" id=\"ingredient"+n+"\" />
+				</div>
+				<div class=\"col-sm-4\">		
+				Detail 
+				<input type='text' id=\"detail"+n+"\" />
+				</div>
+				<div class=\"col-sm-4\">				
+				Quantity 
+				<input type='number' id=\"quantity"+n+"\" /> 
+				<input type='radio' name=\"mis"+n+"\" value='unit' onclick=\"show('unit','"+n+"');\" checked> Unit 
+				<input type='radio' name=\"mis"+n+"\" value='metric' onclick=\"show('metric','"+n+"');\" > 
+				Metric <input type='radio' name=\"mis"+n+"\" value='imperial' onclick=\"show('imperial','"+n+"');\"> Imperial
+				<select id=\"misurazione"+n+"\" disabled><option value=\"unit\">Unit</option></select></div></div></div>";
+		
+		*/
+		?>
+		
+            <button type="button" class="btn btn-default " onclick="add('ingredient');"><span>Add Ingredient</span></button>
+            <button type="button" class="btn btn-default " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('ingredients');"><span>Insert ingredient into recipe</span></button>
 		   
-        </div>
+       
 
 	</div>	
 	
 	<div class="container text-center"  id="photo">
-        <div class="bs-component well"   >
+        <div class="bs-component "   >
           
           <h3>Upload a Photo</h3>
 		  <div class="form-group">
@@ -216,16 +374,16 @@
 							<input type="hidden" value="recipe" name="photo_id" id="photo_id" />
 						</label>	
                          <label> 
-                              <input name="myfile" type="file" size="30" />
+                              <input name="myfile" class="form-control" type="file" size="30" />
                          </label>
                          <label>
-                             <input type="submit" name="submitBtn" class="sbtn" value="Upload" onclick="suctoa();" />
+                             <input type="submit" name="submitBtn" class="form-control sbtn" value="Upload" onclick="suctoa();" />
                          </label>
                      </p>
           </form>
 			</div>
 			</div>
-           <button type="button" class="btn btn-primary " onclick="window.location = 'http://localhost/CookingBot';"><span>Home</span></button>
+           <button type="button" class="btn btn-success " onclick="location.reload();"><span>Add another recipe</span></button>
         </div>
 		</div>
 		
@@ -237,5 +395,7 @@
     <script src="js/lib/highcharts.js"></script>
     <script src="js/lib/highcharts-more.js"></script>
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	 <script type="text/javascript" src="jquery.typeahead.js"></script>
+	  <script type="text/javascript" src="js/lib/progressbar.js"></script>
   </body>
 </html>

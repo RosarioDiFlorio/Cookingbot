@@ -26,3 +26,10 @@ function showSubstitutions(nome,lang)
         });
 			
 		}
+		
+		
+	function addSubstitution(food)
+{
+	window.open("addSubstitution.php?food=" + food)
+	
+}

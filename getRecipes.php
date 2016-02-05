@@ -104,7 +104,7 @@
 				<img  class="flag flag-it"  /> <input type="radio" name="lang" value="it" > It
 			</div>	  
 	
-	<div class="text-center" id="openFilter" data-toggle="tooltip" title="Add a filter!!!"> <button type="button" class="btn btn-info btn-block">Filter</button></div>
+	<div class="text-center" id="openFilter" data-toggle="tooltip" title="Add a filter!!!"> <button type="button" class="btn btn-info btn-block">add filter</button></div>
 	
 	<div id="filter"> <!-- INIZIO DIV CON I FILTRI -->	
 	
@@ -263,7 +263,7 @@
 					<div class="heading smallSpaceTop smallSpaceBottom">Insert words!</div>
 					<div  id="words1">
 						<div class="form-group">
-							<i class="fa fa-shopping-cart fa-2x"></i>
+							<i class="fa fa-shopping-cart fa-2x red"></i>
 							<div >
 							<input type="text" placeholder="chicken,sauce,..."  class="form-control " id="words">
 							</div>
@@ -300,7 +300,7 @@
 			</div>
 			<div id="ingredients1" class="form-group  col-xs-12">
 			
-				<i class="fa fa-shopping-cart fa-2x "></i>
+				<i class="fa fa-shopping-cart fa-2x red "></i>
 				<div><span class="heading smallSpaceTop smallSpaceBottom " for="comment"> Ingredient 1 </span></div>
 				<input type="text"  class=" ingredients  smallSpaceBottom " id="ingredient1" />
 				

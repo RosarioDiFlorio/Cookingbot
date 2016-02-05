@@ -3,7 +3,7 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
-function insertStep($i,$step,$name)
+function insertStep($i,$step,$name,$lang)
 {	
 	
 	$i = str_ireplace(" ","_",$i);
@@ -13,7 +13,7 @@ function insertStep($i,$step,$name)
 	
 	//inserisco step
 	$query = $base . "	INSERT DATA { comp:Step_".$name."_".$i." a fo:Step ;
-		fo:instruction \"".$step."\"@".detectLang($step).".
+		fo:instruction \"".$step."\"@".$lang.".
 	}";
 	
 	sparqlUpdate($query);

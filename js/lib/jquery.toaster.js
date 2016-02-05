@@ -108,9 +108,9 @@
 				'<span class="title"></span>: <span class="message"></span>' +
 			'</div>',
 
-			'css'      : {},
-			'cssm'     : {},
-			'csst'     : { 'fontWeight' : 'bold' },
+			'css'      : {'color' :'#fff', 'background-color' : '#ce3e3e', 'width'    : '100%'},
+			'cssm'     : {'width'    : '100%'},
+			'csst'     : { 'fontWeight' : 'bold', 'fontSize':'24px' ,'width'    : '100%' },
 
 			'fade'     : 'slow',
 

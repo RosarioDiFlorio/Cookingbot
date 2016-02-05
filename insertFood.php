@@ -55,17 +55,17 @@ $ar = $res[1];
   </head>
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
-
+<?php require_once("components/waitdialog.php"); ?>
      <div class="container text-center" id="contain">
        
 
 			<div class="heading"><h2>Help us, add a new food!</h2></div>
 	
 			
-					<div class="bs-component  well"  >	
+					<div class="bs-component col-sm-6 col-lg-6"  >	
 						
 						<form id="foodForm" >
-						<i class="fa fa-spoon"></i>
+						<i class="fa fa-spoon red"></i>
 						<h3 class="heading">Insert the food name</h3>
 						<label for="comment">Usually an ingredient is added to the plural. Please enter the ingredient in the plural where possible</label>
 						<input type="text" id="food" class="form-control" />
@@ -86,19 +86,19 @@ $ar = $res[1];
 							  </select>
 						</div>
 						<h3 class="heading">KJ per 100g (optional)</h3>
-<label for="comment">Nutrition data: energy (in kJ) per 100g (or 100ml for liquids). <br/>
-Keep this field blank if you do not have this information</label>
+						<label for="comment">Nutrition data: energy (in kJ) per 100g (or 100ml for liquids). <br/>
+						Keep this field blank if you do not have this information</label>
 						<input type="number" id="kjaul" min="0" class="form-control " />
 						<br />
 						<h3 class="heading">Kcal per 100g (optional)</h3>
-<label for="comment">Nutrition data: energy (in kcal) per 100g (or 100ml for liquids). <br/> Keep this field blank if you do not have this information</label>
+						<label for="comment">Nutrition data: energy (in kcal) per 100g (or 100ml for liquids). <br/> Keep this field blank if you do not have this information</label>
 						<input type="number" id="kcal" min="0" class="form-control " />
 						<br />
 						
 						
 			
 						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> missed food </div></div>
-												<button id="btn-insert" type="button" class="btn btn-primary"  >enter</button>
+												<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop smallSpaceBottom"  >enter</button>
 						</form>
 					</div>
 					
@@ -113,6 +113,8 @@ Keep this field blank if you do not have this information</label>
 	 <script src="js/lib/highcharts.js"></script>
     <script src="js/lib/highcharts-more.js"></script>
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
+	
+	 <script type="text/javascript" src="js/lib/progressbar.js"></script>
 
 </body>
 </html>

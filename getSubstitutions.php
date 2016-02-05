@@ -49,7 +49,7 @@
 				
 			<i class="glyphicon glyphicon-transfer big "></i>
 						
-						<div ><strong>In this section, besides being able to see what are the possible replacements for an ingredient, you can give your feedback to the replacement. In order to submit their feedback you need to log in</strong>
+						<div ><strong>In this section, besides being able to see what are the possible replacements for an ingredient, you can give your feedback to the replacement. In order to submit your feedback you need to log in</strong>
 						</div>
 	 
 					

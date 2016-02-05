@@ -99,7 +99,7 @@
 		
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
-              <h4>Name</h4>
+              <h4>What is its name?</h4>
             <div class="col-lg-12">
               <input type="text" id="name" class="form-control" />
             </div>
@@ -107,7 +107,7 @@
 
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
-              <h4>Product</h4>
+              <h4>What does it produce?</h4>
 			  <div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the food product from this recipe:</span></div>
             <div class="col-lg-12">
               <input type="text" id="food" class="ingredients" />
@@ -127,6 +127,7 @@
             <input type="checkbox" value="occasion" onclick="visibile('ptime');"> 
               <h4>Preparation Time</h4>
               <input type="text" id="ptime" class="form-control" disabled />
+			  minutes
             </div>  
           </div>
 
@@ -137,6 +138,7 @@
             <input type="checkbox" value="occasion" onclick="visibile('ctime');"> 
               <h4>Cook Time</h4>
               <input type="text" id="ctime" class="form-control" disabled />
+			  minutes
             </div>  
           </div>
 
@@ -173,7 +175,7 @@
             <i class="fa fa-balance-scale fa-3x "></i>
             <div class="col-lg-12">
                <input type="checkbox" value="diet" onclick="visibile('diet');"> 
-               <h4> Diet </h4>
+               <h4> For what Diet is the recipe adapt?</h4>
                
 				   </-- DIET-->
 			<div>
@@ -202,7 +204,7 @@
             <i class="fa fa-birthday-cake fa-3x"></i>
             <div class="col-lg-12">
               
-               <h4>Occasion to made it?</h4>
+               <h4>What is a good Occasion to made it?</h4>
               
 					</-- OCCASION -->
 			<div>
@@ -231,7 +233,7 @@
             <i class="fa fa-shopping-basket fa-3x"></i>
             <div class="col-lg-12">
               
-               <h4>What king of dish is it?</h4>
+               <h4>What kind of dish is it?</h4>
 				
 				</-- COURSE-->
 			<div>
@@ -260,7 +262,7 @@
            <div class="form-group box">
             <i class="fa fa-language fa-3x"></i>
             <div class="col-lg-12"> 
-               <h4>What language?</h4>
+               <h4>What language will you use?</h4>
                <input type="radio" name="lang" value="en" checked>En
                <input type="radio" name="lang" value="it" > It
             </div>
@@ -279,7 +281,7 @@
 		
           <input type="hidden" value="1" id="nstep">
           <i class="fa fa-file-text fa-3x"></i>
-          <h3>Decribe the steps of the Stage</h3>
+          <h3>Decribe the steps of the recipe</h3>
           <div class="row text-center" id="steps">
           <div class="form-group">
             
@@ -292,7 +294,7 @@
         </div>
             <button type="button" class="btn btn-default " onclick="add('step');"><span>Add Step</span></button>
             <button type="button" class="btn btn-default " onclick="remov('step');"><span>Remove Step</span></button>
-           <button type="button" class="btn btn-success " onclick="scelte('stages');"><span>Insert steps into recipes</span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('stages');"><span>Insert steps into recipe</span></button>
 		   
 		   
         </div>
@@ -357,7 +359,7 @@
 		
             <button type="button" class="btn btn-default " onclick="add('ingredient');"><span>Add Ingredient</span></button>
             <button type="button" class="btn btn-default " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-success " onclick="scelte('ingredients');"><span>Insert ingredient into recipe</span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('ingredients');"><span>Insert ingredients into recipe</span></button>
 		   
        
 

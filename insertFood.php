@@ -66,10 +66,10 @@ $ar = $res[1];
 						
 						<form id="foodForm" >
 						<i class="fa fa-spoon red"></i>
-						<h3 class="heading">Insert the food name</h3>
-						<label for="comment">Usually an ingredient is added to the plural. Please enter the ingredient in the plural where possible</label>
+						<h3 class="heading">Insert name</h3>
+						<label for="comment">If this food is commonly used as an ingredient, please write the name in the plural where possible</label>
 						<input type="text" id="food" class="form-control" />
-						<h3 class="heading">Shopping category</h3>
+						<h3 class="heading">What Shopping category does it belong to?</h3>
 						<div class="form-group">
 							  <label for="sel1">Select list:</label>
 							  <select class="form-control" id="shopping">

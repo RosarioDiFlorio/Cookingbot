@@ -84,9 +84,9 @@
  
 
     <div class="row  ">
-						<div><label for="comment" class="suggest">enter the food you want to search</label></div>
+						<div><label for="comment" class="suggest">Enter the food you want to search</label></div>
 						<div>	<input class=" ingredients col-ms-12" type="text" placeholder="search a food"  id="food" ></div>
-							<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop" >enter</button>
+							<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop" >Enter</button>
 					
 					<div id="toAppend"></div>
 						<button id="btn-subs" type="button" class="btn btn-success smallSpaceTop"  >See all substitution</button>

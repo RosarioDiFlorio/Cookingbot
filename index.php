@@ -88,7 +88,7 @@
           <img class="first-slide img-responsive" src="img/slider1.jpg" alt="Prima slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>The recipe made for you.</h1>
+              <h1>Recipes, from you, to you.</h1>
               <p></p>
             </div>
           </div>

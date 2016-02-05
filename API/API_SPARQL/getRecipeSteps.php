@@ -47,7 +47,7 @@ function getRecipeSteps($recipeURI, $lang){
 			?m ?x ?s.
 			?s fo:instruction ?text.
 			FILTER langmatches(lang(?text),\"".$lang."\").
-			}ORDER BY (?x)
+			}
 		";
 		
 		$results = sparqlQuery($query,"json");
@@ -57,7 +57,11 @@ function getRecipeSteps($recipeURI, $lang){
 			$toCicleStep = $dataStep->results->bindings;
 		
 			for($i = 0 ; $i<count($toCicleStep); $i++){
-				$steps[$i] = $toCicleStep[$i]->text->value;
+				$s = $toCicleStep[$i]->s->value;
+				$split = explode("_", $s);
+				$position = count($split)-1;
+				$number = $split[$position];
+				$steps[$number] = $toCicleStep[$i]->text->value;
 			}
 		}
 		else{

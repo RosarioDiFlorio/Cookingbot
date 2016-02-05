@@ -22,9 +22,31 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 	echo "<div class=\"smallPadding smallSpaceBottom smallSpaceTop col-md-6 allRed\"><div><i class=\"glyphicon glyphicon-glass\"  style = \"font-size:36px; color:#fff;\"></i></div>";
 	if($lang == "en")
 	{		
-		echo "Recipe for <b>".$serves."</b> people";
-		if($originalserves!=$serves)
-			echo " (originally for ".$originalserves.")";
+		if($serves!=""){
+			if($originalserves!=$serves){
+				echo "Recipe for <b>".$serves."</b> ";
+				if($serves>1)
+					echo "people ";
+				else
+					echo "person ";
+				echo " (originally for ".$originalserves.")";
+			}
+			else{
+				echo "Recipe for <b>".$originalserves."</b> ";
+				if($originalserves>1)
+					echo "people ";
+				else
+					echo "person ";
+			}
+		}
+		else{
+			echo "Recipe for <b>".$originalserves."</b> ";
+			if($originalserves>1)
+					echo "people ";
+				else
+					echo "person ";
+		}
+			
 		echo "<br>";
 		if($cuisine!=""){
 			echo "Cuisine: <b>".$cuisine."</b><br>";
@@ -41,9 +63,30 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 	}
 	else
 	{
-		echo "Ricetta per <b>".$serves."</b> persone";
-		if($originalserves!=$serves)
-			echo " (originariamente per ".$originalserves.")";
+		if($serves!=""){
+			if($originalserves!=$serves){
+				echo "Ricetta per <b>".$serves."</b> person";
+				if($serves>1)
+					echo "e ";
+				else
+					echo "a ";
+				echo " (originalmente per ".$originalserves.")";
+			}
+			else{
+				echo "Ricetta per <b>".$originalserves."</b> person";
+				if($originalserves>1)
+					echo "e ";
+				else
+					echo "a ";
+			}
+		}
+		else{
+			echo "Ricetta per <b>".$originalserves."</b> person";
+			if($originalserves>1)
+					echo "e ";
+				else
+					echo "a ";
+		}
 		echo "<br>";
 		if($cuisine!=""){
 			echo "Tipo di cucina: <b>".$cuisine."</b><br>";
@@ -63,7 +106,7 @@ function printInfos($originalserves,$serves,$cuisine="",$course="",$occasion="",
 }
 
 //stampa gli ingredienti, nel caso si visualizza per il numero di persone della ricetta
-function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
+function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $originalserves){
 	$ingredients = getRecipeIngredients($recipeURI, $lang);
 	$tooltip;
 	$substitution;
@@ -74,26 +117,23 @@ function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 		if($lang == "en")
 		{	
 			$substitution = "show substitutions";
-			$tooltip = "click here to see the substitution ingredients for this ingredient";
-			if($serves<2){
-				
-				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' person)</h3>';
+			$tooltip = "click here to see the possible substitution for this ingredient";
+			if($originalserves<2){
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$originalserves.' person)</h3>';
 			}
 			else{
-				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' people)</h3>';
+				echo '<h3><strong>INGREDIENTS</strong> ( for '.$originalserves.' people)</h3>';
 			}
 		}
 		else
 		{	
 			$substitution = "mostra le sostituzioni";
-			$tooltip = "clicca quì per visualizzare gli ingredienti che possono sostituire questo ingrediente";
-			if($serves<2){
-				
-				echo '<h3><strong>INGREDIENTI </strong>( per '.$serves.' persona)</h3>';
+			$tooltip = "clicca quì per visualizzare le possibili sostituzioni di questo ingrediente";
+			if($originalserves<2){
+				echo '<h3><strong>INGREDIENTI </strong>( per '.$originalserves.' persona)</h3>';
 			}
 			else{
-				
-				echo '<h3><strong>INGREDIENTI</strong> ( per '.$serves.' persone)</h3>';
+				echo '<h3><strong>INGREDIENTI</strong> ( per '.$originalserves.' persone)</h3>';
 				
 			}
 		}
@@ -105,6 +145,9 @@ function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 			echo "<td>";
 			echo "<div class=\"col-xs-12 smallSpaceBottom \"><strong>";
 			echo $key." ";
+			if(array_key_exists("details",$value)){
+				echo $value["details"]." ";
+			}
 			if(array_key_exists($liquidMeasure,$value)){
 				echo $value[$liquidMeasure];
 			}
@@ -132,9 +175,9 @@ function printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang){
 }
 
 //stampa gli ingredienti, nel caso si visualizza per un numero di persone diverso da quello della ricetta
-function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves){
+function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves, $originalserves){
 	
-	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves);
+	$ingredients = getRecipeIngredientsScaled($recipeURI, $lang, $serves, $originalserves);
 	$tooltip;
 	$substitution;
 	if(!empty($ingredients))
@@ -144,7 +187,7 @@ function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang
 		if($lang == "en")
 		{	
 			$substitution = "show substitutions";
-			$tooltip = "click here to see the substitution ingredients for this ingredient";
+			$tooltip = "click here to see the possible substitution for this ingredient";
 			if($serves<2){
 				
 				echo '<h3><strong>INGREDIENTS</strong> ( for '.$serves.' person)</h3>';
@@ -156,7 +199,7 @@ function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang
 		else
 		{	
 			$substitution = "mostra le sostituzioni";
-			$tooltip = "clicca quì per visualizzare gli ingredienti che possono sostituire questo ingrediente";
+			$tooltip = "clicca quì per visualizzare le possibili sostituzioni di questo ingrediente";
 			if($serves<2){
 				
 				echo '<h3><strong>INGREDIENTI </strong>( per '.$serves.' persona)</h3>';
@@ -175,6 +218,9 @@ function printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang
 			echo "<td>";
 			echo "<div class=\"col-xs-12 smallSpaceBottom \"><strong>";
 			echo $key." ";
+			if(array_key_exists("details",$value)){
+				echo $value["details"]." ";
+			}
 			if(array_key_exists($liquidMeasure,$value)){
 				echo $value[$liquidMeasure];
 			}
@@ -211,9 +257,12 @@ function printSteps($recipeURI, $lang){
 		echo '<h3><strong>SVOLGIMENTO</strong></h3>';
 	echo "</div>";
 	echo "<div class=\"col-xs-12 text-left smallSpaceBottom \">";
-	for($i = 0 ; $i<count($steps); $i++){
-		$j=$i+1;
+	$j=1;
+	for($i = 1 ; $i<count($steps); $i++){
+		if(!array_key_exists($i,$steps))
+			continue;
 		echo "<div class=\"smallSpaceBottom smallSpaceTop\"><strong>".$j.". </strong>".$steps[$i]."</div>";
+		$j++;
 	}
 	echo "</div>";
 }
@@ -234,12 +283,12 @@ function getRecipeDetails($name, $originalserves, $serves, $cuisine, $course, $o
 	
 	printInfos($originalserves,$serves,$cuisine,$course,$occasion,$diet,$lang);
 	printTime($cooktime,$preptime,$lang);
-	if($originalserves==$serves){
+	if(($originalserves==$serves)||($serves=="")){
 		
-		printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang);
+		printIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $originalserves);
 	}
 	else{
-		printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves);
+		printScaledIngredients($recipeURI, $liquidMeasure, $solidMeasure, $lang, $serves, $originalserves);
 	}
 	
 	printSteps($recipeURI, $lang);
@@ -257,14 +306,14 @@ function printTime($cooktime,$preptime,$lang)
 	else
 	{
 		
-		$strCook = "Tempo di cotture";
+		$strCook = "Tempo di cottura";
 		$strPrep = "Tempo di preparazione";
 		
 	}
 	echo "<div class=\"col-xs-12 smallPadding col-md-6 smallSpaceTop smallSpaceBottom allRed\"  >";
 	echo "<i class=\"glyphicon glyphicon-time\"  style = \"font-size:36px; color:#fff;\"></i>";
-	echo "<div><strong>".$strCook.":</strong>".$cooktime."</div>";
 	echo "<div><strong>".$strPrep.":</strong>".$preptime."</div>";
+	echo "<div><strong>".$strCook.":</strong>".$cooktime."</div>";
 	echo "</div>";
 	echo "</div>"; //fine div contenitore rosso
 }

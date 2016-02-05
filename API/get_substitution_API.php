@@ -104,7 +104,7 @@ if(count($toCicle)>0)
 			
 			$str .= "<tr>";
 			$str .= "<td>";
-			$str .= "<h3>Voto</h3>";
+			$str .= "<h3>Rating</h3>";
 			$str .= "</td>";
 			$str .= "<td>";
 			
@@ -150,7 +150,7 @@ if(count($toCicle)>0)
 }
 else
 {
-	$str = "<h2>this food haven't substitutions</h2><br/>";
+	$str = "<h2>this food has no substitutions</h2><br/>";
 	if($isLoggin) 
 		$str .= "<button id=\"btn-add-subs\" onClick=\"addSubstitution('".$food."');\"  type=\button\" class=\"btn btn-info\">add one</button>";
 	else

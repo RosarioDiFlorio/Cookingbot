@@ -82,7 +82,7 @@
 	<?php require_once("components/waitdialog.php"); ?>
 	<div class="container text-center" id="contMain">
 			
-						<div class="heading"><h2>Select an ingredient that you want to replace</h2></div>
+						<div class="heading"><h2>Select an ingredient you want to replace</h2></div>
 					
 					<div class="bs-component">	
 					<form id="formSubstitute">
@@ -95,7 +95,7 @@
 						
 						<i class="glyphicon glyphicon-circle-arrow-down smallSpaceTop"></i>
 						<div class="heading"><h2>Enter the substitutes ingredients</h2></div>
-						<div class="heading smallSpaceBottom smallSpaceTop suggest">add or remove these fields for many ingredients we need to create a replacement to the ingredient desired</div>
+						<div class="heading smallSpaceBottom smallSpaceTop suggest">add or remove these fields for as many ingredients we need to create a replacement to the ingredient desired</div>
 						<div class="input_fields_wrap ">
 							
 							
@@ -122,7 +122,7 @@
 						<br />
 						<i class="glyphicon glyphicon-scale" ></i>
 						<h3 class="heading">resulting quantity</h3>
-					<div class="heading smallSpaceBottom smallSpaceTop suggest">you can specify the amount resulting in the following field</div>
+					<div class="heading smallSpaceBottom smallSpaceTop suggest">you can specify the resulting amount in the following field</div>
 				<div class="col-sm-4"></div>
 				<div class="col-sm-2"><input type="number" min="0" name="qantityResult" class="form-control" /></div>
 				<div class="col-sm-4">

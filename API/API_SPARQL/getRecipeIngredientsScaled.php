@@ -1,26 +1,21 @@
 <?php
 include_once dirname(__FILE__).'/../query_sparql.php';
 
-function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
+function getRecipeIngredientsScaled($recipeURI, $lang, $newServed, $oldServed){
 	
 	$base = getPrefix();
 	$query = $base . "
 	
 	SELECT DISTINCT ?ing ?name ?detail ?quantity WHERE{
 		{
-			comp:".$recipeURI." a fo:Recipe;
-			fo:serves ?served.
+			comp:".$recipeURI." a fo:Recipe.
 			?list a fo:IngredientList.
 			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
-			?ing fo:quantity ?peso.
+			?ing fo:quantity ?quantity.
 			?ing fo:food ?food.
 			?food rdfs:label ?name.
-			BIND(xsd:double(REPLACE(?peso, \" .*\", \"\", \"i\")) AS ?pesooriginale).
-			BIND(xsd:integer(?served) AS ?serviti).
-			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
-			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
 			OPTIONAL{
 				?ing comp:details ?detail.
@@ -29,19 +24,14 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 		}
 		UNION
 		{
-			comp:".$recipeURI." a fo:Recipe;
-			fo:serves ?served.
+			comp:".$recipeURI." a fo:Recipe.
 			?list a fo:IngredientList.
 			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
-			?ing fo:metric_quantity ?peso.
+			?ing fo:metric_quantity ?quantity.
 			?ing fo:food ?food.
 			?food rdfs:label ?name.
-			BIND(xsd:double(REPLACE(?peso, \" .*\", \"\", \"i\")) AS ?pesooriginale).
-			BIND(xsd:integer(?served) AS ?serviti).
-			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
-			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
 			OPTIONAL{
 				?ing comp:details ?detail.
@@ -50,19 +40,14 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 		}
 		UNION
 		{
-			comp:".$recipeURI." a fo:Recipe;
-			fo:serves ?served.
+			comp:".$recipeURI." a fo:Recipe.
 			?list a fo:IngredientList.
 			comp:".$recipeURI." fo:ingredients ?list.
 			?ing a fo:Ingredient.
 			?list ?x ?ing.
-			?ing fo:imperial_quantity ?peso.
+			?ing fo:imperial_quantity ?quantity.
 			?ing fo:food ?food.
 			?food rdfs:label ?name.
-			BIND(xsd:double(REPLACE(?peso, \" .*\", \"\", \"i\")) AS ?pesooriginale).
-			BIND(xsd:integer(?served) AS ?serviti).
-			BIND(ROUND(((?pesooriginale*".$newServed.")/?serviti)) AS ?pesonuovo).
-			BIND( REPLACE(CONCAT(xsd:string(?pesonuovo), REPLACE(?peso, \".* \", \"\", \"i\")), \"e0\",\" \", \"i\")AS ?quantity).
 			FILTER langMatches(lang(?name), \"".$lang."\").
 			OPTIONAL{
 				?ing comp:details ?detail.
@@ -88,6 +73,13 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 				$matches = [];
 				preg_match("/[a-z]+/i",$weight, $matches);
 				$unit = $matches[0];
+				$number = preg_replace("/[a-z]+/i", "", $weight);
+				$number = trim($number);
+				$number = ($number*$newServed)/$oldServed;
+				if(!is_int($number)){
+					$number = number_format((float)$number, 2, ',', '');
+				}
+				$weight = $number." ".$unit;
 			}
 			else{
 				$unit = "NA";
@@ -98,7 +90,7 @@ function getRecipeIngredientsScaled($recipeURI, $lang, $newServed){
 			}
 			if(!array_key_exists($nameIng,$ingredients)){
 					$ingredients[$nameIng]=[];
-				}
+			}
 			$ingredients[$nameIng][$unit]=$weight;
 			$detail="";
 			if(property_exists($toCicleIng[$i],"detail")){

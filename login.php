@@ -114,7 +114,7 @@ if(isset($_POST['login']) && isset($_POST['email']) && isset($_POST['password'])
         <?php if(isset($message)) echo $message; //eventuale messaggio di errore ?>
       </form>
   <?php } else { //Se loggato, mostra testo utente già collegato?>
-  	  <div class="row text-center"><h2>Utente già collegato</h2></div>
+  	  <div class="row text-center"><h2>Already logged in</h2></div>
   <?php } ?>
     <!-- Librerie necessarie -->
     </div>

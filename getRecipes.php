@@ -96,7 +96,7 @@
 	<div class="container col-sm-12" >
 		<div class="heading smallSpaceTop smallSpaceBottom"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
 		 
-		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment">in this section you can find a recipe using keyword or by inserting the ingredients that must have looked for the recipe</span></div> 
+		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment">in this section you can find a recipe using keyword or by inserting the ingredients that must be present in the recipe</span></div> 
 		
 		 <div class="heading smallSpaceTop smallSpaceBottom">
 				<span for="comment">select the language:</span>
@@ -211,7 +211,7 @@
 				<option value="pint">pint</option>
 			</select>
 			
-			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show solid in:</span></div>
+			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show solids in:</span></div>
 				<select   class="form-control" id="solidMeasure">
 					<option value="g">g</option>
 					<option value="kg">kg</option>
@@ -256,7 +256,7 @@
 		<div id="wordss" class="col-xs-12 text-center"> 
 		<div class="container col-sm-4 text-center"  ></div>
 			<div class="container col-sm-4 text-center"  >
-					<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
+					<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of People you want to serve</span></div>
 					
 					<input type="text" class="form-control " id="npeopleWords">
 				  
@@ -286,7 +286,7 @@
 		<div class="container col-xs-4 text-center"  ></div>
 			 <div class="container text-center  col-sm-4"  >
 				<input type="hidden" value="1" id="ningredient">
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of Peoples you want to serve</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of People you want to serve</span></div>
 				<input type="text"  class="form-control " id="npeople">
 				
 				<div  >

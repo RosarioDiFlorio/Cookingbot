@@ -36,8 +36,10 @@ $("#btn-insert").click(function()
 	}
 	else
 	{
+		 myApp.showPleaseWait(); //apro la dialog di loading
 		$.post( "API/insert_food_API.php", { nameFood: food , kc : kcal , kj : kjaul , shop: shopping })
 			.done(function( data ) {
+				myApp.hidePleaseWait(); // chiudo la dialog di loading
 				console.log("Success: " + data);
 				if(data.trim() == ''){
 

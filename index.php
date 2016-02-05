@@ -120,10 +120,12 @@
       </a>
     </div>
     </div><!-- /.container -->
-    <div class="container">
-        <div class="heading"><h1>Le offerte migliori di questo mese</h1></div>
+	
+ <!--   <div class="container">
+        <div class="heading"><h1>heading</h1></div>
         <div id="risultati" class="row"></div>
     </div>
+	-->
     <?php require_once("components/modalegrafico.php"); //Modale per mostrare il grafico a ragno ?>
     <?php require_once("components/javascript-comune.php"); //Inclusione Javascript Comune?>
     <script type="text/javascript" src="js/index.js"></script>

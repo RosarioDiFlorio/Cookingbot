@@ -11,7 +11,8 @@ sendError("Utente non collegato");
 $step = strtolower((trim($_POST['step'])));
 $i = strtolower((trim($_POST['i'])));
 $name = strtolower((trim($_POST['name'])));
-insertStep($i,$step,$name);
+$lang = strtolower((trim($_POST['lang'])));
+insertStep($i,$step,$name,$lang);
 
 
 

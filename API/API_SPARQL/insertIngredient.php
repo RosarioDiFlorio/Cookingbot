@@ -10,14 +10,20 @@ function insertIngredient($ingredient,$detail,$quantity,$unit,$mis,$name,$i,$lan
 	$detailIT ='';
 	$detailEN ='';
 	if($lang == 'it'){
+		if($detail != "")
+		{
 		$detailEN = translate($detail,'it','en');
 		$detailIT = $detail;
+		}
 		$ingredient = strtolower(translate($ingredient, "it", "en"));
 	}
 	else
 		if($lang == 'en'){
+			if($detail != "")
+			{
 			$detailEN = $detail;
 			$detailIT = translate($detail,'en','it');
+			}
 		}
 
 	insertFoodCtrlLang($ingredient,"","","");

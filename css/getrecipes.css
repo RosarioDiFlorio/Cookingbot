@@ -9,11 +9,10 @@
 }
 .btn-w i {
 	font-size: 45px !important;
-    color: #ffa726;
-
+    color:#ce3e3e;
 }
 
-.fa {
+.fa.red {
 	color:#ce3e3e;
 	
 }

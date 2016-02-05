@@ -79,12 +79,12 @@
   <body>
 	
 	<?php require_once("components/topbar.php"); //Inclusione topbar?>
-			
-	<div class="container text-center">
+	<?php require_once("components/waitdialog.php"); ?>
+	<div class="container text-center" id="contMain">
 			
 						<div class="heading"><h2>Select an ingredient that you want to replace</h2></div>
 					
-					<div class="">	
+					<div class="bs-component">	
 					<form id="formSubstitute">
 					
 						<div><label for="comment" class="suggest">enter the food you want to search</label></div>
@@ -99,21 +99,20 @@
 						<div class="input_fields_wrap ">
 							
 							
-								<div class="col-sm-4 ">
-										<div class="heading ">food</div>
-										<input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
-										
-										<div class="heading ">quantity</div>
-										<div class="col-sm-4">
-
-										<input type="number" min="0" class="form-control " name="quantity[]" /></div>
-										
-						  <div> <input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
-						   <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
-						   <input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
-						   <select id="misurazione1" class="" disabled>
-						   </select></div>
-						   </div>
+								<div class="col-sm-12 ">
+								<div class="heading ">food</div>
+								<input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
+								<div class="heading ">quantity</div>
+								<div class="col-sm-4"></div>
+								<div class="col-sm-4">
+								<input type="number" min="0" class="form-control " name="quantity[]" />
+								<input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
+								<input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
+								<input type="radio" name="mis1" value="imperial" onclick="show('imperial','1');"> Imperial
+								<select id="misurazione1" class="" disabled>
+								</select>
+								</div>
+								</div>
            
 			
 						</div>
@@ -148,6 +147,50 @@
 				
 		</div>		
 	</div><!-- /.container -->
+	
+	  <div id="success" class="container well text-center"><h2>Success</h2><label for="comment">Click on the button to enter another substitutions</label><br/><button id="btn-reload" type="button" class="btn btn-primary"  >insert another substitition</button>
+</div>
+	
+	<!-- Trigger the modal with a button -->
+<!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>-->
+
+<!-- Modal -->
+<div id="modalResume" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		
+        <h4 class="modal-title">Resume of substitute</h4>
+      </div>
+      <div class="modal-body" id="modalSubList">
+       
+		<i class="glyphicon glyphicon-cutlery"></i>
+		<div id="nameFoodModal"><h2><strong>food 100ml</strong></h2></div>
+			<div class="suggest">it is replaceable</div><i class="glyphicon glyphicon-triangle-bottom"></i>
+	    <div id="subsFoodModal">
+			<div class="subsModal">
+				
+				<div><h2><strong>food 100ml</strong></h2></div>
+			</div>
+			<div class="subsModal">
+				<i class="glyphicon glyphicon-plus"></i>
+				<div><h2><strong>food 100ml</strong></h2></div>
+			</div>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-insert">Accept and insert</button>
+		 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+	
+	
   <!-- Script specifici di view -->
     
     <script src="js/addSubstitution.js"></script>
@@ -157,6 +200,7 @@
     <script src="http://code.highcharts.com/themes/dark-unica.js"></script>
 	  <script src="js/measure.js"></script>
    <script type="text/javascript" src="jquery.typeahead.js"></script>
+    <script type="text/javascript" src="js/lib/progressbar.js"></script>
    
 </body>
 </html>

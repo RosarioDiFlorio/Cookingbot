@@ -45,9 +45,10 @@ function scelte(scelta) {
         course = $('#course').val().trim();
         dati = "name: "+name+ ", numberp: "+nopeople+", cuisine: "+cuisine+", diet: "+diet+", occasion: "+occasion+", course:"+ course+" Ptime:"+ptime+" Ctime:"+ctime;
         console.log(dati)
-
+		 myApp.showPleaseWait(); //apro la dialog di loading
         $.post( "API/insert_recipe_API.php", { name: name, food: food, numberp: numberp, cuisine: cuisine, diet: diet, occasion: occasion, course: course, lang: lang, ptime: ptime, ctime: ctime})
             .done(function( data ) {
+				myApp.hidePleaseWait(); // chiudo la dialog di loading
                 console.log("Data Loaded: " + data );
                 if(data.trim()=='error'){
                 $.toaster({
@@ -98,6 +99,8 @@ function scelte(scelta) {
         for (i=1;i<n;i++)
         {   
             step = $('#step'+i).val();
+			step = step.trim();
+			console.log("step: " + step);
             if( step ==''){
                 console.log('error stepempty');
                 $('#step'+i).focus();
@@ -110,9 +113,13 @@ function scelte(scelta) {
             step = $('#step'+i).val();
             
             console.log("Step "+i+" "+step);
+			lang = $("input[name=lang]:checked").val();
              // vado a inserire il food nel caso non esiste
-            $.post( "API/insert_step_API.php", { step: step, i: i, name: name })
+			 
+			 myApp.showPleaseWait(); //apro la dialog di loading
+            $.post( "API/insert_step_API.php", { step: step, i: i, name: name, lang:lang})
             .done(function( data ) {
+				myApp.hidePleaseWait(); // chiudo la dialog di loading
                 console.log("Data Loaded: " + data );
                 if(data.trim() == ''){
 
@@ -177,10 +184,11 @@ function scelte(scelta) {
             mis = $('input[name=mis'+i+']:checked').val().trim();
             name = $('#name').val().trim();
             console.log("Ricetta: "+name+" Ingredient "+i+" "+ingredient +" Detail: "+detail+" Quantity: "+quantity+ " Unit: "+unit+" Mis: "+mis);
-
+			myApp.showPleaseWait(); //apro la dialog di loading
             //inserisci ingrediente con quantità
             $.post( "API/insert_ingredient_API.php", { ingredient: ingredient,detail: detail, quantity: quantity, unit: unit, mis: mis, name: name, i: i, lang: lang })
             .done(function( data ) {
+				myApp.hidePleaseWait(); //chiudo la dialog di loading
                 console.log("Data Loaded 2: " + data );
                 if(data.trim() == ''){
 
@@ -218,7 +226,7 @@ function add(tipo){
      n = +$('#nstep').val() +1;
      console.log(n);
      $('#nstep').val(n);
-     stringa = "<div class='form-group'><h4>Step " +n+"</h4><div class='col-lg-12'><input type='text' id='step"+n+"' class='form-control' /></div></div>";
+     stringa = "<div class='form-group'><h4>Step " +n+"</h4><div ><textarea class=\"form-control\" rows=\"5\" id=\"step"+n+"\"></textarea></div></div>";
      $('#steps').append(stringa);
                         }
     else
@@ -226,8 +234,9 @@ function add(tipo){
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class='form-group'><i class="+'"fa fa-shopping-cart fa-3x"></i>'+"<h4>Ingredient "+n+"</h4><div class='col-lg-12'>Name <input type='text' id='ingredient"+n+"' />Detail <input type='text' id='detail"+n+"' /> Quantity <input type='number' id='quantity"+n+"' /> <input type='radio' name='mis"+n+"' value='unit' onclick="+'"show('+"'unit','"+n+"');"+'"'+" checked> Unit <input type='radio' name='mis"+n+"' value='metric' onclick="+'"'+"show('metric','"+n+"');"+'"'+"> Metric <input type='radio' name='mis"+n+"' value='imperial' onclick="+'"'+"show('imperial','"+n+"');"+'"'+"> Imperial <select id='misurazione"+n+"'' disabled>"+'<option value="unit">Unit</option>'+"</select></div></div>";
-    $('#ingredients1').append(stringa);
+    stringa = "<div class=\"form-group col-xs-12\"><i class=\"fa fa-shopping-cart fa-3x\"></i><h4>Ingredient"+n+"</h4><div class=\"col-lg-12\"><div class=\"col-sm-4\"><div>Name</div><input type=\"text\" id=\"ingredient"+n+"\" class=\"ingredients\"/></div><div class=\"col-sm-4\">Detail<input type='text' id=\"detail"+n+"\" class=\"form-control\" /></div><div class=\"col-sm-4\">Quantity <input type='number' id=\"quantity"+n+"\" class=\"form-control\" /> <input type='radio' name=\"mis"+n+"\" value='unit' onclick=\"show('unit','"+n+"');\" checked> Unit 	<input type='radio' name=\"mis"+n+"\" value='metric' onclick=\"show('metric','"+n+"');\" > 	Metric <input type='radio' name=\"mis"+n+"\" value='imperial' onclick=\"show('imperial','"+n+"');\"> Imperial<select id=\"misurazione"+n+"\" disabled><option value=\"unit\">Unit</option></select></div></div></div>";
+	$('#ingredients1').append(stringa);
+	setUpTypeahed(); //re-init typeahed
     }
 }
 

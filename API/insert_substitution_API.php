@@ -11,7 +11,7 @@ sendError("Utente non collegato");
 set_time_limit(0); //limite 30 secondi per chiamata
 
 
-$food = $_POST['nameFood'];
+$food = trim($_POST['nameFood']);
 $quantityResult = $_POST['quantityResult'];
 $arrFoodSub = $_POST['ing'];
 $arrQuantity = $_POST['quantity'];

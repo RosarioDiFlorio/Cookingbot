@@ -11,12 +11,13 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$type
 	$fakeIngredient = [];
 	
 	
-	$hvalue = abs(hash($algo,$food));
+	$hvalue = abs(crc32($food));
 	
 	for($i=0;$i<count($arrFoodSub)-1;$i++)
 	{
 		if($arrFoodSub[$i] != "" && $arrFoodSub[$i] != " ")
-		$hvalue += abs(hash($algo,$arrFoodSub[$i]));
+		$hvalue += abs(crc32($arrFoodSub[$i]));
+		
 	}
 	
 	$ingList = str_ireplace(" ","_",$food) . "_" . $hvalue;

@@ -8,10 +8,10 @@ sendError("Utente non collegato");
 */
 
 
-function getAllOccasion()
+function getAllOccasion($lang)
 {
 	
-	$res = getAllOccasionJson("en");
+	$res = getAllOccasionJson(strtolower($lang));
 	
 	//print_r($res);
 	$data = json_decode($res);

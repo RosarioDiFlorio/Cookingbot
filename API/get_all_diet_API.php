@@ -10,10 +10,10 @@ sendError("Utente non collegato");
 /*
 
 */
-function getAllDiet()
+function getAllDiet($lang)
 {
 	
-	$res = getAllDietJson("en");
+	$res = getAllDietJson(strtolower($lang));
 	
 	//print_r($res);
 	$data = json_decode($res);

@@ -14,11 +14,6 @@
 		die();
 	}
 	
-	$res = getAllShoppyngCategory();
-	
-$value = $res[0];
-$ar = $res[1];
-
 
   
 ?>
@@ -56,22 +51,32 @@ $ar = $res[1];
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 <?php require_once("components/waitdialog.php"); ?>
+<?php
+	$res = getAllShoppyngCategory($lang);
+	
+	$value = $res[0];
+	$ar = $res[1];
+
+
+
+?>
+
      <div class="container text-center" id="contain">
        
 
-			<div class="heading"><h2>Help us, add a new food!</h2></div>
+			<div class="heading"><h2><?php $masterText->_('insertFoodTitle'); ?></h2></div>
 	
 			
 					<div class="bs-component col-sm-6 col-lg-6"  >	
 						
 						<form id="foodForm" >
 						<i class="fa fa-spoon red"></i>
-						<h3 class="heading">Insert name</h3>
-						<label for="comment">If this food is commonly used as an ingredient, please write the name in the plural where possible</label>
+						<h3 class="heading"><?php $masterText->_('insertFoodName'); ?></h3>
+						<label for="comment"><?php $masterText->_('suggestInsertFood1'); ?></label>
 						<input type="text" id="food" class="form-control" />
-						<h3 class="heading">What Shopping category does it belong to?</h3>
+						<h3 class="heading"><?php $masterText->_('shoppingInsertFood'); ?></h3>
 						<div class="form-group">
-							  <label for="sel1">Select list:</label>
+							  <label for="sel1"></label>
 							  <select class="form-control" id="shopping">
 								<option value ="1">select a shopping category</option>
 								
@@ -85,20 +90,19 @@ $ar = $res[1];
 								?>
 							  </select>
 						</div>
-						<h3 class="heading">KJ per 100g (optional)</h3>
-						<label for="comment">Nutrition data: energy (in kJ) per 100g (or 100ml for liquids). <br/>
-						Keep this field blank if you do not have this information</label>
+						<h3 class="heading">KJ per 100g <?php $masterText->_('optInsertFood'); ?></h3>
+						<label for="comment"><?php $masterText->_('suggestInsertFood2'); ?></label>
 						<input type="number" id="kjaul" min="0" class="form-control " />
 						<br />
-						<h3 class="heading">Kcal per 100g (optional)</h3>
-						<label for="comment">Nutrition data: energy (in kcal) per 100g (or 100ml for liquids). <br/> Keep this field blank if you do not have this information</label>
+						<h3 class="heading">Kcal per 100g <?php $masterText->_('optInsertFood'); ?></h3>
+						<label for="comment"><?php $masterText->_('suggestInsertFood3'); ?></label>
 						<input type="number" id="kcal" min="0" class="form-control " />
 						<br />
 						
 						
 			
 						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> missed food </div></div>
-												<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop smallSpaceBottom"  >enter</button>
+												<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop smallSpaceBottom"  ><?php $masterText->_('enterInsertFood'); ?></button>
 						</form>
 					</div>
 					

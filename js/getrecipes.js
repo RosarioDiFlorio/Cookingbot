@@ -32,7 +32,7 @@ function getRecipesByIngredients(num){
             input=input+ingredient+";";
     }
         console.log(npeople+" "+input);
-
+	
         $.post( "API/get_recipes_API.php", {liquidMeasure:liquidMeasure,solidMeasure:solidMeasure,type: "ingredients", lang:lang,npeople: npeople, input: input, cuisine: cuisine, diet: diet, occasion: occasion, course: course,offset:offset})
             .done(function( data ) {
 				hideAllButton();
@@ -92,10 +92,15 @@ function add(tipo){
                         }
     else
     {
+	
+	if(country == "IT")
+		strIng = "Ingrediente";
+	else strIng = "Ingredient";
+		
     n = +$('#ningredient').val() +1;
     console.log(n);
     $('#ningredient').val(n);
-    stringa = "<div class=\"form-group\"><i class=\"fa fa-shopping-cart fa-2x red\"></i><div><span class=\"heading\" for=\"comment\">Ingredient "+n+"</span></div><input type='text'  class=\"ingredients\" id='ingredient"+n+"' /></div>";
+    stringa = "<div class=\"form-group\"><i class=\"fa fa-shopping-cart fa-2x red\"></i><div><span class=\"heading\" for=\"comment\">"+strIng+" "+n+"</span></div><input type='text'  class=\"ingredients\" id='ingredient"+n+"' /></div>";
     $('#ingredients1').append(stringa);
 	setUpTypeahed();
     }
@@ -135,12 +140,7 @@ function visible(name1,name2,tipo){
 }
 
 
-function openRecipe(val)
-{	
-	
-	window.open(val);
-	
-}
+
 
 function hideAllButton()
 {

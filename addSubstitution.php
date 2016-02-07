@@ -82,29 +82,34 @@
 	<?php require_once("components/waitdialog.php"); ?>
 	<div class="container text-center" id="contMain">
 			
-						<div class="heading"><h2>Select an ingredient you want to replace</h2></div>
+						<div class="heading"><h2><?php $masterText->_('titleAddSubstitution'); ?></h2></div>
 					
-					<div class="bs-component">	
+					<div class="bs-component col-sm-12">	
 					<form id="formSubstitute">
 					
-						<div><label for="comment" class="suggest">enter the food you want to search</label></div>
+						<div><label for="comment" class="suggest"><?php $masterText->_('suggestAddSubstitution1'); ?></label></div>
 						
 							<input class=" ingredients" type="text" <?php if($toSearch== "")echo  "placeholder=\"food\"";else echo "value=\"".$toSearch."\"" ?>  id="sel1" />
 					
 						<br />
 						
 						<i class="glyphicon glyphicon-circle-arrow-down smallSpaceTop"></i>
-						<div class="heading"><h2>Enter the substitutes ingredients</h2></div>
-						<div class="heading smallSpaceBottom smallSpaceTop suggest">add or remove these fields for as many ingredients we need to create a replacement to the ingredient desired</div>
+						<div class="heading"><h2><?php $masterText->_('title2AddSubstitution'); ?></h2></div>
+						<div class="heading smallSpaceBottom smallSpaceTop suggest"><?php $masterText->_('suggestAddSubstitution2'); ?></div>
+						
+						<div>
+						<div class="col-sm-6 heading"><?php $masterText->_('Ingredient'); ?></div>
+								
+						<div class="col-sm-6 heading"><?php $masterText->_('Quantity'); ?></div>
+						</div>
 						<div class="input_fields_wrap ">
 							
 							
 								<div class="col-sm-12 ">
-								<div class="heading ">food</div>
-								<input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" />
-								<div class="heading ">quantity</div>
-								<div class="col-sm-4"></div>
-								<div class="col-sm-4">
+								
+								<div class="col-sm-6 "><input class=" ingredients " type="text" name="mytext[]" onfocus="$(this).css('background','');" /></div>
+								<div class="col-sm-6 ">
+								
 								<input type="number" min="0" class="form-control " name="quantity[]" />
 								<input type="radio" name="mis1" value="unit" onclick="show('unit','1');"> Unit
 								<input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
@@ -117,18 +122,18 @@
 			
 						</div>
 			<div class="col-xs-12">
-						<button type="button" class="btn btn-info add_field_button smallSpaceTop smallSpaceBottom">Add More Ingredients</button>
-						<button href="#" type="button" class=" btn btn-info  remove_field smallSpaceTop smallSpaceBottom" >Remove last</button>
+						<button type="button" class="btn btn-info add_field_button smallSpaceTop smallSpaceBottom"><?php $masterText->_('Add More Ingredients'); ?></button>
+						<button href="#" type="button" class=" btn btn-info  remove_field smallSpaceTop smallSpaceBottom" ><?php $masterText->_('Remove last'); ?></button>
 						<br />
 						<i class="glyphicon glyphicon-scale" ></i>
-						<h3 class="heading">resulting quantity</h3>
-					<div class="heading smallSpaceBottom smallSpaceTop suggest">you can specify the resulting amount in the following field</div>
-				<div class="col-sm-4"></div>
-				<div class="col-sm-2"><input type="number" min="0" name="qantityResult" class="form-control" /></div>
-				<div class="col-sm-4">
+						<h3 class="heading"><?php $masterText->_('Resulting Quantity'); ?></h3>
+					<div class="heading smallSpaceBottom smallSpaceTop suggest"><?php $masterText->_('suggestAddSubstitution3'); ?></div>
+				
+				<div class="bs-component col-xs-4"><input type="number" min="0" name="qantityResult" class="form-control" /></div>
+				<div class="col-xs-12" >
 					<input type="radio" name="misResult" value="unit" onclick="show('unit','Result');"> Unit
 					<input type="radio" name="misResult" value="metric" onclick="show('metric','Result');"> Metric
-					<input type="radio" name="misResult" value="imperial" onclick="show('imperial','Result');"> Imperial
+					<input type="radio" name="misResult" value="imperial" onclick="show('imperial','Result');"> Imperial 
 					<select id="misurazioneResult" class="" disabled>
 					</select>
 				</div>
@@ -140,15 +145,15 @@
 			
 						</form>
 					<div class="col-sm-12">	
-						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> One or more ingredient missed</div></div>
-						<button id="btn" type="button" class="btn btn-success btn-lg smallSpaceTop" >enter</button>
+						<div class="ins-alert"><div class="alert alert-danger"><strong>Warning!</strong> <?php $masterText->_('One or more ingredient missed'); ?></div></div>
+						<button id="btn" type="button" class="btn btn-success btn-lg smallSpaceTop" ><?php $masterText->_('Enter'); ?></button>
 					</div>
 						
 				
 		</div>		
 	</div><!-- /.container -->
 	
-	  <div id="success" class="container well text-center"><h2>Success</h2><label for="comment">Click on the button to enter another substitutions</label><br/><button id="btn-reload" type="button" class="btn btn-primary"  >insert another substitition</button>
+	  <div id="success" class="container well text-center"><!--<h2>Success</h2>--><label for="comment">Click on the button to enter another substitutions</label><br/><button id="btn-reload" type="button" class="btn btn-primary"  >insert another substitition</button>
 </div>
 	
 	<!-- Trigger the modal with a button -->

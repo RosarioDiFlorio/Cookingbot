@@ -18,8 +18,8 @@ if(Sessione::isLoggedIn())
 	$isLoggin = true;
 }
 $food = $_POST['nameFood'];
-
-$str = getAllSubstitutionsFood($food,"en");
+$lang = $_POST['lang'];
+$str = getAllSubstitutionsFood($food,strtolower($lang));
 
 $data = json_decode($str);
 //print_r($data->results->bindings);
@@ -124,8 +124,11 @@ if(count($toCicle)>0)
 			{
 				/* controllo se l'utente ha già votato */
 				if( $dbConn->hasVotingSub($_SESSION['idUtente'],$arrSub['id_sub']))
-				{
-					$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">You have already rated this substitution</label>';
+				{	
+					$strlang;
+					if($lang == "IT")$strlang = "Hai già votato questa sostituzione";
+					else $strlang = "You have already rated this substitution";
+					$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">'.$strlang.'</label>';
 
 				}
 				else
@@ -134,7 +137,10 @@ if(count($toCicle)>0)
 
 				}
 			}else{
-				$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">you must be logged in to send your vote (click <a href="login.php">here</a> for login)</label>';
+				$strlang;
+				if($lang == "IT")$strlang = "Devi essere autenticato per poter votare  (clicca <a href=\"login.php\">qui</a> per effetuare il login)";
+				else $strlang = "you must be logged in to send your vote (click <a href=\"login.php\">here</a> for login)";
+				$str .= ' <input type="number" id="'.$sostituzione.'" value = '.$voto.'  class="rating" min=0 max=5 step=1 data-size="xs" data-rtl="false" readonly><label for="comment">'.$strlang.'</label>';
 				
 			}
 			
@@ -149,12 +155,28 @@ if(count($toCicle)>0)
 		echo $str;
 }
 else
-{
-	$str = "<h2>this food has no substitutions</h2><br/>";
-	if($isLoggin) 
-		$str .= "<button id=\"btn-add-subs\" onClick=\"addSubstitution('".$food."');\"  type=\button\" class=\"btn btn-info\">add one</button>";
+{	
+	$strlang = "";
+	if($lang == "IT")$strlang = "Questo alimento non ha sostituzioni";
+	else $strlang = "this food has no substitutions";
+	$str = "<h3>".$strlang."</h3><br/>";
+	
+	if($isLoggin)
+	{
+		$strlang = "";
+		if($lang == "IT")$strlang = "aggiungine una";
+		else $strlang = "add one";
+	
+		$str .= "<button id=\"btn-add-subs\" onClick=\"addSubstitution('".$food."');\"  type=\button\" class=\"btn btn-info\">".$strlang."</button>";
+	}
 	else
-		$str .= '<label for="comment">you must be logged in to add a substutition(click <a href="login.php">here</a> for login)</label>';
+	{
+		$strlang = "";
+		if($lang == "IT")$strlang = "devi essere autenticato per poter aggiungere sostituzioni (clicca <a href=\"login.php\">qui</a> per effetuare il login)";
+		else $strlang = "you must be logged in to add a substutition(click <a href=\"login.php\">here</a> for login)";
+		$str .= '<label for="comment">'.$strlang.'</label>';
+	}
+	
 	echo $str;
 }
 ?>

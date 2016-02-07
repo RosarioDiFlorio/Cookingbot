@@ -6,9 +6,34 @@
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
     $is_showRecipe = true;
+	$str = "";
+	if(isset($_POST['val']))
+	{
+		$str = $_POST['val'];
+	}
+	else
+		echo "post value not found";
+	
+	
+	$arr = explode("#",$str);
+	//print_r($arr);
+	//VARIABILI PASSATE DALLA PAGINA CHE INVOCA QUESTA
+	$recipeURI = $arr[0];				//uri oggetti
+	$lang = $arr[1];						//lingua in cui visualizzare i dati
+	$solidMeasure =$arr[2];		//"g","kg","ounce","pound"
+	$liquidMeasure = $arr[3];
+	$name = $arr[4];					//nome ricetta	//"ml","l","teaspoon","tablespoon","cup","pint"
+	$serves = $arr[5];					//persone che si vogliono servire (dato della ricerca)
+	$originalserves = $arr[6];		//persone servite dalla ricetta in origine (dato ontologia)
+	$cuisine = $arr[7];				//cucina
+	$diet = $arr[8];							//dieta
+	$occasion =$arr[9];					//occasione
+	$course = $arr[10];						//portata
+	$cooktime =$arr[11];					//cooktime
+	$preptime = $arr[12];				//preptime*/
 	
 	//VARIABILI PASSATE DALLA PAGINA CHE INVOCA QUESTA
-	
+	/*
 	$recipeURI = $_GET['recipeURI'];				//uri oggetti
 	$lang = $_GET['lang'];							//lingua in cui visualizzare i dati
 	$solidMeasure = $_GET['solidMeasure'];			//"g","kg","ounce","pound"
@@ -21,7 +46,8 @@
 	$occasion = $_GET['occasion'];					//occasione
 	$course = $_GET['course'];						//portata
 	$cooktime = $_GET['cooktime'];					//cooktime
-	$preptime = $_GET['preptime'];					//preptime
+	$preptime = $_GET['preptime'];					//preptime*/
+	
 	
 	//TEST HARDCODED
 	/*
@@ -79,7 +105,10 @@
   </head>
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
-
+	
+	<script >
+	var country = "<?php echo $lang; ?>";
+	</script>
      <div class="container text-center" >
        <!-- <div ><h3><?php if($lang =="en") echo "Recipe Details"; else echo "Dettagli Ricetta";  ?></h3></div>-->
 	

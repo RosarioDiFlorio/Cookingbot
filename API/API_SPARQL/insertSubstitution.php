@@ -3,11 +3,33 @@ include_once dirname(__FILE__).'/../query_sparql.php';
 
 
 
-function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fakeIngredient,$ingList,$typeResult,$arrTypeResult)
+function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$typeResult,$arrTypeResult)
 {	
+
+	$algo = "md5";
+	$ingList;
+	$fakeIngredient = [];
+	
+	
+	$hvalue = abs(hash($algo,$food));
+	
+	for($i=0;$i<count($arrFoodSub)-1;$i++)
+	{
+		if($arrFoodSub[$i] != "" && $arrFoodSub[$i] != " ")
+		$hvalue += abs(hash($algo,$arrFoodSub[$i]));
+	}
+	
+	$ingList = str_ireplace(" ","_",$food) . "_" . $hvalue;
+
+	for($i=0;$i<count($arrFoodSub)-1;$i++)
+	{
+		if($arrFoodSub[$i] != "" && $arrFoodSub[$i] != " ")
+		$fakeIngredient[$i] = $ingList ."_".str_ireplace(" ","_",$arrFoodSub[$i]);
+	}
+	
 	//controllo food
 	insertFoodCtrlLang($food,"","","");
-	for($i=0;$i<count($arrFoodSub)-1;$i++)
+	for($i=0;$i<count($arrFoodSub) - 1;$i++)
 	{
 		insertFoodCtrlLang($arrFoodSub[$i],"","","");
 	}
@@ -17,7 +39,7 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 	
 		$query = $base . "insert data {";
 				
-		for($i=0;$i<count($fakeIngredient) - 1;$i++)
+		for($i=0;$i<count($fakeIngredient);$i++)
 		{
 			
 			
@@ -78,7 +100,7 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 			
 		
 		
-			for($i=0;$i<count($fakeIngredient) - 1;$i++)
+			for($i=0;$i<count($fakeIngredient);$i++)
 			{
 				
 				if($i > 0)
@@ -107,6 +129,15 @@ function insertSubstitution($food,$quantityResult,$arrFoodSub,$arrQuantity,$fake
 		//echo "<br/>";
 		//echo $query;
 		sparqlUpdate($query);
+		
+		
+		
+		//inserisco nel DB
+		require_once dirname(__FILE__) . "/../../scripts/votazioni_api.php";
+		$idUtente = $_SESSION['idUtente'];
+		$dbConn = new VotazioniAPI();
+ 
+		$dbConn->addSubstitution($ingList,$idUtente);
 	
 }
 

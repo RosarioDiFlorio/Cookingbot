@@ -93,13 +93,13 @@
 	
 	
      <div class="container text-center" >
-        <div class="heading"><h2>Help us, add a new recipe!</h2></div>
+        <div class="heading"><h2><?php $masterText->_('titleAddRecipe'); ?></h2></div>
 
-		<div class="bs-component" id="info" >
+		<div class="bs-component col-sm-4" id="info" >
 		
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
-              <h4>What is its name?</h4>
+              <h4><?php $masterText->_('nameAddRecipe'); ?></h4>
             <div class="col-lg-12">
               <input type="text" id="name" class="form-control" />
             </div>
@@ -107,8 +107,8 @@
 
           <div class="form-group simple" >
             <i class="fa fa-star fa-3x"></i>
-              <h4>What does it produce?</h4>
-			  <div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the food product from this recipe:</span></div>
+              <h4><?php $masterText->_('produceAddRecipe'); ?></h4>
+			  <div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('suggestAddRecipe1'); ?>:</span></div>
             <div class="col-lg-12">
               <input type="text" id="food" class="ingredients" />
             </div>
@@ -116,7 +116,7 @@
 
           <div class="form-group simple">
             <i class="fa fa-users fa-3x"></i>
-              <h4>How much people will it serves?</h4>
+              <h4><?php $masterText->_('peopleAddRecipe'); ?></h4>
             <div class="col-lg-12">
               <input type="number" value="1" id="nopeople" min ="1" max="10" class="form-control"/>
             </div>  
@@ -125,9 +125,9 @@
             <i class="fa fa-clock-o fa-3x"></i>
             <div class="col-lg-12">
             <input type="checkbox" value="occasion" onclick="visibile('ptime');"> 
-              <h4>Preparation Time</h4>
+              <h4><?php $masterText->_('Preparation Time'); ?></h4>
               <input type="text" id="ptime" class="form-control" disabled />
-			  minutes
+			  <?php $masterText->_('minutes'); ?>
             </div>  
           </div>
 
@@ -136,9 +136,9 @@
             <i class="fa fa-clock-o fa-3x"></i>
             <div class="col-lg-12">
             <input type="checkbox" value="occasion" onclick="visibile('ctime');"> 
-              <h4>Cook Time</h4>
+              <h4><?php $masterText->_('Cook Time'); ?></h4>
               <input type="text" id="ctime" class="form-control" disabled />
-			  minutes
+			   <?php $masterText->_('minutes'); ?>
             </div>  
           </div>
 
@@ -147,16 +147,16 @@
             <i class="fa fa-cutlery fa-3x"></i>
             <div class="col-lg-12">
            
-              <h4>What is the cuisine of this recipe?</h4>
+              <h4><?php $masterText->_('cuisineAddRecipe'); ?></h4>
             
               </-- CUISINE -->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the cuisine:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"></span></div>
 				<select class="form-control" id="cuisine">
 									<option value =" ">Select a cuisine:</option>
 									 <?php
 									 
-										$res = getAllCuisine();
+										$res = getAllCuisine($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -175,16 +175,16 @@
             <i class="fa fa-balance-scale fa-3x "></i>
             <div class="col-lg-12">
                <input type="checkbox" value="diet" onclick="visibile('diet');"> 
-               <h4> For what Diet is the recipe adapt?</h4>
+               <h4><?php $masterText->_('dietAddRecipe'); ?></h4>
                
 				   </-- DIET-->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the diet:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"></span></div>
 				<select class="form-control" id="diet">
 									<option value =" ">Select a diet:</option>
 									 <?php
 									 
-										$res = getAllDiet();
+										$res = getAllDiet($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -204,16 +204,16 @@
             <i class="fa fa-birthday-cake fa-3x"></i>
             <div class="col-lg-12">
               
-               <h4>What is a good Occasion to made it?</h4>
+               <h4><?php $masterText->_('occasionAddRecipe'); ?></h4>
               
 					</-- OCCASION -->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the occasion:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"></span></div>
 				<select class="form-control" id="occasion">
 									<option value =" ">Select an occasion:</option>
 									 <?php
 									 
-										$res = getAllOccasion();
+										$res = getAllOccasion($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -233,16 +233,16 @@
             <i class="fa fa-shopping-basket fa-3x"></i>
             <div class="col-lg-12">
               
-               <h4>What kind of dish is it?</h4>
+               <h4><?php $masterText->_('courseAddRecipe'); ?></h4>
 				
 				</-- COURSE-->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the course:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"></span></div>
 				<select class="form-control" id="course">
 									<option value =" ">Select a course:</option>
 									 <?php
 									 
-										$res = getAllCourse();
+										$res = getAllCourse($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -262,7 +262,7 @@
            <div class="form-group box">
             <i class="fa fa-language fa-3x"></i>
             <div class="col-lg-12"> 
-               <h4>What language will you use?</h4>
+               <h4><?php $masterText->_('langAddRecipe'); ?></h4>
                <input type="radio" name="lang" value="en" checked>En
                <input type="radio" name="lang" value="it" > It
             </div>
@@ -271,7 +271,7 @@
 
 
 
-          <button type="button" class="btn btn-success " onclick="scelte('info');"><span>Continue to add Steps</span></button>
+          <button type="button" class="btn btn-success " onclick="scelte('info');"><span><?php $masterText->_('Continue to add Steps'); ?></span></button>
         </div>
       </div>
 	</div><!-- /.container -->
@@ -281,20 +281,20 @@
 		
           <input type="hidden" value="1" id="nstep">
           <i class="fa fa-file-text fa-3x"></i>
-          <h3>Decribe the steps of the recipe</h3>
+          <h3><?php $masterText->_('Decribe the steps of the recipe'); ?></h3>
           <div class="row text-center" id="steps">
           <div class="form-group">
             
-              <h4>Step 1</h4>
+              <h4><?php $masterText->_('Step');?> 1</h4>
             <div >
 				  <textarea class="form-control" rows="5" id="step1"></textarea>
              <!-- <input type="text" id="step1" class="form-control" />-->
             </div>
           </div>
         </div>
-            <button type="button" class="btn btn-default " onclick="add('step');"><span>Add Step</span></button>
-            <button type="button" class="btn btn-default " onclick="remov('step');"><span>Remove Step</span></button>
-           <button type="button" class="btn btn-success " onclick="scelte('stages');"><span>Insert steps into recipe</span></button>
+            <button type="button" class="btn btn-default " onclick="add('step');"><span><?php $masterText->_('Add Step');?></span></button>
+            <button type="button" class="btn btn-default " onclick="remov('step');"><span><?php $masterText->_('Remove Step');?></span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('stages');"><span><?php $masterText->_('Insert steps into recipe');?></span></button>
 		   
 		   
         </div>
@@ -307,22 +307,22 @@
 		
           <input type="hidden" value="1" id="ningredient" >
           
-          <div class="suggest">What are the ingredients of this recipe?</div>
+          <div ><strong><?php $masterText->_('ingAddRecipe'); ?></strong></div>
           <div  id="ingredients1">
 		  <i class="fa fa-shopping-cart fa-3x"></i>
-              <h4>Ingredient 1</h4>
+              <h4><?php $masterText->_('Ingredients'); ?></h4>
           <div class="form-group col-xs-12">
             
             <div class="col-sm-4">
-             <div> Name </div>
+             <div><strong> <?php $masterText->_('Name'); ?> </strong></div>
               <input type="text" id="ingredient1" class="ingredients" />
 			</div>
 			<div class="col-sm-4">			
-			Detail
+		<strong> <?php $masterText->_('detailAddRecipe'); ?></strong>
               <input type="text" id="detail1" class="form-control" />
               </div>
 			  <div class="col-sm-4">
-			  Quantity
+			<strong>  <?php $masterText->_('Quantity'); ?></strong>
               <input type="number" id="quantity1" class="form-control" />
                <input type="radio" name="mis1" value="unit" onclick="show('unit','1');" checked> Unit
                <input type="radio" name="mis1" value="metric" onclick="show('metric','1');"> Metric
@@ -357,9 +357,9 @@
 		*/
 		?>
 		
-            <button type="button" class="btn btn-default " onclick="add('ingredient');"><span>Add Ingredient</span></button>
-            <button type="button" class="btn btn-default " onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
-           <button type="button" class="btn btn-success " onclick="scelte('ingredients');"><span>Insert ingredients into recipe</span></button>
+            <button type="button" class="btn btn-default " onclick="add('ingredient');"><span><?php $masterText->_('Add an Ingredient'); ?></span></button>
+            <button type="button" class="btn btn-default " onclick="remov('ingredient');"><span><?php $masterText->_('Remove Ingredient'); ?></span></button>
+           <button type="button" class="btn btn-success " onclick="scelte('ingredients');"><span><?php $masterText->_('Insert ingredients into recipe'); ?></span></button>
 		   
        
 
@@ -368,7 +368,7 @@
 	<div class="container text-center"  id="photo">
         <div class="bs-component "   >
           
-          <h3>Upload a Photo</h3>
+          <h3><?php $masterText->_('Upload a Photo');?></h3>
 		  <div class="form-group">
 		  <form action="saveImage.php" method="post" enctype="multipart/form-data" target="upload_target">
                      <p id="f1_upload_form" align="center"><br/>
@@ -385,7 +385,7 @@
           </form>
 			</div>
 			</div>
-           <button type="button" class="btn btn-success " onclick="location.reload();"><span>Add another recipe</span></button>
+           <button type="button" class="btn btn-success " onclick="location.reload();"><span><?php $masterText->_('Add another recipe'); ?></span></button>
         </div>
 		</div>
 		

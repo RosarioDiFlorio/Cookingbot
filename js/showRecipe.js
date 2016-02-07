@@ -1,7 +1,7 @@
 function showSubstitutions(nome,lang)
 		{
 			//alert(" " + nome);
-			$.post( "API/get_substitution_API.php", {nameFood:nome})
+			$.post( "API/get_substitution_API.php", {nameFood:nome, lang: country})
             .done(function( data ) {
 				console.log("Data Loaded: " + data );
 				 $('#header').empty();

@@ -10,10 +10,10 @@ sendError("Utente non collegato");
 /*
 
 */
-function getAllCuisine()
+function getAllCuisine($lang)
 {
 	
-	$res = getAllCuisineJson("en");
+	$res = getAllCuisineJson(strtolower($lang));
 	
 	//print_r($res);
 	$data = json_decode($res);

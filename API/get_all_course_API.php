@@ -10,10 +10,10 @@ sendError("Utente non collegato");
 /*
 
 */
-function getAllCourse()
+function getAllCourse($lang)
 {
 	
-	$res = getAllCourseJson("en");
+	$res = getAllCourseJson(strtolower($lang));
 	
 	//print_r($res);
 	$data = json_decode($res);

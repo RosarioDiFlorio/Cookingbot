@@ -74,22 +74,26 @@
   </head>
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
+	
+		<script >
+			var country = "<?php echo $lang; ?>";
+		</script>
 
      <div class="container text-center">
 	 
 		 
-		<div class="heading" ><h2>Search a Food</h2></div>
+		<div class="heading" ><h2><?php $masterText->_('searchFood'); ?></h2></div>
 						
 
  
 
     <div class="row  ">
-						<div><label for="comment" class="suggest">Enter the food you want to search</label></div>
+						<div><label for="comment" class="suggest"><?php $masterText->_('enterFood') ?></label></div>
 						<div>	<input class=" ingredients col-ms-12" type="text" placeholder="search a food"  id="food" ></div>
-							<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop" >Enter</button>
+							<button id="btn-insert" type="button" class="btn btn-success smallSpaceTop" ><?php $masterText->_('enter'); ?></button>
 					
 					<div id="toAppend"></div>
-						<button id="btn-subs" type="button" class="btn btn-success smallSpaceTop"  >See all substitution</button>
+						<button id="btn-subs" type="button" class="btn btn-success smallSpaceTop"  ><?php $masterText->_('seeSubs'); ?></button>
 					<div id="toAppendSubs" class="col-sm-12" > </div>
 					
     </div>

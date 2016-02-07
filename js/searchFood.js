@@ -27,7 +27,12 @@ $(document).ready(function () {
 										foods = res['bindings'];
 										if(foods.length == 0)
 										{	
-											$("#toAppend").append('<div><h2>we don\'t have information for this food</h2></div>');
+											if(country == "IT")
+												$("#toAppend").append('<div class="smallSpaceTop"><strong>Ci spiace ma non abbiamo informazioni energetiche riguardo questo alimento :(</strong></div>');
+											
+											else
+												$("#toAppend").append('<div class="smallSpaceTop"><strong>sorry we don\'t have energetic information for this food :(</strong></div>');
+											
 											$("#btn-subs").show();
 											return;
 										}
@@ -65,18 +70,25 @@ $(document).ready(function () {
 											
 											
 										
-										console.log("kc: "+kcal + " - kj: " + kj  );
-										
-										if(foods.length % 2 == 0)
-											divisore = foods.length / 2;
-										
-										kcal = kcal / divisore;
-										kj = kj / divisore;
-
-										$("#toAppend").append('<div><h3>'+kcal+'kcal</h3></div>');
-										$("#toAppend").append('<div><h3>'+kj+'kj</h3></div>');
+											console.log("kc: "+kcal + " - kj: " + kj  );
+											
+											if(foods.length % 2 == 0)
+												divisore = foods.length / 2;
+											
+											kcal = kcal / divisore;
+											kj = kj / divisore;
+											strlang = "";
+											if(country == "IT") strlang = "Proprietà per 100g ( o 100ml per i liquidi)";
+											else strlang = "Property per 100g ( or 100ml for liquids)";
+											$("#toAppend").append('<div><h3>'+strlang+'</h3></div>');
+											$("#toAppend").append('<div><h4>'+kcal+'kcal</h4></div>');
+											$("#toAppend").append('<div><h4>'+kj+'kj</h4></div>');
 										}else{
 											//ciclo i foods
+											strlang= "";
+											if(country == "IT") strlang = "Proprietà per 100g ( o 100ml per i liquidi)";
+											else strlang = "Property per 100g ( or 100ml for liquids)";
+											$("#toAppend").append('<div><h3>'+strlang+'</h3></div>');
 											for(i=0;i<foods.length;i++)
 											{
 													//console.log(foods[i].food);
@@ -91,7 +103,10 @@ $(document).ready(function () {
 								
 							}else
 							{
-								$("#toAppend").append('<div><h2>food not found</h2></div>');
+								if(country == "IT")
+									$("#toAppend").append('<div><h3>Alimento non trovato</h3></div>');
+								else
+									$("#toAppend").append('<div><h3>food not found</h3></div>');
 								$("#btn-subs").hide();;
 							
 							}
@@ -105,7 +120,7 @@ $(document).ready(function () {
 				if(food != "")
 				{	
 					console.log("btn-subs");
-					$.post( "API/get_substitution_API.php", { nameFood: food  })
+					$.post( "API/get_substitution_API.php", { nameFood: food , lang: country })
 							.done(function( data ) 
 							{
 								$("#toAppendSubs").empty();

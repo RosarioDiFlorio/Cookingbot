@@ -1,4 +1,5 @@
 <?php
+
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
     include_once dirname(__FILE__).'/API/get_all_cuisine_API.php';
@@ -7,6 +8,8 @@
 	include_once dirname(__FILE__).'/API/get_all_diet_API.php';
 	require_once  dirname(__FILE__).'/API/get_food_API.php';
     include_all_php("API/API_SPARQL");
+	
+
     //Check se collegato
     $loggedin = Sessione::isLoggedIn(true);
     //Variabile per attivare contesto della topbar
@@ -93,30 +96,33 @@
   <body>
     <?php require_once("components/topbar.php"); //Inclusione topbar?>
 	
+	<script >
+	var country = "<?php echo $lang; ?>";
+	</script>
 	<div class="container col-sm-12" >
-		<div class="heading smallSpaceTop smallSpaceBottom"><h2>Search Recipe <div id="tipo">by words</div></h2></div>
+		<div class="heading smallSpaceTop smallSpaceBottom"><h2><?php $masterText->_("searchRecipe"); ?><h3><div id="tipo"><?php $masterText->_('xWords'); ?></div></h3></h2></div>
 		 
-		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment">in this section you can find a recipe using keyword or by inserting the ingredients that must be present in the recipe</span></div> 
+		<div class="heading smallSpaceTop smallSpaceBottom text-center suggest"><span for="comment"><?php $masterText->_('suggestSearchRecipe1'); ?></span></div> 
 		
 		 <div class="heading smallSpaceTop smallSpaceBottom">
-				<span for="comment">select the language:</span>
+				<span for="comment"><?php $masterText->_("selectLangSearchRecipe"); ?>:</span>
 				<img  class="flag flag-gb"  /><input type="radio" name="lang" value="en" checked> En
 				<img  class="flag flag-it"  /> <input type="radio" name="lang" value="it" > It
 			</div>	  
 	
-	<div class="text-center" id="openFilter" data-toggle="tooltip" title="Add a filter!!!"> <button type="button" class="btn btn-info btn-block">add filter</button></div>
+	<div class="text-center" id="openFilter" > <button type="button" class="btn btn-info btn-block"><strong><?php $masterText->_('addFilter'); ?></strong></button></div>
 	
 	<div id="filter"> <!-- INIZIO DIV CON I FILTRI -->	
 	
 		<div class="container col-sm-6" >
 			</-- CUISINE -->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the cuisine:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('selectCuisine'); ?>:</span></div>
 				<select class="form-control" id="cuisine">
 									<option value =" ">Select a cuisine:</option>
 									 <?php
 									 
-										$res = getAllCuisine();
+										$res = getAllCuisine($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -132,12 +138,12 @@
 			  
 				</-- OCCASION -->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the occasion:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('selectOccasion'); ?>:</span></div>
 				<select class="form-control" id="occasion">
 									<option value =" ">Select an occasion:</option>
 									 <?php
 									 
-										$res = getAllOccasion();
+										$res = getAllOccasion($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -154,12 +160,12 @@
 			  
 			   </-- DIET-->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the diet:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('selectDiet'); ?>:</span></div>
 				<select class="form-control" id="diet">
 									<option value =" ">Select a diet:</option>
 									 <?php
 									 
-										$res = getAllDiet();
+										$res = getAllDiet($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -181,12 +187,12 @@
 		<div class="container col-sm-6" >
 			</-- COURSE-->
 			<div>
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Select the course:</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('selectCourse'); ?>:</span></div>
 				<select class="form-control" id="course">
 									<option value =" ">Select a course:</option>
 									 <?php
 									 
-										$res = getAllCourse();
+										$res = getAllCourse($lang);
 								
 										$value = $res[0];
 										$ar = $res[1];
@@ -201,7 +207,7 @@
 			</div>
 		
 		
-			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show liquids in:</span></div>
+			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('showLiquid'); ?>:</span></div>
 			<select  class="form-control" id="liquidMeasure">
 			<option value="ml">ml</option>
 				<option value="l">l</option>
@@ -211,7 +217,7 @@
 				<option value="pint">pint</option>
 			</select>
 			
-			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Show solids in:</span></div>
+			<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('showSolid'); ?>:</span></div>
 				<select   class="form-control" id="solidMeasure">
 					<option value="g">g</option>
 					<option value="kg">kg</option>
@@ -229,19 +235,16 @@
 		 
 		 <div class="col-xs-12">
 		 
-		 
-		 
-				   
 				
 			<div class="heading smallSpaceTop smallSpaceBottom">
-				<div for="comment " class="smallSpaceBottom smallSpaceTop">select the type of search:</div>
+				<div for="comment " class="smallSpaceBottom smallSpaceTop"><?php $masterText->_('typeSearch'); ?>:</div>
 				<div >
 					
 				
 					<!--<input type="radio" name="lang" value="en" onclick="visible('wordss','ingredients','by words');" checked> words
 					<input type="radio" name="lang" value="it" onclick="visible('ingredients','wordss','by ingredients');" > ingredients-->
-					<input type="button" class="btn btn-info" value="Words" onclick="visible('wordss','ingredients','by words');" data-toggle="tooltip" title="search recipes by keywords">
-					<input type="button"  class="btn btn-info" value="Ingredients" onclick="visible('ingredients','wordss','by ingredients');" data-toggle="tooltip" title="search recipes by entering the ingredients at your disposal" >
+					<input type="button" class="btn btn-info" value="<?php $masterText->_('searchByWords'); ?>" onclick="visible('wordss','ingredients','<?php $masterText->_('xWords'); ?>');" data-toggle="tooltip" title="<?php $masterText->_('tooltipWords'); ?>">
+					<input type="button"  class="btn btn-info" value="<?php $masterText->_('searchByIngredients'); ?>" onclick="visible('ingredients','wordss','<?php $masterText->_('xIngredients'); ?>');" data-toggle="tooltip" title="<?php $masterText->_('tooltipIng'); ?>" >
 				 </div>
 				 
 				<!--   Cuisine Filter<input type="text" id="cuisine">
@@ -256,11 +259,11 @@
 		<div id="wordss" class="col-xs-12 text-center"> 
 		<div class="container col-sm-4 text-center"  ></div>
 			<div class="container col-sm-4 text-center"  >
-					<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of People you want to serve</span></div>
+					<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('peopleSearch'); ?></span></div>
 					
 					<input type="text" class="form-control " id="npeopleWords">
 				  
-					<div class="heading smallSpaceTop smallSpaceBottom">Insert words!</div>
+					<div class="heading smallSpaceTop smallSpaceBottom"><?php $masterText->_('insertWords'); ?></div>
 					<div  id="words1">
 						<div class="form-group">
 							<i class="fa fa-shopping-cart fa-2x red"></i>
@@ -273,7 +276,7 @@
 			   
 				
 			</div>
-			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByWords(0);"><span>Search recipes</span></button></div>	
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByWords(0);"><span><?php $masterText->_('btn-search'); ?></span></button></div>	
 		
 		</div>		
 
@@ -286,14 +289,14 @@
 		<div class="container col-xs-4 text-center"  ></div>
 			 <div class="container text-center  col-sm-4"  >
 				<input type="hidden" value="1" id="ningredient">
-				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment">Number of People you want to serve</span></div>
+				<div class="heading smallSpaceTop smallSpaceBottom"><span for="comment"><?php $masterText->_('peopleSearch'); ?></span></div>
 				<input type="text"  class="form-control " id="npeople">
 				
 				<div  >
-				<div class="heading smallSpaceTop smallSpaceBottom text-center" for="comment">Insert Ingredients</div>
+				<div class="heading smallSpaceTop smallSpaceBottom text-center" for="comment"><?php $masterText->_('insertIngredient'); ?></div>
 				
-				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('ingredient');"><span>Add Ingredient</span></button>
-				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('ingredient');"><span>Remove Ingredient</span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="add('ingredient');"><span><?php $masterText->_('addIng'); ?></span></button>
+				<button type="button" class="btn btn-info smallSpaceTop smallSpaceBottom" onclick="remov('ingredient');"><span><?php $masterText->_('removeIng'); ?></span></button>
 				
 				  
 				</div>
@@ -301,11 +304,11 @@
 			<div id="ingredients1" class="form-group  col-xs-12">
 			
 				<i class="fa fa-shopping-cart fa-2x red "></i>
-				<div><span class="heading smallSpaceTop smallSpaceBottom " for="comment"> Ingredient 1 </span></div>
+				<div><span class="heading smallSpaceTop smallSpaceBottom " for="comment"><?php $masterText->_('Ingredient'); ?> 1 </span></div>
 				<input type="text"  class=" ingredients  smallSpaceBottom " id="ingredient1" />
 				
 			</div>
-			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByIngredients(0);"><span>Search recipes</span></button></div>	
+			<div class="text-center col-sm-12"><button type="button" class="btn btn-success btn-lg smallSpaceTop smallSpaceBottom" onclick="getRecipesByIngredients(0);"><span><?php $masterText->_('btn-search'); ?></span></button></div>	
 		</div>  
 
 		

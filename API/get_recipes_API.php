@@ -162,11 +162,11 @@ $data = json_decode($results);
 		//echo '<br><b>Cuisine:</b> '.$cuisine.'<br><b>Diet:</b> '.$diet.'<br><b>Occasion:</b> '.$occasion.'<br><b>Course:</b> '.$course.'<br>';
 		//echo "</td>";
 		//BUTTON
-		//$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course;
-		$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course).'&cooktime='.urlencode($cooktime).'&preptime='.urlencode($preptime);
+		$value=$name.'#'.$lang.'#'.$solid.'#'.$liquid.'#'.$food.'#'.$npeople.'#'.$serves.'#'.$cuisine.'#'.$diet.'#'.$occasion.'#'.$course.'#'.$cooktime.'#'.$preptime;
+		//$value='showRecipe.php?recipeURI='.$name.'&lang='.$lang.'&solidMeasure='.$solid.'&liquidMeasure='.$liquid.'&name='.urlencode($food).'&serves='.$npeople.'&originalserves='.$serves.'&cuisine='.urlencode($cuisine).'&diet='.urlencode($diet).'&occasion='.urlencode($occasion).'&course='.urlencode($course).'&cooktime='.urlencode($cooktime).'&preptime='.urlencode($preptime);
 		//echo "<td>";
 		//$value = urlencode($value);
-		echo '<button type="button" class="btn btn-info btn-lg" value="'.$value.'" onClick="openRecipe(\''.$value.'\');" ><span>SHOW RECIPE</span></button>';
+		echo '<form target="_blank" action="showRecipe.php" method="POST"><input type="hidden" name="val" value="'.$value.'" ><button type="submit" class="btn btn-info btn-lg" value="'.$value.'"  ><span>SHOW RECIPE</span></button></form>';
 		echo "</td>";
 
 	}

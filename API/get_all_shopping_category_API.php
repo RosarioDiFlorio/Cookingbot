@@ -6,10 +6,10 @@ if(!Sessione::isLoggedIn()) {
 sendError("Utente non collegato");
 }
 */
-function getAllShoppyngCategory()
+function getAllShoppyngCategory($lang)
 {
 	
-	$res = getAllShoppingCategoryJson("en");
+	$res = getAllShoppingCategoryJson(strtolower($lang));
 	
 	//print_r($res);
 	$data = json_decode($res);

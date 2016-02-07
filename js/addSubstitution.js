@@ -17,7 +17,7 @@ $(document).ready(function() {
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
           
-			$(wrapper).append('<div class="col-sm-12"><i class="glyphicon glyphicon-plus-sign smallSpaceTop"></i><div class="heading">food</div> <input class="ingredients " type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /> <div class="heading">quantity</div> <div class="col-sm-4"></div><div class="col-sm-4"><input type="number" min="0" class="form-control"  name="quantity[]" /> <input type="radio" name="mis'+x+'" value="unit" onclick="show(\'unit\',' + x + '	);"> Unit <input type="radio" name="mis'+x+'" value="metric" onclick="show(\'metric\',' + x + ');"> Metric <input type="radio" name="mis'+x+'" value="imperial" onclick="show(\'imperial\',' + x + ');"> Imperial <select id="misurazione' + x + '"  disabled> </select></div></div>');
+			$(wrapper).append('<div class="col-sm-12"></i><div class="col-sm-6"> <input class="ingredients " type="text" name="mytext[]" onfocus="$(this).css(\'background\',\'\');" /></div>  <div class="col-sm-6"><input type="number" min="0" class="form-control"  name="quantity[]" /> <input type="radio" name="mis'+x+'" value="unit" onclick="show(\'unit\',' + x + '	);"> Unit <input type="radio" name="mis'+x+'" value="metric" onclick="show(\'metric\',' + x + ');"> Metric <input type="radio" name="mis'+x+'" value="imperial" onclick="show(\'imperial\',' + x + ');"> Imperial <select id="misurazione' + x + '"  disabled> </select></div></div>');
 			$('input.ingredients').typeahead({
                 name: 'ingredients',
                 local: locale
@@ -66,33 +66,12 @@ $(document).ready(function() {
 		i=0;
 		$("[name='quantity[]']").each(function() {
    			valore = $(this).val();
+			
 			quantity[i] = valore;
 			i++;
 		});
 		
-		//r = getRandomInt(10000,10000000000) * getRandomInt(2,1000);
-		//ingredientList = food + "_sub_" + r;
-		
-		
-		// hash value of ingredients 
-		hashValue = Math.abs(food.hashCode());
-		for(i=0;i<subs.length;i++)
-		{
-			hashValue += Math.abs(subs[i].hashCode());
-
-		}
-		
-		ingredientList = hashValue;
-		
-		console.log(ingredientList);
-		
-		fakeIngredient = Array();
-		for(i=0;i<subs.length;i++){
-			fakeIngredient[i] = ingredientList + "_" + subs[i];
-			//console.log(subs[i] + "-" + quantity[i]);
-			//console.log(fakeIngredient[i]);
-		}
-		console.log(qRes);
+	
 		
 		
 		for(i =0 ; i < x;i++)
@@ -118,11 +97,11 @@ $(document).ready(function() {
 			quan = "";
 			fakeIng = "";
 			
-			for(i = 0; i <fakeIngredient.length;i++)
+			for(i = 0; i <subs.length;i++)
 			{
 				ing+=  subs[i] + "#";
 				quan += quantity[i] + "#";
-				fakeIng += fakeIngredient[i] + "#";
+				
 				
 				
 			}
@@ -154,7 +133,7 @@ $(document).ready(function() {
 				
 			}
 			 myApp.showPleaseWait(); //apro la dialog di loading
-			$.post( "API/insert_substitution_API.php", { nameFood: food , quantityResult : qRes , ing : ing , quantity : quan, fakeIng: fakeIng, ingList : ingredientList , misResult : misResult ,typeMis : arrMisType})
+			$.post( "API/insert_substitution_API.php", { nameFood: food , quantityResult : qRes , ing : ing , quantity : quan , misResult : misResult ,typeMis : arrMisType})
 				.done(function( data ) {
 					myApp.hidePleaseWait(); // chiudo la dialog di loading
 					console.log("Success: " + data);
@@ -243,10 +222,10 @@ $(document).ready(function() {
 				$("#subsFoodModal").append('<div class="subsModal">');
 				if(i > 0)
 				$("#subsFoodModal").append('<i class="glyphicon glyphicon-plus"></i>');
-				
+			
 				$("#subsFoodModal").append('<div><h3><strong>'+ing+' - '+quan+'</strong></h3></div>	</div>');
 
-				console.log(quan);
+				
 				
 			}
 			
@@ -309,15 +288,5 @@ $(document).ready(function() {
 	}
 	
 	
-	String.prototype.hashCode = function(){
-	var hash = 0;
-	if (this.length == 0) return hash;
-	for (i = 0; i < this.length; i++) {
-		char = this.charCodeAt(i);
-		hash = ((hash<<5)-hash)+char;
-		hash = hash & hash; // Convert to 32bit integer
-	}
-	return hash;
-}
 	
 });

@@ -261,7 +261,7 @@ function printSteps($recipeURI, $lang){
 	for($i = 1 ; $i<count($steps); $i++){
 		if(!array_key_exists($i,$steps))
 			continue;
-		echo "<div class=\"smallSpaceBottom smallSpaceTop\"><strong>".$j.". </strong>".$steps[$i]."</div>";
+		echo "<div class=\"smallSpaceBottom smallSpaceTop\"><strong>".$j.". </strong>".utf8_decode($steps[$i])."</div>";
 		$j++;
 	}
 	echo "</div>";

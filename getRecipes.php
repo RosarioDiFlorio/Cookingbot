@@ -1,5 +1,10 @@
 <?php
 
+	/* NO CACHING */
+	header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
+	header("Pragma: no-cache"); // HTTP 1.0.
+	header("Expires: 0"); // Proxies.
+
    //Controller di view
    require_once dirname(__FILE__). '/classes/Sessione.php';
     include_once dirname(__FILE__).'/API/get_all_cuisine_API.php';
